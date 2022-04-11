@@ -1,0 +1,15 @@
+#ifndef LIBFT_H
+# define LIBFT_H
+# include <unistd.h>
+# include <stdlib.h>
+
+int		ft_exit();
+int		main(void);
+int		loop(void);
+int		getcmd(char **args);
+int		ft_isredirecting(const STRING str);
+int		cmd_bash();
+char	*ft_echo(char **args);
+char	*ft_pwd(void);
+void	get_signal(int sig);
+#endif
