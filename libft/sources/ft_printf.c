@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 11:48:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/02/02 14:53:28 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 13:56:24 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ int	function_parser(va_list args, int c)
 	else if (c == 'i' || c == 'd')
 		size = ft_putnbr_fd(va_arg(args, int), 1);
 	else if (c == 'x')
-		size = ft_putchangebase(va_arg(args, unsigned int),
-				"0123456789abcdef", 1);
+		size = ft_puthexnbr(va_arg(args, unsigned int),
+				"0123456789abcdef");
 	else if (c == 'X')
-		size = ft_putchangebase(va_arg(args, unsigned int),
-				"0123456789ABCDEF", 1);
+		size = ft_puthexnbr(va_arg(args, unsigned int),
+				"0123456789ABCDEF");
 	else if (c == 'p')
 	{
 		size = ft_putstr_fd("0x", 1);
-		size = size + ft_putpointer(va_arg(args, unsigned long long), 1);
+		size = size + ft_putpointer(va_arg(args, unsigned long long));
 	}
 	else if (c == '%')
 		size = ft_putchar_fd('%', 1);
 	else if (c == 'u')
-		size = ft_putunsigned(va_arg(args, unsigned int), 1);
+		size = ft_putunsigned(va_arg(args, unsigned int));
 	return (size);
 }
 
