@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 09:23:47 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/11 10:50:40 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 16:12:16 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 void	get_signal(int sig)
 {
-		(void) sig;
-	ft_printf("\nminshell >>");
+	if (sig == SIGINT)
+		ft_printf("\nminshell >> ");
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
+	(void) argc;
+	(void) argv;
 	signal(SIGINT, get_signal);
-	loop();
+	loop(envp);
 	return (0);
 }
 
-int	loop(void)
+int	loop(char *envp[])
 {
 	STRING	line;
 	char	**args;
 	int		ret;
+
 	while (1)
 	{
 		line = readline("minshell >> ");
@@ -37,15 +40,14 @@ int	loop(void)
 		{	
 			add_history(line);
 			args = ft_split(line, ' ');
-			ret = getcmd(args);
+			ret = getcmd(args, envp);
 			if (ret == 0)
 			{
 				ft_printf("%sminshell: %s", RED, line);
 				ft_printf(" command not found\n%s", WHITE);
 			}
-			//penser a free args
 			if (ret == -1)
-				return (0);
+				return (0); //programme de sortie
 		}
 	}
 }
@@ -56,14 +58,13 @@ int	loop(void)
  * @param args argument's command
  * @return int (return 0 if the command does'nt exist)
  */
-int	getcmd(char **args)
+int	getcmd(char **args, char *envp[])
 {
-
 	if (args == 0)
 		return (0);
-	if (cmd_bash(args) != 0)
+	if (cmd_bash(args, envp) != 0)
 	{
-		return 1;
+		return (1);
 	}
 	if (ft_strncmp(args[0], "pwd", 3) == 0)
 	{
@@ -96,7 +97,10 @@ int	ft_isredirecting(const STRING str)
 }
 
 
-int	cmd_bash()
+int	cmd_bash(char **args, char *envp[])
 {
+	(void) args;
+	char	*newargv[] = {"ls", NULL};
+	execve("/bin/ls", newargv , envp);
 	return (0);
 }

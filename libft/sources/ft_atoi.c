@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 11:24:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/02/02 14:52:11 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 14:07:32 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	other(int neg)
+static int	other(int neg)
 {
 	if (neg > 0)
 		return (-1);
