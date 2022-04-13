@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 09:23:47 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/13 14:05:32 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/04/13 15:03:45 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ void	get_signal(int sig)
 {
 	if (sig == SIGINT)
 		ft_printf("\nminshell >> ");
+	else if (sig == SIGSEGV)
+		ft_exit();
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	(void) argc;
 	(void) argv;
+	signal(SIGSEGV, get_signal);
 	signal(SIGINT, get_signal);
 	loop(envp);
 	return (0);

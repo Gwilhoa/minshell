@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/13 13:39:00 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/04/13 14:54:50 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int		ft_exit();
+void	ft_exit();
 int		main(int argc, char *argv[], char *envp[]);
 int		loop(char *envp[]);
 int		getcmd(char **args, char *envp[]);
