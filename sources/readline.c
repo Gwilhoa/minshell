@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 09:23:47 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/12 16:12:16 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/04/13 14:05:32 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	getcmd(char **args, char *envp[])
 {
 	if (args == 0)
 		return (0);
-	if (cmd_bash(args, envp) != 0)
+	if (cmd_bash(args, envp) == 1)
 	{
 		return (1);
 	}
@@ -96,11 +96,55 @@ int	ft_isredirecting(const STRING str)
 	return (0);
 }
 
-
-int	cmd_bash(char **args, char *envp[])
+int	cmd_bash(char **args, char *env[])
 {
-	(void) args;
-	char	*newargv[] = {"ls", NULL};
-	execve("/bin/ls", newargv , envp);
+	char	*newargv[] = {args[0], args[1], args[2]};
+
+	return (path_execute(args[0], newargv, env));
+}
+
+int	path_execute(char *cmd, char *args[], char *env[])
+{
+	char	**path;
+	int		size;
+	int		i;
+	int		pid;
+	int		res;
+	int		status;
+	char	*format;
+
+	i = 0;
+	res = -1;
+	path = ft_split(getenv("PATH"), ':');
+	size = ft_matrixlen((const char **)path);
+	while (i < size)
+	{
+		status = -1;
+		format = ft_strjoin(path[i], "/");
+		format = ft_strjoin(format, cmd);
+		pid = fork();
+		if (pid == 0)
+		{
+			res = execve(format, args, env);
+			if (res != -1)
+				exit(0);
+			exit(1);
+		}
+		waitpid(pid, &status, 0);
+		if (status == 0)
+			return (1);
+		i++;
+	}
+	pid = fork();
+	if (pid == 0)
+	{
+		res = execve(cmd, args, env);
+		if (res != -1)
+			exit(0);
+		exit(1);
+	}
+	waitpid(pid, &status, 0);
+	if (status == 0)
+		return (1);
 	return (0);
 }
