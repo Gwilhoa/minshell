@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 09:23:47 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/13 15:03:45 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/04/14 12:56:44 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	get_signal(int sig)
 {
 	if (sig == SIGINT)
 		ft_printf("\nminshell >> ");
-	else if (sig == SIGSEGV)
+	else if (sig == SIGQUIT)
 		ft_exit();
 }
 
@@ -43,67 +43,39 @@ int	loop(char *envp[])
 		{	
 			add_history(line);
 			args = ft_split(line, ' ');
-			ret = getcmd(args, envp);
-			if (ret == 0)
-			{
-				ft_printf("%sminshell: %s", RED, line);
-				ft_printf(" command not found\n%s", WHITE);
-			}
-			if (ret == -1)
-				return (0); //programme de sortie
+			ret = interpreting(args, envp);
 		}
 	}
 }
 
 /**
- * @brief program's center
+ * @brief execute commands withe arguments
  * 
- * @param args argument's command
- * @return int (return 0 if the command does'nt exist)
+ * @param args 
+ * @param envp 
+ * @return int  0 if the commande dosen't found, 1 if success
  */
-int	getcmd(char **args, char *envp[])
+int	interpreting(char **args, char *envp[])
 {
-	if (args == 0)
-		return (0);
-	if (cmd_bash(args, envp) == 1)
-	{
-		return (1);
-	}
-	if (ft_strncmp(args[0], "pwd", 3) == 0)
-	{
-		ft_pwd();
-	}
-	if (ft_strncmp(args[0], "exit", 4) == 0)
-	{
-		return -1;
-	}
-	return (0);
-}
+	int		ret;
 
-/**
- * @brief function to know if the string is a redirecting bash
- * 
- * @param str (at comparate)
- * @return int (1 is redirecting)
- */
-int	ft_isredirecting(const STRING str)
-{
-	if (ft_strncmp(str, ">", ft_strlen(str)) == 0)
-		return (1);
-	if (ft_strncmp(str, ">>", ft_strlen(str)) == 0)
-		return (1);
-	if (ft_strncmp(str, "<", ft_strlen(str)) == 0)
-		return (1);
-	if (ft_strncmp(str, "<<", ft_strlen(str)) == 0)
-		return (1);
-	return (0);
+	ret = cmd_bash(args, envp);
+	if (ret == 0)
+	{
+		ft_printf("%sminshell: %s", RED, args[0]);
+		ft_printf(" command not found\n%s", WHITE);
+		return (0);
+	}
+	return (1);
 }
 
 int	cmd_bash(char **args, char *env[])
 {
 	char	*newargv[] = {args[0], args[1], args[2]};
+	int		ret;
 
-	return (path_execute(args[0], newargv, env));
+	ret = path_execute(args[0], newargv, env);
+	return (ret);
 }
 
 int	path_execute(char *cmd, char *args[], char *env[])

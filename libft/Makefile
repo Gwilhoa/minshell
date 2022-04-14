@@ -6,7 +6,7 @@
 #    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 10:35:56 by gchatain          #+#    #+#              #
-#    Updated: 2022/04/12 14:09:33 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/04/14 11:58:05 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_
 ft_tolower.c ft_toupper.c ft_strmapi.c ft_striteri.c ft_putnbr_fd.c\
 ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c\
 ft_lstdelone.c ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_lstiter.c ft_lstmap.c\
-printf_function.c ft_printf.c ft_matrixlen.c
+printf_function.c ft_printf.c ft_matrixlen.c ft_free_matrix.c
 
 LST_OBJS =		${LST_SRCS:.c=.o}
 SRCS =			$(addprefix sources/,$(LST_SRCS))
