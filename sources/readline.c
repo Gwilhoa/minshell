@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 09:23:47 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/14 12:56:44 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/04/15 14:52:17 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	loop(char *envp[])
 		if (line[0] != 0)
 		{	
 			add_history(line);
-			args = ft_split(line, ' ');
+			args = ft_split(line, ' ');//parsing
 			ret = interpreting(args, envp);
 		}
 	}
@@ -71,9 +71,12 @@ int	interpreting(char **args, char *envp[])
 
 int	cmd_bash(char **args, char *env[])
 {
-	char	*newargv[] = {args[0], args[1], args[2]};
+	char	*newargv[3];
 	int		ret;
 
+	newargv[0] = args[0];
+	newargv[1] = args[1];
+	newargv[2] = args[2];
 	ret = path_execute(args[0], newargv, env);
 	return (ret);
 }
@@ -100,8 +103,7 @@ int	path_execute(char *cmd, char *args[], char *env[])
 		pid = fork();
 		if (pid == 0)
 		{
-			res = execve(format, args, env);
-			if (res != -1)
+			if (execve(format, args, env) != -1)
 				exit(0);
 			exit(1);
 		}
@@ -114,12 +116,12 @@ int	path_execute(char *cmd, char *args[], char *env[])
 	if (pid == 0)
 	{
 		res = execve(cmd, args, env);
-		if (res != -1)
+		if (res == -1)
 			exit(0);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
 	if (status == 0)
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
