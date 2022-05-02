@@ -6,14 +6,14 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/15 14:17:51 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 11:12:53 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 void	ft_exit()
 {
-	ft_printf("test");
-	exit(EXIT_SUCCESS);
+	ft_printf("\n");
+	exit(0);
 	return;
 }

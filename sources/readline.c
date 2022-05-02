@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 09:23:47 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/15 14:52:17 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 15:53:00 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,26 @@
 void	get_signal(int sig)
 {
 	if (sig == SIGINT)
-		ft_printf("\nminshell >> ");
+	{
+		if (g_error != INEXECVE)
+		{
+			ft_printf("\nminshell >> ");
+			g_error = SIGC;
+		}
+		g_error = SIGC;
+	}
 	else if (sig == SIGQUIT)
+	{
 		ft_exit();
+		g_error = SIGD;
+	}
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	(void) argc;
 	(void) argv;
-	signal(SIGSEGV, get_signal);
+	signal(SIGQUIT, get_signal);
 	signal(SIGINT, get_signal);
 	loop(envp);
 	return (0);
@@ -38,7 +48,10 @@ int	loop(char *envp[])
 
 	while (1)
 	{
+		g_error = 0;
 		line = readline("minshell >> ");
+		if (!line)
+			break ;
 		if (line[0] != 0)
 		{	
 			add_history(line);
@@ -46,82 +59,26 @@ int	loop(char *envp[])
 			ret = interpreting(args, envp);
 		}
 	}
-}
-
-/**
- * @brief execute commands withe arguments
- * 
- * @param args 
- * @param envp 
- * @return int  0 if the commande dosen't found, 1 if success
- */
-int	interpreting(char **args, char *envp[])
-{
-	int		ret;
-
-	ret = cmd_bash(args, envp);
-	if (ret == 0)
-	{
-		ft_printf("%sminshell: %s", RED, args[0]);
-		ft_printf(" command not found\n%s", WHITE);
-		return (0);
-	}
+	ft_exit();
 	return (1);
 }
 
-int	cmd_bash(char **args, char *env[])
+/**
+ * @brief execute commands with arguments
+ * 
+ * @param args 
+ * @param env 
+ * @return int  0 if the commande dosen't found, 1 if success
+ */
+int	interpreting(char **args, char *env[])
 {
-	char	*newargv[3];
 	int		ret;
 
-	newargv[0] = args[0];
-	newargv[1] = args[1];
-	newargv[2] = args[2];
-	ret = path_execute(args[0], newargv, env);
-	return (ret);
-}
-
-int	path_execute(char *cmd, char *args[], char *env[])
-{
-	char	**path;
-	int		size;
-	int		i;
-	int		pid;
-	int		res;
-	int		status;
-	char	*format;
-
-	i = 0;
-	res = -1;
-	path = ft_split(getenv("PATH"), ':');
-	size = ft_matrixlen((const char **)path);
-	while (i < size)
+	ret = cmd_bash(args, env);
+	if (g_error == INEXECVE && ret == 0)
 	{
-		status = -1;
-		format = ft_strjoin(path[i], "/");
-		format = ft_strjoin(format, cmd);
-		pid = fork();
-		if (pid == 0)
-		{
-			if (execve(format, args, env) != -1)
-				exit(0);
-			exit(1);
-		}
-		waitpid(pid, &status, 0);
-		if (status == 0)
-			return (1);
-		i++;
+		ft_printf("%sminshell: %s", RED, args[0]);
+		ft_printf(" command not found\n%s", WHITE);
 	}
-	pid = fork();
-	if (pid == 0)
-	{
-		res = execve(cmd, args, env);
-		if (res == -1)
-			exit(0);
-		exit(1);
-	}
-	waitpid(pid, &status, 0);
-	if (status == 0)
-		return (0);
 	return (1);
 }
