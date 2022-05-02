@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 09:23:47 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/02 15:53:00 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 17:14:50 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	get_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
+		waitpid(0, NULL, 0);
 		if (g_error != INEXECVE)
 		{
 			ft_printf("\nminshell >> ");
