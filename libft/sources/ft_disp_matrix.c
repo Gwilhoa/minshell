@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_disp_matrix.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/03 15:52:38 by gchatain         ###   ########lyon.fr   */
+/*   Created: 2022/05/04 09:08:23 by gchatain          #+#    #+#             */
+/*   Updated: 2022/05/04 09:12:29 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_exit(int args)
+void	ft_disp_matrix(char **matrix)
 {
-	ft_printf("exit\n");
-	exit(args);
+	int	i;
+
+	i = 0;
+	while (matrix[i] != 0)
+	{
+		ft_printf("%s\n", matrix[i]);
+		i++;
+	}
 }

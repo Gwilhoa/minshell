@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/03 15:52:38 by gchatain         ###   ########lyon.fr   */
+/*   Created: 2022/05/03 15:25:49 by gchatain          #+#    #+#             */
+/*   Updated: 2022/05/03 15:30:36 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_exit(int args)
+int	ft_strcmp(char *str, char *str2)
 {
-	ft_printf("exit\n");
-	exit(args);
+	return (ft_strncmp(str, str2, ft_strlen(str)));
 }

@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_matrix_dup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/03 15:52:38 by gchatain         ###   ########lyon.fr   */
+/*   Created: 2022/05/03 13:53:59 by gchatain          #+#    #+#             */
+/*   Updated: 2022/05/04 12:13:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_exit(int args)
+char	**ft_matrix_dup(char **matrix)
 {
-	ft_printf("exit\n");
-	exit(args);
+	char	**new;
+	int		i;
+
+	new = malloc((ft_matrixlen(matrix) + 1) * sizeof(char *));
+	i = 0;
+	while (matrix[i] != 0)
+	{
+		new[i] = ft_strdup(matrix[i]);
+		i++;
+	}
+	new[i] = 0;
+	return (new);
 }

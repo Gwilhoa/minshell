@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readline.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 09:23:47 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/02 17:14:50 by gchatain         ###   ########lyon.fr   */
+/*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
+/*   Updated: 2022/05/04 13:40:22 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_signal(int sig)
-{
-	if (sig == SIGINT)
-	{
-		waitpid(0, NULL, 0);
-		if (g_error != INEXECVE)
-		{
-			ft_printf("\nminshell >> ");
-			g_error = SIGC;
-		}
-		g_error = SIGC;
-	}
-	else if (sig == SIGQUIT)
-	{
-		ft_exit();
-		g_error = SIGD;
-	}
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
+	char	**env;
+
 	(void) argc;
 	(void) argv;
+	env = ft_matrix_dup(envp);
+	ft_change_env("SHLVL", ft_itoa(ft_atoi(ft_getenv("SHLVL", env)) + 1), env);
 	signal(SIGQUIT, get_signal);
 	signal(SIGINT, get_signal);
-	loop(envp);
+	signal(SIGKILL, get_signal);
+	loop(env);
 	return (0);
 }
 
@@ -60,7 +46,7 @@ int	loop(char *envp[])
 			ret = interpreting(args, envp);
 		}
 	}
-	ft_exit();
+	ft_exit(0);
 	return (1);
 }
 
@@ -75,10 +61,15 @@ int	interpreting(char **args, char *env[])
 {
 	int		ret;
 
+	if (ft_strcmp(args[0], "cd") == 0)
+	{
+		ft_cd(args[1], env);
+		return (0);
+	}
 	ret = cmd_bash(args, env);
 	if (g_error == INEXECVE && ret == 0)
 	{
-		ft_printf("%sminshell: %s", RED, args[0]);
+		ft_printf("%sminshell >>> %s", RED, args[0]);
 		ft_printf(" command not found\n%s", WHITE);
 	}
 	return (1);

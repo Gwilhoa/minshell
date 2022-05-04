@@ -6,7 +6,7 @@
 #    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/05/02 10:01:10 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/05/04 11:10:26 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,14 +28,14 @@ NAME		:= minishell
 FLAGS		:= -Werror -Wall -Wextra
 CC			:= gcc
 
-LST_SRCS		:= readline.c pwd.c exit.c execute_path.c
+LST_SRCS		:= main.c pwd.c exit.c execute_path.c getenv.c signal.c cd.c
 
 LST_OBJS		:= $(LST_SRCS:.c=.o)
 OBJS			:= $(addprefix .objects/,$(LST_OBJS))
 SRCS			:= $(addprefix sources/,$(LST_SRCS))
 LIBFT			:= libft/libft.a
 
-INCLUDES		:= includes/color.h includes/minishell.h libft/includes/libft.h
+INCLUDES		:= includes/ libft/includes/libft.h $(shell brew --prefix readline)/include/
 DIR_INCLUDES	:= $(sort $(addprefix -I, $(dir $(INCLUDES))))
 
 NORM		:= $(shell norminette sources | grep -c 'Error!')
@@ -53,7 +53,7 @@ all: compilation $(NAME)
 			printf "${ERASE}${BLUE}[BUILD]${END} $<"
 
 $(NAME): $(OBJS) Makefile $(INCLUDES)
-		${CC} ${FLAGS} -o ${NAME} -lreadline ${OBJS} ${LIBFT} ${DIR_INCLUDES}
+		${CC} ${FLAGS} -o ${NAME} -lreadline -L$(shell brew --prefix readline)/lib ${OBJS} ${LIBFT} ${DIR_INCLUDES}
 		printf $(NORM_RET)
 
 clean:

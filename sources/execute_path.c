@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/02 14:08:13 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 11:18:04 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	path_execute_process(char *cmd, char *args[], char *env[])
 	int		status;
 
 	i = -1;
-	path = ft_split(getenv("PATH"), ':');
-	size = ft_matrixlen((const char **)path);
+	path = ft_split(ft_getenv("PATH", env), ':');
+	size = ft_matrixlen(path);
 	while (++i < size)
 	{
 		if (path_execute(path[i], cmd, args, env) != 0)
@@ -64,7 +64,7 @@ int	path_execute_process(char *cmd, char *args[], char *env[])
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
-	if (status == 1)
+	if (status == 0)
 		return (1);
 	return (0);
 }
