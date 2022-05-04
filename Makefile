@@ -6,7 +6,7 @@
 #    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/05/04 11:10:26 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/05/04 13:56:22 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ NAME		:= minishell
 FLAGS		:= -Werror -Wall -Wextra
 CC			:= gcc
 
-LST_SRCS		:= main.c pwd.c exit.c execute_path.c getenv.c signal.c cd.c
+LST_SRCS		:= main.c pwd.c exit.c execute_path.c env_utils.c signal.c cd.c
 
 LST_OBJS		:= $(LST_SRCS:.c=.o)
 OBJS			:= $(addprefix .objects/,$(LST_OBJS))
