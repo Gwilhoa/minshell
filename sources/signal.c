@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:11:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/04 13:39:06 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 15:01:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ void	get_signal(int sig)
 		waitpid(0, NULL, 0);
 		exit(0);
 	}
+}
+
+void	useless_sig(int sig)
+{
+	ft_printf("\n");
+	g_error = SIGC;
+	(void) sig;
+	return ;
 }

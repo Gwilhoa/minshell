@@ -6,40 +6,62 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/04 11:18:04 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 16:30:20 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief translate arguments for executing path
- * 
- * @param args (a refaire avec la structure)
- * @param env environment of shell
- * @return int result to executing path
- */
-int	cmd_bash(char **args, char *env[])
+int	interpreting(t_minishell *mini, t_process *process)
+{
+	int			ret;
+
+	if (ft_strcmp(process->cmd, "unset"))
+		ft_unset(process, mini);
+	if (ft_strcmp(process->cmd, "export") == 0)
+	{
+		ft_export(process, mini);
+		return (0);
+	}
+	if (ft_strcmp(process->cmd, "cd") == 0)
+	{
+		ft_cd(process, mini);
+		return (0);
+	}
+	if (ft_strcmp(process->cmd, "pwd") == 0)
+	{
+		ft_pwd(mini);
+		return (0);
+	}
+	if (ft_strcmp(process->cmd, "env") == 0)
+	{
+		ft_env(mini->env);
+		return (0);
+	}
+	ret = cmd_bash(process, mini->env);
+	if (g_error == INEXECVE && ret == 0)
+	{
+		ft_printf("%sminshell >>> %s", RED, process->cmd);
+		ft_printf(" command not found\n%s", WHITE);
+	}
+	return (1);
+}
+
+int	cmd_bash(t_process *process, char **env)
 {
 	char	*newargv[3];
 	int		ret;
 
-	newargv[0] = args[0];
-	newargv[1] = args[1];
-	newargv[2] = args[2];
+	newargv[0] = process->cmd;
+	newargv[2] = process->args;
+	newargv[1] = process->flags;
 	g_error = INEXECVE;
-	ret = path_execute_process(args[0], newargv, env);
+	signal(SIGINT, useless_sig);
+	signal(SIGQUIT, useless_sig);
+	ret = path_execute_process(process->cmd, newargv, env);
 	return (ret);
 }
 
-/**
- * @brief trying path execute
- * 
- * @param cmd cmd to testing
- * @param args arguments for executing
- * @param env environment of shell
- * @return int return 1 if success executimg command in path
- */
 int	path_execute_process(char *cmd, char *args[], char *env[])
 {
 	char	**path;
@@ -69,15 +91,6 @@ int	path_execute_process(char *cmd, char *args[], char *env[])
 	return (0);
 }
 
-/**
- * @brief execute with path the command
- * 
- * @param path the path test for the command
- * @param cmd the command's label
- * @param args the arguments to testing
- * @param env environnment to shell
- * @return int return 1 if success executing in one patg
- */
 int	path_execute(char *path, char *cmd, char *args[], char *env[])
 {
 	int		status;

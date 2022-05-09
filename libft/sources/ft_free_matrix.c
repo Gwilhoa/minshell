@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:46:25 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/14 11:58:19 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 14:13:17 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	ft_free_matrix(char **matrix)
 	while (matrix[i] != 0)
 	{
 		free(matrix[i]);
+		i++;
 	}
-	free(matrix);
 }

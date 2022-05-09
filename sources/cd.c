@@ -6,23 +6,29 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:27:13 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/04 12:16:27 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 16:05:47 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cd(char *args, char **env)
+void	ft_cd(t_process *process, t_minishell *mini)
 {
-	char	*pwd;
+	char		*pwd;
+	char		*path;
 
-	if (args == 0)
-		args = ft_getenv("HOME", env);
-	if (args == 0)
+	path = process->args;
+	if (path == 0 || ft_strlen(path) == 0)
+		path = ft_getenv("HOME", mini->env);
+	if (path == 0)
+	{
+		ft_printf("no path HOME");
 		return ;
-	if (chdir(args) != 0)
-		perror("cd :");
+	}
+	if (chdir(path) != 0)
+		perror("cd >>>");
 	pwd = getcwd(NULL, 0);
-	ft_change_env("OLDPWD", ft_getenv("PWD", env), env);
-	ft_change_env("PWD", pwd, env);
+	path = ft_getenv("PWD", mini->env);
+	ft_change_env("OLDPWD", path, mini->env);
+	ft_change_env("PWD", pwd, mini->env);
 }
