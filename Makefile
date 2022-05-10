@@ -6,7 +6,7 @@
 #    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/05/06 16:54:15 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/05/10 14:24:50 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ NAME		:= minishell
 FLAGS		:= -Werror -Wall -Wextra
 CC			:= gcc
 
-LST_SRCS		:= main.c pwd.c exit.c execute_path.c env_utils.c signal.c cd.c export.c
+LST_BUILT_IN	:= cd.c exit.c export.c pwd.c unset.c echo.c
+LST_SRCS		:= env_utils.c execute_path.c main.c signal.c $(addprefix built-in/,$(LST_BUILT_IN))
 
 LST_OBJS		:= $(LST_SRCS:.c=.o)
 OBJS			:= $(addprefix .objects/,$(LST_OBJS))
@@ -69,6 +70,7 @@ re:			fclean all
 
 .objects:
 			mkdir -p .objects
+			mkdir -p .objects/built-in
 	
 
 compilation:

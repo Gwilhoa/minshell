@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/09 15:04:40 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 13:09:33 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ char	*ft_get_line_env(char *key, char **env);
 void	ft_cd(t_process *process, t_minishell *mini);
 void	ft_echo(t_process *process, t_minishell *shell);
 void	ft_env(char **env);
-void	ft_addenv(char *str, char **env);
-void	ft_change_env(char *key, char *newchar, char **env);
+void	ft_addenv(t_minishell *mini, char *str);
+void	ft_change_env(char *key, char *newchar, t_minishell *mini);
 void	ft_delenv(t_minishell *mini, char	*key);
 void	ft_exit(int args);
 void	incr_shlvl(t_minishell *mini);
@@ -69,5 +69,6 @@ void	ft_pwd(t_minishell *shell);
 void	delsig(void);
 void	get_signal(int sig);
 void	useless_sig(int sig);
+void	ft_unset(t_process *process, t_minishell *mini);
 
 #endif

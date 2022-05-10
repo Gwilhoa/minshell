@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:01:49 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/09 10:53:07 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 08:57:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
-char	**ft_matrix_dup(char **matrix, int size);
+char	**ft_matrix_dup(char **matrix);
 void	ft_free_matrix(char **matrix);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_lstadd_front(t_list **alst, t_list *new);

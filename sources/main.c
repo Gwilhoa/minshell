@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/09 15:12:43 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 13:41:12 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	incr_shlvl(t_minishell *mini)
 	temp = ft_getenv("SHLVL", mini->env);
 	ret = ft_itoa(ft_atoi(temp) + 1);
 	free(temp);
-	ft_change_env("SHLVL", ret, mini->env);
+	ft_change_env("SHLVL", ret, mini);
+	free(ret);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -30,13 +31,11 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	mini.process = NULL;
-	mini.env = ft_matrix_dup(envp, 0);
 	mini.default_fd = dup(1);
+	mini.env = ft_matrix_dup(envp);
 	incr_shlvl(&mini);
 	signal(SIGQUIT, get_signal);
 	signal(SIGKILL, get_signal);
-	ft_delenv(&mini, "HOME");
-	// ft_disp_matrix(mini.env);
 	loop(&mini);
 	return (0);
 }
@@ -68,7 +67,14 @@ int	loop(t_minishell *mini)
 			process = mini->process;
 			while (process != NULL)
 			{
+				if (process->outfd != 1)
+					dup2(process->outfd, 1);
 				ret = interpreting(mini, process);
+				if (process->outfd != 1)
+				{
+					dup2(mini->default_fd, 1);
+					close(process->outfd);
+				}
 				process = process->next;
 			}
 		}
@@ -88,6 +94,7 @@ void	new_process(t_minishell *mini, char *name, char *args)
 	new_process->args = args;
 	new_process->flags = NULL;
 	new_process->next = NULL;
+	new_process->infd = 1;
 	new_process->outfd = 1;
 	if (process == NULL)
 		mini->process = new_process;

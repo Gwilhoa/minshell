@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/09 16:30:20 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 14:46:38 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,29 @@ int	interpreting(t_minishell *mini, t_process *process)
 {
 	int			ret;
 
-	if (ft_strcmp(process->cmd, "unset"))
+	if (ft_strcmp(process->cmd, "unset") == 0)
 		ft_unset(process, mini);
-	if (ft_strcmp(process->cmd, "export") == 0)
-	{
+	else if (ft_strcmp(process->cmd, "export") == 0)
 		ft_export(process, mini);
-		return (0);
-	}
-	if (ft_strcmp(process->cmd, "cd") == 0)
-	{
+	else if (ft_strcmp(process->cmd, "cd") == 0)
 		ft_cd(process, mini);
-		return (0);
-	}
-	if (ft_strcmp(process->cmd, "pwd") == 0)
-	{
+	else if (ft_strcmp(process->cmd, "pwd") == 0)
 		ft_pwd(mini);
-		return (0);
-	}
-	if (ft_strcmp(process->cmd, "env") == 0)
-	{
+	else if (ft_strcmp(process->cmd, "env") == 0)
 		ft_env(mini->env);
-		return (0);
-	}
-	ret = cmd_bash(process, mini->env);
-	if (g_error == INEXECVE && ret == 0)
+	else if (ft_strcmp(process->cmd, "echo") == 0)
+		ft_echo(process, mini);
+	else
 	{
-		ft_printf("%sminshell >>> %s", RED, process->cmd);
-		ft_printf(" command not found\n%s", WHITE);
+		ret = cmd_bash(process, mini->env);
+		if (g_error == INEXECVE && ret == 0)
+		{
+			ft_printf("%sminshell >>> %s", RED, process->cmd);
+			ft_printf(" command not found\n%s", WHITE);
+		}
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 int	cmd_bash(t_process *process, char **env)
@@ -65,13 +59,17 @@ int	cmd_bash(t_process *process, char **env)
 int	path_execute_process(char *cmd, char *args[], char *env[])
 {
 	char	**path;
+	char	*line;
 	int		size;
 	int		i;
 	int		pid;
 	int		status;
 
 	i = -1;
-	path = ft_split(ft_getenv("PATH", env), ':');
+	line = ft_getenv("PATH", env);
+	if (line == 0)
+		return (0);
+	path = ft_split(line, ':');
 	size = ft_matrixlen(path);
 	while (++i < size)
 	{

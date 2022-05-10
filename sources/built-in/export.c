@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/09 15:01:42 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 13:53:45 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	ft_export(t_process *process, t_minishell *mini)
 			env = ft_get_line_env(arg[0], mini->env);
 			if (env == 0)
 			{
-				ft_addenv(args[i], mini->env);
+				ft_addenv(mini, args[i]);
 			}
 			else if (arg[1] != 0)
-				ft_change_env(arg[0], arg[1], mini->env);
+				ft_change_env(arg[0], arg[1], mini);
 			i++;
 		}
 	}
