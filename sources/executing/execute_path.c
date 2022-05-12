@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/10 14:46:38 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/11 10:28:25 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	interpreting(t_minishell *mini, t_process *process)
 {
 	int			ret;
-
+	
 	if (ft_strcmp(process->cmd, "unset") == 0)
 		ft_unset(process, mini);
 	else if (ft_strcmp(process->cmd, "export") == 0)
@@ -47,8 +47,8 @@ int	cmd_bash(t_process *process, char **env)
 	int		ret;
 
 	newargv[0] = process->cmd;
-	newargv[2] = process->args;
 	newargv[1] = process->flags;
+	newargv[2] = process->args;
 	g_error = INEXECVE;
 	signal(SIGINT, useless_sig);
 	signal(SIGQUIT, useless_sig);

@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/11 22:31:47 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/12 09:36:52 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishellG.h"
-
+#include "minishell.h"
 
 int	ft_nbcmd(char *str)
 {
-	int i;
-	int nb;
+	int	i;
+	int	nb;
 
 	nb = 1;
-	i = 0; 
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '|')
@@ -27,11 +26,11 @@ int	ft_nbcmd(char *str)
 		i++;
 	}
 	return (nb);
-} 
+}
 
-int ft_check_end(char *str)
+int	ft_check_end(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -44,20 +43,20 @@ int ft_check_end(char *str)
 	return (0);
 }
 
-int ft_quotes(char *str) // a revoir;
+int	ft_quotes(char *str) // a revoir;
 {
-	int i;
-	int cmpt;
-	int cmpt2;
+	int	i;
+	int	cmpt;
+	int	cmpt2;
 
 	i = 0;
 	cmpt = 0;
 	cmpt2 = 0;
 	while (str[i])
 	{
-		if (str[i] == 34)
+		if (str[i] == '"')
 			cmpt++;
-		if (str[i] == 39)
+		if (str[i] == '\'')
 			cmpt++;
 		if (cmpt == 2)
 		{
@@ -70,14 +69,14 @@ int ft_quotes(char *str) // a revoir;
 	return (0);
 }
 
-int ft_simple_pipe(char *str)
+int	ft_simple_pipe(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] == '|') && (str[i + 1] == '|') 
+		if ((str[i] == '|') && (str[i + 1] == '|')
 			&& (str[i + 1]))
 			return (-1);
 		i++;
@@ -85,10 +84,10 @@ int ft_simple_pipe(char *str)
 	return (0);
 }
 
-char *ft_envcmp(char *str, char **env)
+char	*ft_envcmp(char *str, char **env)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -97,22 +96,22 @@ char *ft_envcmp(char *str, char **env)
 		while (env[i][j] == str[j])
 		{
 			j++;
-			if (str[j] == '\0')
+			if (str[j] == 0)
 				return (env[i] + (ft_strlen(str) + 1));	// return env;
 		}
 		j = 0;
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 // replace, from the $, and put the equivalence of the variable; 
-void ft_dollar(char **split, char **env)
+void	ft_dollar(char **split, char **env)
 {
-	int i;
-	int j;
-	int tmp;
-	char *var;
+	int		i;
+	int		j;
+	int		tmp;
+	char	*var;
 
 	i = 0;
 	j = 0;
@@ -129,7 +128,7 @@ void ft_dollar(char **split, char **env)
 				while (split[i][j + tmp] != ' ')
 					tmp++;
 				var = ft_substr(split[i], j, (tmp));
-				if (ft_envcmp(var, env) != NULL)
+				if (ft_envcmp(var, env) != 0)
 				{
 					var = ft_envcmp(var, env);
 					tmp = 0;
@@ -146,53 +145,6 @@ void ft_dollar(char **split, char **env)
 		j = 0;
 	}
 	return ;
-}
-
-int ft_parsing(t_minishell *main)
-{
-	int i;
-
-	
-	i = 0;
-
-	main->str= ft_calloc(1, sizeof(char));
-	while (main->argv[++i])
-	{
-		main->str= ft_strjoin(main->str, main->argv[i]);	 // pas oublier de free ici
-		if (main->argv[i + 1])
-			main->str= ft_strjoin(main->str, " ");
-	}
-	if (main->str == NULL)
-		return (-1); // free et return;
-	if (ft_check_end(main->str) == -1)
-		return (-1); //  free et return -1;
-		
-	if (ft_simple_pipe(main->str) == -1)
-	{
-		printf("here\n");
-		return (-1); // free et return;
-	}
-
-	main->nbcmd = ft_nbcmd(main->str);
-	main->splitcmd = ft_split(main->str, '|');	//regarder si le pipe
-	ft_dollar(main->splitcmd, main->env);
-	ft_creat_command(main);
-	return (0);
-}
-
-int main(int ac, char **argv, char **env)
-{
-	(void)ac;
-	
-	t_minishell *t_main;
-
-	t_main = malloc(sizeof(t_minishell));
-	t_main->argv = argv;
-	t_main->env = env;
-	if (ft_parsing(t_main) == -1)
-		return(0);
-
-	return (0);
 }
 
 /* 

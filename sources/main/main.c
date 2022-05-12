@@ -6,23 +6,11 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/10 13:41:12 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/12 10:06:32 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	incr_shlvl(t_minishell *mini)
-{
-	char		*temp;
-	char		*ret;
-
-	temp = ft_getenv("SHLVL", mini->env);
-	ret = ft_itoa(ft_atoi(temp) + 1);
-	free(temp);
-	ft_change_env("SHLVL", ret, mini);
-	free(ret);
-}
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -40,12 +28,35 @@ int	main(int argc, char *argv[], char *envp[])
 	return (0);
 }
 
+void	executing(t_minishell *mini, t_process *process)
+{
+	if (process->next == NULL)
+	{
+		if (process->outfile == NULL)
+			interpreting(mini, process);
+		else
+		{
+			if (process->code == 1)
+				process->outfd = open(process->outfile, O_WRONLY | O_CREAT, 0777);
+			else
+				process->outfd = open(process->outfile, O_APPEND | O_WRONLY | O_CREAT, 0777);
+			if (process->outfd != -1)
+			{
+				dup2(process->outfd, 1);
+				interpreting(mini, process);
+				dup2(mini->default_fd, 1);
+				close(process->outfd);
+			}
+			else
+				perror("minshell >>>");
+		}
+	}
+}
+
 int	loop(t_minishell *mini)
 {
 	char		*line;
-	char		**args;
 	t_process	*process;
-	int			ret;
 
 	while (1)
 	{
@@ -59,52 +70,18 @@ int	loop(t_minishell *mini)
 		if (line[0] != 0)
 		{
 			add_history(line);
-			args = ft_split(line, ' ');//parsing
-			if (ft_strlen(args[0]) + 1 > ft_strlen(line))
-				new_process(mini, args[0], 0);
-			else
-				new_process(mini, args[0], line + ft_strlen(args[0]) + 1);//parsing
-			process = mini->process;
-			while (process != NULL)
+			mini->str = line;
+			if (ft_parsing(mini) == -1)
 			{
-				if (process->outfd != 1)
-					dup2(process->outfd, 1);
-				ret = interpreting(mini, process);
-				if (process->outfd != 1)
-				{
-					dup2(mini->default_fd, 1);
-					close(process->outfd);
-				}
-				process = process->next;
+				ft_printf("minshell >>> parsing error");
+				return(0);
 			}
+			return (0);//---
+			process = mini->process;
+			create_pipes(mini);
+			executing(mini, process);
 		}
 	}
 	ft_exit(0);
 	return (1);
-}
-
-void	new_process(t_minishell *mini, char *name, char *args)
-{
-	t_process	*process;
-	t_process	*new_process;
-
-	process = mini->process;
-	new_process = malloc(sizeof(t_process));
-	new_process->cmd = name;
-	new_process->args = args;
-	new_process->flags = NULL;
-	new_process->next = NULL;
-	new_process->infd = 1;
-	new_process->outfd = 1;
-	if (process == NULL)
-		mini->process = new_process;
-	else
-	{
-		while (process != NULL)
-		{
-			process = process->next;
-			if (process->next == NULL)
-				process->next = new_process;
-		}
-	}
 }

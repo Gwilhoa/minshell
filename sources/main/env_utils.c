@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/10 13:57:04 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/12 09:00:51 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,6 @@ char	*ft_get_line_env(char *key, char **env)
 			i++;
 	}
 	return (NULL);
-}
-
-void	ft_env(char **env)
-{
-	int		i;
-	char	**parse;
-
-	i = 0;
-	while (env[i] != 0)
-	{
-		parse = ft_split(env[i], '=');
-		if (parse[1] != 0)
-		{
-			ft_printf("%s\n", env[i]);
-		}
-		i++;
-		ft_free_matrix(parse);
-		free(parse);
-	}
-	return ;
 }
 
 void	ft_addenv(t_minishell *mini, char *str)
@@ -150,4 +130,16 @@ void	ft_delenv(t_minishell *mini, char *key)
 	free(mini->env);
 	free(line);
 	mini->env = ret;
+}
+
+void	incr_shlvl(t_minishell *mini)
+{
+	char		*temp;
+	char		*ret;
+
+	temp = ft_getenv("SHLVL", mini->env);
+	ret = ft_itoa(ft_atoi(temp) + 1);
+	free(temp);
+	ft_change_env("SHLVL", ret, mini);
+	free(ret);
 }

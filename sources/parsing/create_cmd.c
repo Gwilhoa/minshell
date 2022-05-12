@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_cmd.c                                        :+:      :+:    :+:   */
+/*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/11 22:08:04 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/12 09:38:54 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishellG.h"
+#include "minishell.h"
 
-void ft_creat_command(t_minishell *main)
+void	ft_creat_command(t_minishell *main)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	main->process = malloc(sizeof(t_process) * (main->nbcmd));
@@ -30,14 +30,12 @@ void ft_creat_command(t_minishell *main)
 	return;
 }
 
-
-void ft_send_file(t_process *process)
+void	ft_send_file(t_process *process)
 {
 	ft_send_outfile(process);
 	ft_send_infile(process);
 	ft_send_cmd(process);
 }
-
 
 void ft_send_outfile(t_process *process)
 {
@@ -65,9 +63,8 @@ void ft_send_outfile(t_process *process)
 		i++;
 	}
 }
-		
 
-void ft_send_infile(t_process *process)
+void	ft_send_infile(t_process *process)
 {
 	int i;
 
@@ -79,7 +76,7 @@ void ft_send_infile(t_process *process)
 			if (open(process->fullcmd[i + 1], O_RDONLY) == -1)
 			{
 				process->infile = ft_strdup(process->fullcmd[i + 1]);
-				return;
+				return ;
 			}
 			else
 				process->infile = ft_strdup(process->fullcmd[i + 1]);
@@ -92,11 +89,11 @@ void ft_send_infile(t_process *process)
 	}
 }
 
-void ft_send_cmd(t_process *process)
+void	ft_send_cmd(t_process *process)
 {
-	int i;
-	int tmp;
-	
+	int	i;
+	int	tmp;
+
 	i = 0;
 	tmp = 0;
 	while (process->fullcmd[i])
@@ -105,12 +102,12 @@ void ft_send_cmd(t_process *process)
 			i++;
 		else if (tmp == 0)
 		{
-			process->cmd = ft_strdup(process->fullcmd[i]); 
+			process->cmd = ft_strdup(process->fullcmd[i]);
 			tmp = 1;
 		}
 		else if (tmp == 1)
-			process->flags =ft_strdup(process->fullcmd[i]);
+			process->flags = ft_strdup(process->fullcmd[i]);
 		i++;
 	}
-	return;
+	return ;
 }
