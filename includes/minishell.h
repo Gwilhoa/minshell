@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/12 10:05:03 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/12 18:08:26 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ void	ft_send_outfile(t_process *process);
 void	ft_send_infile(t_process *process);
 void	ft_send_cmd(t_process *process);
 void	ft_dollar(char **split, char **env);
+t_process	*ft_lstnew2(char **splitcmdi);
+void	ft_lstadd_back2(t_process **alst, t_process *new);
 
 #endif

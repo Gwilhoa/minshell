@@ -3,31 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/12 09:38:54 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/12 19:14:31 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_creat_command(t_minishell *main)
+// void	ft_creat_command(t_minishell *main)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	main->process = malloc(sizeof(t_process) * (main->nbcmd));
+// 	while (i < main->nbcmd)
+// 	{
+// 		main->process[i].fullcmd = ft_split(main->splitcmd[i], ' ');	// ne pas split avec des espaces;
+// 		ft_send_file(&main->process[i]);
+// 		i++;
+// 	}
+// 	return;
+// }
+
+void ft_creat_command(t_minishell *main)
 {
-	int	i;
+	int i;
+	t_process *tmp;
 
 	i = 0;
-	main->process = malloc(sizeof(t_process) * (main->nbcmd));
-	while (i < main->nbcmd)
+	main->process = ft_lstnew2(ft_split(main->splitcmd[0], ' '));
+	tmp = main->process;
+	while (main->splitcmd[++i])
+		ft_lstadd_back2(&main->process, ft_lstnew2(ft_split(main->splitcmd[i], ' ')));
+	while (tmp)
 	{
-		main->process[i].fullcmd = ft_split(main->splitcmd[i], ' ');	// ne pas split avec des espaces;
-		ft_send_file(&main->process[i]);
-		dprintf(2, "cmd = %s\n", main->process[i].cmd);
-		dprintf(2, "infile = %s\n", main->process[i].outfile);
-		dprintf(2, "code = %d\n", main->process[i].code);
-		i++;
+		ft_send_file(tmp);
+		tmp = tmp->next;
 	}
-	return;
 }
 
 void	ft_send_file(t_process *process)
@@ -40,6 +54,7 @@ void	ft_send_file(t_process *process)
 void ft_send_outfile(t_process *process)
 {
 	int i;
+	int tmp;
 
 	i = 0;
 	while (process->fullcmd[i])
@@ -48,7 +63,8 @@ void ft_send_outfile(t_process *process)
 		{
 			if (open(process->fullcmd[i + 1], O_RDONLY) == -1)
 			{
-				open(process->fullcmd[i + 1], O_CREAT, 0777);  // où vaut-il mieux le creer ?;
+				tmp = open(process->fullcmd[i + 1], O_CREAT, 0777);  // où vaut-il mieux le creer ?;
+				close(tmp);
 				process->outfile = ft_strdup(process->fullcmd[i + 1]);
 				return;
 			}
