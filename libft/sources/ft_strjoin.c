@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 15:24:06 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/04 10:35:12 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/13 19:17:48 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -59,6 +60,37 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		str[i] = s1[i];
 		i++;
 	}
+	while (s2[s])
+	{
+		str[i + s] = s2[s];
+		s++;
+	}
+	str[i + s] = 0;
+	free(s1);
+	free(s2);
+	return (str);
+}
+
+char	*ft_strjoin_space(char *s1, char *s2)
+{
+	char	*str;
+	int		i;
+	int		s;
+
+	if (!s1 || !s2)
+		return (0);
+	str = malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 3);
+	if (!str)
+		return (0);
+	i = 0;
+	s = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i] = ' ';
+	i++;
 	while (s2[s])
 	{
 		str[i + s] = s2[s];

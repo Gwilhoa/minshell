@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/12 17:19:59 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/13 19:05:32 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int	ft_parsing(t_minishell *main)
 	main->splitcmd = ft_split(main->str, '|');	//regarder si le pipe
 	ft_dollar(main->splitcmd, main->env);
 	ft_creat_command(main);
+	
 	return (0);
 }

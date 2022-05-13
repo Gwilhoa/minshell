@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/13 15:12:56 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/13 19:22:53 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* void	ft_creat_command(t_minishell *main)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	main->process = malloc(sizeof(t_process) * (main->nbcmd));
-// 	while (i < main->nbcmd)
-// 	{
-// 		main->process[i].fullcmd = ft_split(main->splitcmd[i], ' ');	// ne pas split avec des espaces;
-// 		ft_send_file(&main->process[i]);
-// 		i++;
-// 	}
-// 	return;
-// } */
 
 void	ft_creat_command(t_minishell *main)
 {
@@ -52,6 +37,7 @@ void	ft_send_file(t_process *process)
 	ft_send_outfile(process);
 	ft_send_infile(process);
 	ft_send_cmd(process);
+	ft_send_args(process);
 }
 
 void	ft_send_outfile(t_process *process)
@@ -126,6 +112,34 @@ void	ft_send_cmd(t_process *process)
 		}
 		else if (tmp == 1)
 			process->flags = ft_strdup(process->fullcmd[i]);
+		i++;
+	}
+	return ;
+}
+
+void	ft_send_args(t_process *process)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	tmp = 0;
+	while (process->fullcmd[i])
+	{
+		if (process->fullcmd[i][0] == '<' || process->fullcmd[i][0] == '>')
+			i++;
+		else if (tmp == 0)
+		{
+			process->cmd = ft_strdup(process->fullcmd[i]);
+			tmp = 1;
+		}
+		else if (tmp == 1)
+		{
+			process->args = ft_strdup(process->fullcmd[i]);
+			tmp = 2;
+		}
+		else if (tmp == 2)
+			process->args = ft_strjoin_space(process->args, process->fullcmd[i]);
 		i++;
 	}
 	return ;
