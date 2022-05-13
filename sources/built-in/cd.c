@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:27:13 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/10 13:53:03 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/13 13:50:16 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_cd(t_process *process, t_minishell *mini)
 	char		*pwd;
 	char		*path;
 
+	ft_printf("%s\n",process->flags);
 	if (process->args == 0)
 		path = ft_getenv("HOME", mini->env);
 	else
@@ -33,7 +34,5 @@ void	ft_cd(t_process *process, t_minishell *mini)
 	path = ft_getenv("PWD", mini->env);
 	ft_change_env("OLDPWD", path, mini);
 	ft_change_env("PWD", pwd, mini);
-	free(path);
-	free(pwd);
 	return ;
 }

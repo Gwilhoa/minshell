@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/12 09:00:51 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/13 14:57:19 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,7 @@ void	ft_delenv(t_minishell *mini, char *key)
 	while (mini->env[++i])
 	{
 		if (ft_strcmp(line, mini->env[i]) == 0)
-		{
-			i++;
-			ret[j] = mini->env[i];
-		}
+			ret[j] = mini->env[++i];
 		else
 			ret[j] = mini->env[i];
 		j++;
@@ -132,14 +129,3 @@ void	ft_delenv(t_minishell *mini, char *key)
 	mini->env = ret;
 }
 
-void	incr_shlvl(t_minishell *mini)
-{
-	char		*temp;
-	char		*ret;
-
-	temp = ft_getenv("SHLVL", mini->env);
-	ret = ft_itoa(ft_atoi(temp) + 1);
-	free(temp);
-	ft_change_env("SHLVL", ret, mini);
-	free(ret);
-}

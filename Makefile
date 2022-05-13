@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: guyar <guyar@student.42.fr>                +#+  +:+       +#+         #
+#    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/05/12 19:08:40 by guyar            ###   ########.fr        #
+#    Updated: 2022/05/13 11:34:47 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,21 +25,22 @@ SUR			=	\033[7m
 END			=	\033[0m
 
 NAME		:= minishell
-FLAGS		:= -Werror -Wall -Wextra
+FLAGS		:= -Werror -Wall -Wextra -g
 CC			:= gcc
 
+LST_GNL			:= get_next_line.c getallfile.c
 LST_BUILT_IN	:= cd.c exit.c export.c pwd.c unset.c echo.c env.c
 LST_EXEC		:= execute_path.c
-LST_MAIN		:= env_utils.c main.c signal.c
+LST_MAIN		:= env_utils.c main.c signal.c pipes.c
 LST_PARSING		:= create_cmd.c parse_utils.c parsing_main.c ft_lstadd_back2.c ft_lstnew2.c
-LST_SRCS		:= $(addprefix built-in/,$(LST_BUILT_IN)) $(addprefix executing/,$(LST_EXEC)) $(addprefix main/,$(LST_MAIN)) $(addprefix parsing/,$(LST_PARSING))
+LST_SRCS		:= $(addprefix built-in/,$(LST_BUILT_IN)) $(addprefix executing/,$(LST_EXEC)) $(addprefix main/,$(LST_MAIN)) $(addprefix parsing/,$(LST_PARSING)) $(addprefix get_next_line/,$(LST_GNL))
 
 LST_OBJS		:= $(LST_SRCS:.c=.o)
 OBJS			:= $(addprefix .objects/,$(LST_OBJS))
 SRCS			:= $(addprefix sources/,$(LST_SRCS))
 LIBFT			:= libft/libft.a
 
-INCLUDES		:= includes/ libft/includes/libft.h $(shell brew --prefix readline)/include/
+INCLUDES		:= includes/ libft/includes/ $(shell brew --prefix readline)/include/
 DIR_INCLUDES	:= $(sort $(addprefix -I, $(dir $(INCLUDES))))
 
 NORM		:= $(shell norminette sources | grep -c 'Error!')
@@ -77,7 +78,7 @@ re:			fclean all
 			mkdir -p .objects/executing
 			mkdir -p .objects/main
 			mkdir -p .objects/parsing
-	
+			mkdir -p .objects/get_next_line
 
 compilation:
 	make -s -C libft

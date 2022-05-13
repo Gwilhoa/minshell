@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/11 10:28:25 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/13 14:12:33 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	interpreting(t_minishell *mini, t_process *process)
 {
 	int			ret;
-	
+
 	if (ft_strcmp(process->cmd, "unset") == 0)
 		ft_unset(process, mini);
 	else if (ft_strcmp(process->cmd, "export") == 0)
@@ -33,8 +33,8 @@ int	interpreting(t_minishell *mini, t_process *process)
 		ret = cmd_bash(process, mini->env);
 		if (g_error == INEXECVE && ret == 0)
 		{
-			ft_printf("%sminshell >>> %s", RED, process->cmd);
-			ft_printf(" command not found\n%s", WHITE);
+			ft_printf("%s\1minshell >>> %s", RED, process->cmd);
+			ft_printf(" command not found\n%s\2", WHITE);
 		}
 		return (1);
 	}
@@ -48,7 +48,7 @@ int	cmd_bash(t_process *process, char **env)
 
 	newargv[0] = process->cmd;
 	newargv[1] = process->flags;
-	newargv[2] = process->args;
+	newargv[2] = 0;
 	g_error = INEXECVE;
 	signal(SIGINT, useless_sig);
 	signal(SIGQUIT, useless_sig);
@@ -62,8 +62,6 @@ int	path_execute_process(char *cmd, char *args[], char *env[])
 	char	*line;
 	int		size;
 	int		i;
-	int		pid;
-	int		status;
 
 	i = -1;
 	line = ft_getenv("PATH", env);
@@ -71,44 +69,36 @@ int	path_execute_process(char *cmd, char *args[], char *env[])
 		return (0);
 	path = ft_split(line, ':');
 	size = ft_matrixlen(path);
+	free(line);
 	while (++i < size)
 	{
-		if (path_execute(path[i], cmd, args, env) != 0)
-			return (1);
+		line = ft_strjoin(path[i], "/");
+		line = ft_strjoin(line, cmd);
+		if (access(line, X_OK) == 0)
+			return (path_execute(line, args, env));
 	}
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(cmd, args, env) != -1)
-			exit(0);
-		exit(1);
-	}
-	waitpid(pid, &status, 0);
-	if (status == 0)
-		return (1);
+	line = ft_strjoin(ft_getenv("PWD", env), "/");
+	line = ft_strjoin(line, cmd);
+	if (access(line, X_OK) == 0)
+		return (path_execute(line, args, env));
 	return (0);
 }
 
-int	path_execute(char *path, char *cmd, char *args[], char *env[])
+int	path_execute(char *path, char *args[], char *env[])
 {
 	int		status;
-	char	*format;
-	char	*temp;
 	int		pid;
 
 	status = -1;
 	pid = fork();
 	if (pid == 0)
 	{
-		temp = ft_strjoin(path, "/");
-		format = ft_strjoin(temp, cmd);
-		free(temp);
-		if (execve(format, args, env) != -1)
+		if (execve(path, args, env) != -1)
 			exit(0);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
 	if (status == 0)
 		return (1);
-	return (0);
+	return (3);
 }

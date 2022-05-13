@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/12 10:06:32 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/13 14:58:09 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,27 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	mini.process = NULL;
-	mini.default_fd = dup(1);
+	mini.default_outfd = dup(1);
+	mini.default_infd = dup(0);
 	mini.env = ft_matrix_dup(envp);
 	incr_shlvl(&mini);
-	signal(SIGQUIT, get_signal);
-	signal(SIGKILL, get_signal);
 	loop(&mini);
 	return (0);
 }
 
 void	executing(t_minishell *mini, t_process *process)
 {
-	if (process->next == NULL)
+	if (process->infd != 0)
 	{
-		if (process->outfile == NULL)
-			interpreting(mini, process);
-		else
-		{
-			if (process->code == 1)
-				process->outfd = open(process->outfile, O_WRONLY | O_CREAT, 0777);
-			else
-				process->outfd = open(process->outfile, O_APPEND | O_WRONLY | O_CREAT, 0777);
-			if (process->outfd != -1)
-			{
-				dup2(process->outfd, 1);
-				interpreting(mini, process);
-				dup2(mini->default_fd, 1);
-				close(process->outfd);
-			}
-			else
-				perror("minshell >>>");
-		}
+		dup2(process->infd, 0);
+		close(process->infd);
 	}
+	if (process->outfd != 0)
+		dup2(process->outfd, 1);
+	interpreting(mini, process);
+	dup2(mini->default_outfd, 1);
+	if (process->outfd)
+		close(process->outfd);
 }
 
 int	loop(t_minishell *mini)
@@ -72,16 +61,33 @@ int	loop(t_minishell *mini)
 			add_history(line);
 			mini->str = line;
 			if (ft_parsing(mini) == -1)
-			{
 				ft_printf("minshell >>> parsing error");
-				return(0);
+			else
+			{
+				create_pipes(mini);
+				process = mini->process;
+				while (process != NULL)
+				{
+					executing(mini, process);
+					dup2(mini->default_outfd, 1);
+					dup2(mini->default_infd, 0);
+					process = process->next;
+				}
 			}
-			return (0);//---
-			process = mini->process;
-			create_pipes(mini);
-			executing(mini, process);
 		}
 	}
 	ft_exit(0);
 	return (1);
+}
+
+void	incr_shlvl(t_minishell *mini)
+{
+	char		*temp;
+	char		*ret;
+
+	temp = ft_getenv("SHLVL", mini->env);
+	ret = ft_itoa(ft_atoi(temp) + 1);
+	free(temp);
+	ft_change_env("SHLVL", ret, mini);
+	free(ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 17:36:41 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/12 18:11:24 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/13 14:40:28 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_process	*ft_lstnew2(char **splitcmdi)
 	if (!l)
 		return (0);
 	l->fullcmd = splitcmdi;
+	l->outfd = 0;
+	l->infd = 0;
+	l->outfile = NULL;
 	l->next = NULL;
 	return (l);
 }
