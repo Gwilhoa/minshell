@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/16 16:05:33 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 16:22:57 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	ft_check_string(char **str, char **env)
 			{
 				i++;
 			}
-			change = ft_substr(ret, f + 1, i);
+			change = ft_substr(ret, f + 1, i - f - 1);
 			change = ft_getenv(change, env);
 			if (change == NULL)
 			{
