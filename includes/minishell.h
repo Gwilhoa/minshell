@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/13 15:14:46 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/14 08:35:37 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void		create_pipes(t_minishell *shell);
 void		delsig(void);
 void		get_signal(int sig);
 void		useless_sig(int sig);
+void		ft_send_args(t_process *process);
 void		ft_creat_command(t_minishell *main);
 void		ft_send_file(t_process *process);
 void		ft_send_outfile(t_process *process);

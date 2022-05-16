@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/13 14:12:33 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 07:55:42 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	path_execute_process(char *cmd, char *args[], char *env[])
 		return (0);
 	path = ft_split(line, ':');
 	size = ft_matrixlen(path);
-	free(line);
 	while (++i < size)
 	{
 		line = ft_strjoin(path[i], "/");

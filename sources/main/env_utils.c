@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/13 14:57:19 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/14 08:30:53 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 char	*ft_getenv(char *key, char **env)
 {
-	int		i;
 	char	**parse;
 	char	*line;
 
-	i = 0;
 	line = ft_get_line_env(key, env);
 	if (line != 0)
 	{

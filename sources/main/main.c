@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/13 14:58:09 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 07:55:48 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	incr_shlvl(t_minishell *mini)
 
 	temp = ft_getenv("SHLVL", mini->env);
 	ret = ft_itoa(ft_atoi(temp) + 1);
-	free(temp);
 	ft_change_env("SHLVL", ret, mini);
 	free(ret);
 }

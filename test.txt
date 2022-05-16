@@ -1,0 +1,8 @@
+Makefile$
+README.md$
+headers.sh$
+includes$
+libft$
+minishell$
+sources$
+test.txt$
