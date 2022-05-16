@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/16 14:22:53 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 16:05:33 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ char	*ft_envcmp(char *str, char **env)
 
 void	ft_check_string(char **str, char **env)
 {
-	int	i;
-	int	f;
+	int		i;
+	int		f;
 	char	*start;
 	char	*change;
 	char	*end;
@@ -155,7 +155,18 @@ void	ft_check_string(char **str, char **env)
 				change[0] = 0;
 			}
 			end = ft_substr(ret, i, ft_strlen(*str));
+			if (end == NULL)
+			{
+				end = malloc(1);
+				end[0] = 0;
+			}
+			if (end == NULL && start == NULL)
+			{
+				*str = change;
+				return ;
+			}
 			ret = ft_strjoin(ft_strjoin(start, change), end);
+			i--;
 		}
 		i++;
 	}

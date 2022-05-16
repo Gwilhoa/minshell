@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:54:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/16 13:29:16 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 15:57:13 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_echo(t_process *process, t_minishell *shell)
 	char	**parse;
 	int		i;
 
-	(void) shell;
+	if (process->args == NULL)
+		return ;
 	parse = ft_split(process->args, ' ');
 	i = 0;
 	while (parse[i] != 0)
