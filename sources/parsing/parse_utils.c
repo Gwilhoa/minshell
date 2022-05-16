@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/12 09:36:52 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 14:22:53 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,46 +106,64 @@ char	*ft_envcmp(char *str, char **env)
 }
 
 // replace, from the $, and put the equivalence of the variable; 
-void	ft_dollar(char **split, char **env)
-{
-	int		i;
-	int		j;
-	int		tmp;
-	char	*var;
 
+void	ft_check_string(char **str, char **env)
+{
+	int	i;
+	int	f;
+	char	*start;
+	char	*change;
+	char	*end;
+	char	*ret;
+
+	ret = *str;
 	i = 0;
-	j = 0;
-	tmp = 0;
-	while (split[i])
+	while (ret[i] != 0)
 	{
-		while (split[i][j])
+		if (ret[i] == '~')
 		{
-			if ((split[i][j] != '$'))
-				j++;
-			else if (split[i][j] == '$' && split[i][j - 1] != 39)
+			if (i != 0)
+				start = ft_substr(ret, 0, i);
+			else
 			{
-				j++;
-				while (split[i][j + tmp] != ' ')
-					tmp++;
-				var = ft_substr(split[i], j, (tmp));
-				if (ft_envcmp(var, env) != 0)
-				{
-					var = ft_envcmp(var, env);
-					tmp = 0;
-					while (var[tmp])		// le probleme si l'allias est plus grand?
-					{						// il faut remaloc le split[i]
-						split[i][j] = var[tmp];//var[tmp];
-						tmp++;
-						j++;
- 					}
-				}
+				start = malloc(1);
+				start[0] = 0;
 			}
+			change = ft_getenv("HOME", env);
+			end = ft_substr(ret, i +1, ft_strlen(*str));
+			ret = ft_strjoin(ft_strjoin(start, change), end);
+		}
+		if (ret[i] == '$')
+		{
+			if (i != 0)
+				start = ft_substr(ret, 0, i);
+			else
+			{
+				start = malloc(1);
+				start[0] = 0;
+			}
+			f = i;
+			while (ret[i] != ' ' && ret[i] != 0)
+			{
+				i++;
+			}
+			change = ft_substr(ret, f + 1, i);
+			change = ft_getenv(change, env);
+			if (change == NULL)
+			{
+				change = malloc(1);
+				change[0] = 0;
+			}
+			end = ft_substr(ret, i, ft_strlen(*str));
+			ret = ft_strjoin(ft_strjoin(start, change), end);
 		}
 		i++;
-		j = 0;
 	}
-	return ;
+	*str = ret;
 }
+
+
+
 
 /* 
 	to do ;
