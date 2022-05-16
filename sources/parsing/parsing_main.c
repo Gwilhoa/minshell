@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/16 14:44:13 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 16:07:49 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_parsing(t_minishell *main)
 {
-	int	i;
-
-	i = 0;
 	if (main->str == NULL)
 		return (-1);
 	if (ft_check_end(main->str) == -1)
