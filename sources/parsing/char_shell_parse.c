@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/17 12:45:45 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/17 13:26:00 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 void	ft_check_string(char **str, char **env)
 {
 	int		i;
+	int		f;
 	char	*ret;
 
 	ret = *str;
 	i = 0;
+	f = 0;
 	while (ret[i] != 0)
 	{
-		if (ret[i] == '~')
+		if (ret[i] == '\'')
+			f = -f + 1;
+		else if (ret[i] == '~' && f == 0)
 			ret = ft_tilde_parse(i, ret, env);
-		if (ret[i] == '$')
+		else if (ret[i] == '$' && f == 0)
 			ret = ft_dollar_parse(i, ret, env);
 		i++;
 	}
