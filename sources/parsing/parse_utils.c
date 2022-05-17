@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/16 16:22:57 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/17 09:28:11 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_check_end(char *str)
 	while (str[i])
 		i++;
 	i--;
-	while (str[i] == ' ')	// white space
+	while (str[i] == ' ') // white space
 		i--;
 	if (str[i] == '|' || str[i] == '[' || str[i] == ']')
 		return (-1);
@@ -97,84 +97,13 @@ char	*ft_envcmp(char *str, char **env)
 		{
 			j++;
 			if (str[j] == 0)
-				return (env[i] + (ft_strlen(str) + 1));	// return env;
+				return (env[i] + (ft_strlen(str) + 1)); // return env;
 		}
 		j = 0;
 		i++;
 	}
 	return (0);
 }
-
-// replace, from the $, and put the equivalence of the variable; 
-
-void	ft_check_string(char **str, char **env)
-{
-	int		i;
-	int		f;
-	char	*start;
-	char	*change;
-	char	*end;
-	char	*ret;
-
-	ret = *str;
-	i = 0;
-	while (ret[i] != 0)
-	{
-		if (ret[i] == '~')
-		{
-			if (i != 0)
-				start = ft_substr(ret, 0, i);
-			else
-			{
-				start = malloc(1);
-				start[0] = 0;
-			}
-			change = ft_getenv("HOME", env);
-			end = ft_substr(ret, i +1, ft_strlen(*str));
-			ret = ft_strjoin(ft_strjoin(start, change), end);
-		}
-		if (ret[i] == '$')
-		{
-			if (i != 0)
-				start = ft_substr(ret, 0, i);
-			else
-			{
-				start = malloc(1);
-				start[0] = 0;
-			}
-			f = i;
-			while (ret[i] != ' ' && ret[i] != 0)
-			{
-				i++;
-			}
-			change = ft_substr(ret, f + 1, i - f - 1);
-			change = ft_getenv(change, env);
-			if (change == NULL)
-			{
-				change = malloc(1);
-				change[0] = 0;
-			}
-			end = ft_substr(ret, i, ft_strlen(*str));
-			if (end == NULL)
-			{
-				end = malloc(1);
-				end[0] = 0;
-			}
-			if (end == NULL && start == NULL)
-			{
-				*str = change;
-				return ;
-			}
-			ret = ft_strjoin(ft_strjoin(start, change), end);
-			i--;
-		}
-		i++;
-	}
-	*str = ret;
-}
-
-
-
 
 /* 
 	to do ;

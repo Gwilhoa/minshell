@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/16 16:23:09 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/17 12:49:29 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,15 @@ int	loop(t_minishell *mini)
 		if (line[0] != 0)
 		{
 			add_history(line);
+			ft_check_string(&line, mini->env);
 			mini->str = line;
 			if (ft_parsing(mini) == -1)
-				ft_printf("minshell >>> parsing error");
+				continue ;
 			else
 			{
 				create_pipes(mini);
 				process = mini->process;
-				while (process != NULL)
+				while (process != NULL && process->cmd != NULL)
 				{
 					executing(mini, process);
 					dup2(mini->default_outfd, 1);

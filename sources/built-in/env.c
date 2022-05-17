@@ -6,11 +6,12 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 09:01:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/12 10:07:35 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 16:49:42 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 void	ft_env(char **env)
 {
 	int		i;

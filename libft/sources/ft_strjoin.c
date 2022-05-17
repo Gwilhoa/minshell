@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 15:24:06 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/13 19:17:48 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/16 16:45:38 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,8 @@ char	*ft_strjoin_space(char *s1, char *s2)
 		i++;
 	}
 	str[i] = ' ';
-	i++;
-	while (s2[s])
-	{
+	while (s2[++s])
 		str[i + s] = s2[s];
-		s++;
-	}
 	str[i + s] = 0;
 	free(s1);
 	free(s2);

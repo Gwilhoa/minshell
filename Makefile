@@ -6,7 +6,7 @@
 #    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/05/16 16:37:57 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/05/17 09:29:29 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LST_GNL			:=
 LST_BUILT_IN	:= cd.c exit.c export.c pwd.c unset.c echo.c env.c
 LST_EXEC		:= execute_path.c
 LST_MAIN		:= env_utils.c main.c signal.c pipes.c
-LST_PARSING		:= create_cmd.c parse_utils.c parsing_main.c ft_lstadd_back2.c ft_lstnew2.c
+LST_PARSING		:= create_cmd.c parse_utils.c parsing_main.c ft_lstadd_back2.c ft_lstnew2.c char_shell_parse.c send_cmd.c
 LST_SRCS		:= $(addprefix built-in/,$(LST_BUILT_IN)) $(addprefix executing/,$(LST_EXEC)) $(addprefix main/,$(LST_MAIN)) $(addprefix parsing/,$(LST_PARSING)) $(addprefix get_next_line/,$(LST_GNL))
 
 LST_OBJS		:= $(LST_SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/16 13:29:38 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/17 09:35:13 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@
 # define SIGC -301
 # define SIGD -302
 
+int							g_error;
 typedef struct s_process	t_process;
-
-int	g_error;
 
 typedef struct s_process
 {
@@ -97,5 +96,8 @@ void		ft_send_cmd(t_process *process);
 t_process	*ft_lstnew2(char **splitcmdi);
 void		ft_lstadd_back2(t_process **alst, t_process *new);
 void		ft_check_string(char **str, char **env);
+char		*ft_tilde_parse(int i, char *ret, char **env);
+char		*ft_dollar_parse(int i, char *ret, char **env);
+char		*ft_getchange(int i, char *ret, char **env);
 
 #endif

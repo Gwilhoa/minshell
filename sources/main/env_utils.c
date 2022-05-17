@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/14 08:30:53 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 16:50:29 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,3 @@ void	ft_delenv(t_minishell *mini, char *key)
 	free(line);
 	mini->env = ret;
 }
-
