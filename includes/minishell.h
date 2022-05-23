@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/17 09:35:13 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/23 17:53:17 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ typedef struct s_process
 	int			process_nb;
 	t_process	*next;
 	char		*cmd;
-	char		*args;
+	char		*args; // mettre les args
+	char		*redirec;
+	char		**all_redirec;
 	char		*flags;
 	char		*outfile;
 	char		*infile;
@@ -93,11 +95,19 @@ void		ft_send_file(t_process *process);
 void		ft_send_outfile(t_process *process);
 void		ft_send_infile(t_process *process);
 void		ft_send_cmd(t_process *process);
-t_process	*ft_lstnew2(char **splitcmdi);
+t_process	*ft_lstnew2(char *clean_cmd);
 void		ft_lstadd_back2(t_process **alst, t_process *new);
 void		ft_check_string(char **str, char **env);
 char		*ft_tilde_parse(int i, char *ret, char **env);
 char		*ft_dollar_parse(int i, char *ret, char **env);
 char		*ft_getchange(int i, char *ret, char **env);
-
+void		ft_clear_cmd(t_process *process);
+int			ft_clean_till(char *str, int i);
+char		*ft_clean_str(char *str, int start, int end);
+char		**ft_split_multi(char	*str, char	*charset);
+void		ft_redirec(t_process *process);
+void		ft_cmd_args(t_process *process);
+void		ft_take_args(t_process *process);
+char		*ft_take_cmd(t_process *process);
+char		**split_files(char	*str);
 #endif
