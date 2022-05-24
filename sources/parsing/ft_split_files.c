@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_files.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:42:24 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/23 17:30:36 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/24 16:57:55 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	**split_files(char	*str)
 	char	**split;
 
 	nb = ft_count_chevron(str);
+	if (nb == 0)
+		return (0);
 	split = malloc((nb + 1) + sizeof(char *));
 	i = 0;
 	f = 0;

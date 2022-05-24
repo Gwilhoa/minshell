@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/23 20:13:56 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/24 16:48:54 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	ft_creat_command(t_minishell *main)
 	while (tmp)
 	{
 		ft_clear_cmd(tmp);
-		ft_redirec(tmp); // ici on devrait renvoyer les in/out files
+		ft_redirec(tmp);
 		ft_cmd_args(tmp);
 		dprintf(2, "clean cmd = '%s'\n", tmp->cmd);
-		dprintf(2, "redirec = '%s'\n", tmp->redirec);
+		dprintf(2, "outfile = '%s'\n", tmp->outfile);
+		dprintf(2, "infile = '%s'\n", tmp->infile);
 		dprintf(2, "args = '%s'\n", tmp->args);
 		tmp = tmp->next;
 	}

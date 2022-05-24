@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/17 12:49:29 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:48:05 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void) argc;
 	(void) argv;
+	g_error = 0;
 	mini.process = NULL;
 	mini.default_outfd = dup(1);
 	mini.default_infd = dup(0);
@@ -29,6 +30,11 @@ int	main(int argc, char *argv[], char *envp[])
 
 void	executing(t_minishell *mini, t_process *process)
 {
+	if (process->infd < 0 || process->outfd < 0)
+	{
+		g_error = 1;
+		return ;
+	}
 	if (process->infd != 0)
 	{
 		dup2(process->infd, 0);
@@ -52,7 +58,6 @@ int	loop(t_minishell *mini)
 		signal(SIGINT, get_signal);
 		signal(SIGQUIT, get_signal);
 		mini->process = NULL;
-		g_error = 0;
 		line = readline("minshell >> ");
 		if (!line)
 			break ;

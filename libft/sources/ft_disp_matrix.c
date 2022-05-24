@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 09:08:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/10 09:29:31 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 09:57:34 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_disp_matrix(char **matrix)
 	int	i;
 
 	i = 0;
-	if (matrix)
+	if (matrix == 0)
 		ft_printf("(null)");
 	while (matrix[i] != 0)
 	{

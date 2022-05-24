@@ -6,13 +6,13 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/16 07:55:42 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 13:13:02 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	interpreting(t_minishell *mini, t_process *process)
+void	interpreting(t_minishell *mini, t_process *process)
 {
 	int			ret;
 
@@ -35,10 +35,11 @@ int	interpreting(t_minishell *mini, t_process *process)
 		{
 			ft_printf("%s\1minshell >>> %s", RED, process->cmd);
 			ft_printf(" command not found\n%s\2", WHITE);
+			g_error = CMDNOTFOUND;
 		}
-		return (1);
+		else
+			g_error = ret;
 	}
-	return (0);
 }
 
 int	cmd_bash(t_process *process, char **env)
@@ -47,7 +48,7 @@ int	cmd_bash(t_process *process, char **env)
 	int		ret;
 
 	newargv[0] = process->cmd;
-	newargv[1] = process->flags;
+	newargv[1] = process->args;
 	newargv[2] = 0;
 	g_error = INEXECVE;
 	signal(SIGINT, useless_sig);

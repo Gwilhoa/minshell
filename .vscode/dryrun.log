@@ -1,0 +1,9 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/gchatain/Documents/42/minshell'
+make -s -C libft
+ 
+gcc -Werror -Wall -Wextra  -o minishell -lreadline -L/Users/gchatain/.brew/opt/readline/lib .objects/built-in/cd.o .objects/built-in/exit.o .objects/built-in/export.o .objects/built-in/pwd.o .objects/built-in/unset.o .objects/built-in/echo.o .objects/built-in/env.o .objects/executing/execute_path.o .objects/main/env_utils.o .objects/main/main.o .objects/main/signal.o .objects/main/pipes.o .objects/parsing/create_cmd.o .objects/parsing/parse_utils.o .objects/parsing/parsing_main.o .objects/parsing/ft_lstadd_back2.o .objects/parsing/ft_lstnew2.o .objects/parsing/char_shell_parse.o .objects/parsing/clear_cmd.o .objects/parsing/ft_redirec.o .objects/parsing/ft_split_files.o .objects/parsing/ft_cmd_args.o libft/libft.a -I/Users/gchatain/.brew/opt/readline/include/ -Iincludes/ -Ilibft/includes/
+printf "\033[2K\r\033[31m[NORM]\033[0m minishell\n"
+ 
+make: Leaving directory `/Users/gchatain/Documents/42/minshell'
+ 

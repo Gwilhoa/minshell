@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/17 13:26:00 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 12:53:53 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,11 @@ char	*ft_getchange(int i, char *ret, char **env)
 	while (ret[i] != ' ' && ret[i] != 0)
 		i++;
 	change = ft_substr(ret, f + 1, i - f - 1);
+	if (strcmp(change, "?") == 0)
+	{
+		change = ft_itoa(g_error);
+		return (change);
+	}
 	change = ft_getenv(change, env);
 	if (change == NULL)
 	{
