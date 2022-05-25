@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/24 16:56:38 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/25 10:51:10 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	ft_setup(t_process *process)
 			s = process->code;
 			while (process->all_redirec[i][s] == ' ')
 				s++;
+			if (process->all_redirec[i][s] == 0)
+			{
+				g_error = ERRO_SYNTAXE;
+				return ;
+			}
 			process->outfile = process->all_redirec[i] + s;
 			fd = open(process->outfile, O_CREAT, 0777);
 			if (fd < 0)
@@ -55,5 +60,3 @@ void	ft_redirec(t_process *process)
 		return ;
 	ft_setup(process);
 }
-
-

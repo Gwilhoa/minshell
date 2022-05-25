@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/24 16:48:05 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/25 10:09:51 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_minishell	mini;
+	char *pwd;
 
 	(void) argc;
 	(void) argv;
@@ -22,8 +23,19 @@ int	main(int argc, char *argv[], char *envp[])
 	mini.process = NULL;
 	mini.default_outfd = dup(1);
 	mini.default_infd = dup(0);
-	mini.env = ft_matrix_dup(envp);
-	incr_shlvl(&mini);
+	if (ft_matrixlen(envp) == 0)
+	{
+		mini.env = malloc(sizeof(char *));
+		mini.env[0] = 0;
+		pwd = getcwd(NULL, 0);
+		ft_addenv(&mini, "SHLVL=1");
+		ft_addenv(&mini, ft_strjoin("PWD=",pwd));
+	}
+	else
+	{
+		mini.env = ft_matrix_dup(envp);
+		incr_shlvl(&mini);
+	}
 	loop(&mini);
 	return (0);
 }

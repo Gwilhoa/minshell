@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/24 16:33:59 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/25 09:08:28 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# define FAILED 1
+# define SUCCESS 0
 # define INEXECVE -205
 # define CMDNOTFOUND 127
 # define ERRO_SYNTAXE 258

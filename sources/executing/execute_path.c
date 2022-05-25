@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/24 13:13:02 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/25 10:42:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,11 @@ void	interpreting(t_minishell *mini, t_process *process)
 	else
 	{
 		ret = cmd_bash(process, mini->env);
-		if (g_error == INEXECVE && ret == 0)
+		if (g_error == INEXECVE && ret == 3)
 		{
-			ft_printf("%s\1minshell >>> %s", RED, process->cmd);
-			ft_printf(" command not found\n%s\2", WHITE);
+			ft_printf("minshell >>> %s command not found\n", process->cmd);
 			g_error = CMDNOTFOUND;
 		}
-		else
-			g_error = ret;
 	}
 }
 
@@ -81,7 +78,7 @@ int	path_execute_process(char *cmd, char *args[], char *env[])
 	line = ft_strjoin(line, cmd);
 	if (access(line, X_OK) == 0)
 		return (path_execute(line, args, env));
-	return (0);
+	return (3);
 }
 
 int	path_execute(char *path, char *args[], char *env[])
@@ -93,12 +90,11 @@ int	path_execute(char *path, char *args[], char *env[])
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(path, args, env) != -1)
-			exit(0);
-		exit(1);
+		exit(execve(path, args, env));
 	}
 	waitpid(pid, &status, 0);
+	g_error = WEXITSTATUS(status);
 	if (status == 0)
 		return (1);
-	return (3);
+	return (0);
 }

@@ -8,11 +8,13 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Tue May 24 16:35:44 2022
+# Make data base, printed on Wed May 25 10:57:57 2022
 
 # Variables
 
  
+# environment
+VSCODE_GIT_ASKPASS_MAIN = /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -36,7 +38,7 @@ PINK = \033[35m
 # makefile
 SHELL = /bin/sh
 # makefile (from `Makefile', line 46)
-NORM := 6
+NORM := 5
 # environment
 VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"25fe6a3290ec415596628d4afc87a88c.fr","_translationsConfigFile":"/Users/gchatain/Library/Application Support/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/tcf.json","_cacheRoot":"/Users/gchatain/Library/Application Support/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr","_resolvedLanguagePackCoreLocation":"/Users/gchatain/Library/Application Support/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/57fd6d0195bb9b9d1b49f6da5db789060795de47","_corruptedFile":"/Users/gchatain/Library/Application Support/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/corrupted.info","_languagePackSupport":true}
 # environment
@@ -56,13 +58,13 @@ LST_SRCS := built-in/cd.c built-in/exit.c built-in/export.c built-in/pwd.c built
 # environment
 P9K_SSH = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000b7c0002sv0/T/vscode-ipc-b54c7b7a-1485-4494-bd21-274ab757e4c5.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000b7c0002sv0/T/vscode-ipc-73f4b6be-9857-46cc-9d43-339fc59d308f.sock
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.ZpuHZKRSLW/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.j4SzvbA5cb/Render
 # environment
-PATH = /Users/gchatain/.brew/bin:/Users/gchatain/.brew/bin:/Users/gchatain/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin
+PATH = /Users/gchatain/.brew/bin:/Users/gchatain/.brew/bin:/Users/gchatain/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin:/Users/gchatain/.brew/bin
 # makefile (from `Makefile', line 22)
 BOLD = \033[1m
 # environment
@@ -78,13 +80,13 @@ ELECTRON_RUN_AS_NODE = 1
 # makefile (from `Makefile', line 35)
 LST_PARSING := create_cmd.c parse_utils.c parsing_main.c ft_lstadd_back2.c ft_lstnew2.c char_shell_parse.c clear_cmd.c ft_redirec.c ft_split_files.c ft_cmd_args.c
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.nxGHE5JCqI/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.fE3eWPMn63/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
 HOMEBREW_TEMP = /tmp/gchatain/Homebrew/Temp
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.j3jAetpdJq/org.xquartz:0
+DISPLAY = /private/tmp/com.apple.launchd.TYdsmNLukK/org.xquartz:0
 # makefile (from `Makefile', line 51)
 NORM_RET = "$(ERASE)$(RED)[NORM]$(END) $(NAME)\n"
 # environment
@@ -118,7 +120,11 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
+MAKELEVEL := 0
+# environment
 XPC_FLAGS = 0x0
+# environment
+COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -126,7 +132,7 @@ MAKECMDGOALS := all
 # environment
 HOMEBREW_CACHE = /tmp/gchatain/Homebrew/Caches
 # environment
-SHLVL = 1
+SHLVL = 2
 # makefile (from `Makefile', line 21)
 WHITE = \033[37m
 # makefile (from `Makefile', line 41)
@@ -153,6 +159,10 @@ LESS = -R
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
+# environment
+VSCODE_GIT_ASKPASS_EXTRA_ARGS = --ms-enable-electron-run-as-node
+# environment
+TERM_PROGRAM = vscode
 # default
 .VARIABLES := 
 # environment
@@ -163,6 +173,8 @@ TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n000b7c0002sv0/T/
 VSCODE_IPC_HOOK = /Users/gchatain/Library/Application Support/Code/1.67.0-main.sock
 # makefile (from `Makefile', line 23)
 UNDER = \033[4m
+# environment
+VSCODE_GIT_ASKPASS_NODE = /Applications/Visual Studio Code.app/Contents/MacOS/Electron
 # makefile (from `Makefile', line 15)
 RED = \033[31m
 # makefile
@@ -172,7 +184,9 @@ MFLAGS = -sRrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000001.Electron
+TERM_PROGRAM_VERSION = 1.67.0
+# environment
+XPC_SERVICE_NAME = com.microsoft.VSCode.3932
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # makefile (from `Makefile', line 17)
@@ -185,6 +199,8 @@ CYAN = \033[36m
 __CF_USER_TEXT_ENCODING = 0x16760:0x0:0x0
 # environment
 COMMAND_MODE = unix2003
+# environment
+GIT_ASKPASS = /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 # default
 MAKEFILES := 
 # automatic
@@ -198,9 +214,12 @@ PAGER = less
 # environment
 LC_ALL = C
 # makefile (from `Makefile', line 38)
+ 
 LST_OBJS := built-in/cd.o built-in/exit.o built-in/export.o built-in/pwd.o built-in/unset.o built-in/echo.o built-in/env.o executing/execute_path.o main/env_utils.o main/main.o main/signal.o main/pipes.o parsing/create_cmd.o parsing/parse_utils.o parsing/parsing_main.o parsing/ft_lstadd_back2.o parsing/ft_lstnew2.o parsing/char_shell_parse.o parsing/clear_cmd.o parsing/ft_redirec.o parsing/ft_split_files.o parsing/ft_cmd_args.o
 # environment
 SECURITYSESSIONID = 186a8
+# environment
+P9K_TTY = old
 # automatic
 ^F = $(notdir $^)
 # default
@@ -210,14 +229,17 @@ FLAGS := -Werror -Wall -Wextra
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
-MAKELEVEL := 0
+VSCODE_GIT_IPC_HANDLE = /var/folders/zz/zyxvpxvq6csfxvn_n000b7c0002sv0/T/vscode-git-51dc00d9ae.sock
 # environment
 LANG = C
- 
 # environment
-VSCODE_PID = 82343
+TERM = xterm-256color
+# environment
+_P9K_TTY = /dev/ttys002
+# environment
+VSCODE_PID = 96330
 # variable set hash-table stats:
-# Load=101/1024=10%, Rehash=0, Collisions=9/146=6%
+# Load=112/1024=11%, Rehash=0, Collisions=11/157=7%
 
 # Pattern-specific Variable Values
 
@@ -225,9 +247,9 @@ VSCODE_PID = 82343
 
 # Directories
 
-# . (device 16777229, inode 1847617): 18 files, no impossibilities.
+# . (device 16777229, inode 1847617): 12 files, no impossibilities.
 
-# 18 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -467,6 +489,7 @@ clean:
 .objects/built-in/pwd.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 
 compilation:
@@ -510,7 +533,6 @@ compilation:
 #  Modification time never checked.
 #  File has not been updated.
 
- 
 # files hash-table stats:
 # Load=37/1024=4%, Rehash=0, Collisions=3/87=3%
 # VPATH Search Paths
@@ -524,6 +546,6 @@ compilation:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue May 24 16:35:44 2022
+# Finished Make data base on Wed May 25 10:57:58 2022
 
  

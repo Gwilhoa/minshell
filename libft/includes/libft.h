@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:01:49 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/13 19:16:46 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/25 10:57:06 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		ft_putunsigned(unsigned int nb);
 int		ft_puthexnbr(unsigned int nbr, const char *base);
 int		ft_putpointer(unsigned long long nbr);
 int		ft_strcmp(char *str, char *str2);
+int		ft_isspace(unsigned char c);
 char	*ft_itoa(int n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(char const *src);
