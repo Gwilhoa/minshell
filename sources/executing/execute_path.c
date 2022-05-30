@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 15:35:40 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 17:32:03 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_changedup(t_minishell *mini, t_process *process)
 		dup2(process->infd, 0);
 		close(process->infd);
 	}
+	else
+		dup2(mini->default_infd, 0);
 	if (process->outfd != 0)
 	{
 		dup2(process->outfd, 1);
@@ -85,6 +87,8 @@ void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 	}
 	if (access(process->cmd, F_OK) == 0)
 	{
+		tmp = ft_strjoin(getcwd(NULL, 0), "/");
+		tmp = ft_strjoin(tmp, process->cmd);
 		args[0] = process->cmd;
 		args[1] = process->args;
 		args[2] = 0;

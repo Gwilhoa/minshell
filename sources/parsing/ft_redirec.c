@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/30 16:16:16 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/30 17:50:26 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_setup(t_process *process)
 	i = 0;
 	while (process->all_redirec[i] != 0)
 	{
+		ft_printf(" redirect en cours : '%s'\n", process->all_redirec[i]);
 		if (process->all_redirec[i][0] == '>')
 		{
 			if (process->all_redirec[i][1] != '>')
@@ -63,6 +64,7 @@ void	ft_setup(t_process *process)
 
 void	ft_redirec(t_process *process)
 {
+	ft_printf("%s\n",process->redirec);
 	process->all_redirec = split_files(process->redirec);
 	if (process->all_redirec == 0)
 		return ;

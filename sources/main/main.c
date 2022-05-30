@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 15:37:30 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 17:26:33 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_minishell	mini;
-	char *pwd;
+	char	*pwd;
 
 	(void) argc;
 	(void) argv;
@@ -64,7 +64,6 @@ int	loop(t_minishell *mini)
 			else
 			{
 				create_pipes(mini);
-				ft_printf("test\n");
 				process = mini->process;
 				while (process != NULL && process->cmd != NULL)
 				{
