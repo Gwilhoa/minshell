@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/30 15:53:13 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 16:28:28 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void ft_clean_args(t_process *process)
 {
   int i;
   char *tmp;
+
+  if (process->args == NULL)
+	return;
   i = ft_strlen(process->args) -1;
   while (process->args[i] == ' ')
 	i--;
   tmp = ft_substr(process->args, 0, i + 1);
   process->args = tmp;
-  free(tmp);     // ca marche mais pas sur de ce free;
 }
 
 void	ft_cmd_args(t_process *process)
