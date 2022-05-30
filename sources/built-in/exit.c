@@ -6,14 +6,16 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/04 15:33:00 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 11:08:19 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(int args)
+void	ft_exit(t_minishell *mini, t_process *process)
 {
-	ft_printf("exit\n");
-	exit(args);
+	(void) mini;
+	if (process->args == NULL)
+		exit(0);
+	exit(127);
 }

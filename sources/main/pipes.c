@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:22 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/25 09:05:40 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 15:34:09 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	create_pipes(t_minishell *shell)
 {
 	int			fd[2];
-	int			i;
 	t_process	*process;
 
-	i = 0;
 	process = shell->process;
 	while (process->next != NULL)
 	{
@@ -26,16 +24,24 @@ void	create_pipes(t_minishell *shell)
 			perror("no");
 		process->outfd = fd[1];
 		process->next->infd = fd[0];
-		i++;
 		process = process->next;
 	}
 	if (process->outfile != NULL)
 	{
+		if (process->outfd != 0)
+			close(process->outfd);
 		if (process->code == 1)
 			process->outfd = open(process->outfile, O_WRONLY | O_TRUNC);
 		else
 			process->outfd = open(process->outfile, O_WRONLY | O_APPEND);
 	}
-	if (process->infile != NULL)
-		process->infd = open(process->infile, O_RDONLY);
+	if (process->next != NULL)
+	{
+		if (process->next->infile != NULL)
+		{
+			if (process->next->infd != 0)
+				close(process->next->infd);
+			process->next->infd = open(process->next->infile, O_RDONLY);
+		}
+	}
 }

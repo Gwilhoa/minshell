@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 09:01:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/16 16:49:42 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 10:56:07 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	ft_env(char **env)
 		ft_free_matrix(parse);
 		free(parse);
 	}
+	exit(0);
 	return ;
 }

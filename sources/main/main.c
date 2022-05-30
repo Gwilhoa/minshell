@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/25 10:09:51 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 15:37:30 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,11 @@ int	main(int argc, char *argv[], char *envp[])
 	return (0);
 }
 
-void	executing(t_minishell *mini, t_process *process)
-{
-	if (process->infd < 0 || process->outfd < 0)
-	{
-		g_error = 1;
-		return ;
-	}
-	if (process->infd != 0)
-	{
-		dup2(process->infd, 0);
-		close(process->infd);
-	}
-	if (process->outfd != 0)
-		dup2(process->outfd, 1);
-	interpreting(mini, process);
-	dup2(mini->default_outfd, 1);
-	if (process->outfd)
-		close(process->outfd);
-}
-
 int	loop(t_minishell *mini)
 {
 	char		*line;
 	t_process	*process;
+	int pid;
 
 	while (1)
 	{
@@ -83,19 +64,34 @@ int	loop(t_minishell *mini)
 			else
 			{
 				create_pipes(mini);
+				ft_printf("test\n");
 				process = mini->process;
 				while (process != NULL && process->cmd != NULL)
 				{
-					executing(mini, process);
+					pid = fork();
+					if (pid < 0)
+						perror("pid");
+					else if (pid == 0)
+					{
+						ft_cleanfork(process->outfd, process->infd, mini);
+						ft_changedup(mini, process);
+						if (process->outfd != 0)
+							close(process->outfd);
+						exit(0);
+					}
+					close(process->outfd);
+					close(process->infd);
 					dup2(mini->default_outfd, 1);
 					dup2(mini->default_infd, 0);
+					g_error = 0;
 					process = process->next;
 				}
+				while (wait(NULL) > 0)
+					;
 			}
 		}
 	}
-	ft_exit(0);
-	return (1);
+	exit(0);
 }
 
 void	incr_shlvl(t_minishell *mini)
@@ -107,4 +103,19 @@ void	incr_shlvl(t_minishell *mini)
 	ret = ft_itoa(ft_atoi(temp) + 1);
 	ft_change_env("SHLVL", ret, mini);
 	free(ret);
+}
+
+void	ft_cleanfork(int outfd, int infd, t_minishell *mini)
+{
+	t_process	*process;
+
+	process = mini->process;
+	while (process != NULL)
+	{
+		if (process->outfd != outfd)
+			close(process->outfd);
+		if (process->infd != infd)
+			close(process->infd);
+		process = process->next;
+	}
 }

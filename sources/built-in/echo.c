@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:54:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/16 15:57:13 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 10:55:45 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_echo(t_process *process, t_minishell *shell)
 	int		i;
 
 	if (process->args == NULL)
-		return ;
+		exit(0);
 	parse = ft_split(process->args, ' ');
 	i = 0;
 	while (parse[i] != 0)
@@ -31,4 +31,5 @@ void	ft_echo(t_process *process, t_minishell *shell)
 		i++;
 	}
 	ft_printf("\n");
+	exit(0);
 }

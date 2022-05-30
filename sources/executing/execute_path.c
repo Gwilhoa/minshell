@@ -6,95 +6,93 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/25 10:42:15 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 15:35:40 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	interpreting(t_minishell *mini, t_process *process)
+void	ft_changedup(t_minishell *mini, t_process *process)
 {
-	int			ret;
+	if (process->infd != 0)
+	{
+		dup2(process->infd, 0);
+		close(process->infd);
+	}
+	if (process->outfd != 0)
+	{
+		dup2(process->outfd, 1);
+	}
+	searching_cmd(mini, process);
+}
 
-	if (ft_strcmp(process->cmd, "unset") == 0)
-		ft_unset(process, mini);
-	else if (ft_strcmp(process->cmd, "export") == 0)
-		ft_export(process, mini);
-	else if (ft_strcmp(process->cmd, "cd") == 0)
+void	searching_cmd(t_minishell *mini, t_process *process)
+{
+	if (ft_strcmp(process->cmd, "cd") == 0)
 		ft_cd(process, mini);
-	else if (ft_strcmp(process->cmd, "pwd") == 0)
-		ft_pwd(mini);
 	else if (ft_strcmp(process->cmd, "env") == 0)
 		ft_env(mini->env);
 	else if (ft_strcmp(process->cmd, "echo") == 0)
 		ft_echo(process, mini);
+	else if (ft_strcmp(process->cmd, "export") == 0)
+		ft_export(process, mini);
+	else if (ft_strcmp(process->cmd, "pwd") == 0)
+		ft_pwd();
+	else if (ft_strcmp(process->cmd, "unset") == 0)
+		ft_unset(process, mini);
 	else
-	{
-		ret = cmd_bash(process, mini->env);
-		if (g_error == INEXECVE && ret == 3)
-		{
-			ft_printf("minshell >>> %s command not found\n", process->cmd);
-			g_error = CMDNOTFOUND;
-		}
-	}
+		ft_bash(mini, process);
 }
 
-int	cmd_bash(t_process *process, char **env)
+void	ft_bash(t_minishell *mini, t_process *process)
 {
-	char	*newargv[3];
-	int		ret;
+	char	*path;
 
-	newargv[0] = process->cmd;
-	newargv[1] = process->args;
-	newargv[2] = 0;
-	g_error = INEXECVE;
-	signal(SIGINT, useless_sig);
-	signal(SIGQUIT, useless_sig);
-	ret = path_execute_process(process->cmd, newargv, env);
-	return (ret);
+	path = ft_getenv("PATH", mini->env);
+	if (path)
+		ft_searching_path(mini, process, path);
+	dup2(mini->default_outfd, 1);
+	ft_printf("%s: command not found\n", process->cmd);
+	exit(1);
 }
 
-int	path_execute_process(char *cmd, char *args[], char *env[])
+void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 {
-	char	**path;
-	char	*line;
-	int		size;
 	int		i;
+	char	**splited_path;
+	char	*tmp;
+	char	*args[3];
 
-	i = -1;
-	line = ft_getenv("PATH", env);
-	if (line == 0)
-		return (0);
-	path = ft_split(line, ':');
-	size = ft_matrixlen(path);
-	while (++i < size)
+	i = 0;
+	splited_path = ft_split(path, ':');
+	while (splited_path[i] != 0)
 	{
-		line = ft_strjoin(path[i], "/");
-		line = ft_strjoin(line, cmd);
-		if (access(line, X_OK) == 0)
-			return (path_execute(line, args, env));
+		tmp = ft_strjoin(splited_path[i], "/");
+		tmp = ft_strjoin(tmp, process->cmd);
+		if (access(tmp, F_OK) == 0)
+		{
+			args[0] = process->cmd;
+			args[1] = process->args;
+			args[2] = 0;
+			if (execve(tmp, args, mini->env) < 0)
+			{
+				perror("execve");
+				exit(127);
+			}
+			return ;
+		}
+		i++;
 	}
-	line = ft_strjoin(ft_getenv("PWD", env), "/");
-	line = ft_strjoin(line, cmd);
-	if (access(line, X_OK) == 0)
-		return (path_execute(line, args, env));
-	return (3);
-}
-
-int	path_execute(char *path, char *args[], char *env[])
-{
-	int		status;
-	int		pid;
-
-	status = -1;
-	pid = fork();
-	if (pid == 0)
+	if (access(process->cmd, F_OK) == 0)
 	{
-		exit(execve(path, args, env));
+		args[0] = process->cmd;
+		args[1] = process->args;
+		args[2] = 0;
+		if (execve(tmp, args, mini->env) < 0)
+		{
+			perror("execve");
+			exit(127);
+		}
+		return ;
 	}
-	waitpid(pid, &status, 0);
-	g_error = WEXITSTATUS(status);
-	if (status == 0)
-		return (1);
-	return (0);
 }

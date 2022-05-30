@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/25 09:08:28 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 15:28:19 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ typedef struct s_minishell
 	int			nbcmd;
 }	t_minishell;
 
-int			ft_export(t_process *process, t_minishell *mini);
-int			cmd_bash(t_process *process, char **env);
-int			path_execute_process(char *cmd, char *args[], char *env[]);
-int			path_execute(char *path, char *args[], char *env[]);
 int			main(int argc, char *argv[], char *envp[]);
 int			loop(t_minishell *mini);
 int			ft_clean_till(char *str, int i);
@@ -84,13 +80,18 @@ char		*ft_clean_str(char *str, int start, int end);
 char		*ft_take_cmd(t_process *process);
 char		**split_files(char	*str);
 char		*ft_envcmp(char *str, char **env);
+void		ft_closedup(t_minishell *shell, t_process	*process, int is_fork);
 void		ft_cd(t_process *process, t_minishell *mini);
 void		ft_echo(t_process *process, t_minishell *shell);
 void		ft_env(char **env);
-void		ft_exit(int args);
-void		ft_pwd(t_minishell *shell);
+void		ft_exit(t_minishell *mini, t_process *process);
+void		ft_export(t_process *process, t_minishell *mini);
+void		ft_pwd(void);
 void		ft_unset(t_process *process, t_minishell *mini);
-void		interpreting(t_minishell *mini, t_process *process);
+void		ft_changedup(t_minishell *mini, t_process *process);
+void		searching_cmd(t_minishell *mini, t_process *process);
+void		ft_bash(t_minishell *mini, t_process *process);
+void		ft_searching_path(t_minishell *mini, t_process *process, char *path);
 void		ft_addenv(t_minishell *mini, char *str);
 void		ft_change_env(char *key, char *newchar, t_minishell *mini);
 void		ft_delenv(t_minishell *mini, char *key);
@@ -108,11 +109,7 @@ void		ft_take_args(t_process *process, char	*tmp);
 void		ft_lstadd_back2(t_process **alst, t_process *new);
 void		ft_setup(t_process *process);
 void		ft_redirec(t_process *process);
-void		ft_send_file(t_process *process);
-void		ft_send_outfile(t_process *process);
-void		ft_send_infile(t_process *process);
-void		ft_send_cmd(t_process *process);
-void		ft_send_args(t_process *process);
+void		ft_cleanfork(int outfd, int infd, t_minishell *mini);
 t_process	*ft_lstnew2(char *clean_cmd);
 
 #endif
