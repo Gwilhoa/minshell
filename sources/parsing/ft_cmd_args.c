@@ -6,11 +6,23 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/24 16:26:59 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 15:53:13 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void ft_clean_args(t_process *process)
+{
+  int i;
+  char *tmp;
+  i = ft_strlen(process->args) -1;
+  while (process->args[i] == ' ')
+	i--;
+  tmp = ft_substr(process->args, 0, i + 1);
+  process->args = tmp;
+  free(tmp);     // ca marche mais pas sur de ce free;
+}
 
 void	ft_cmd_args(t_process *process)
 {
@@ -23,6 +35,7 @@ void	ft_cmd_args(t_process *process)
 	process->cmd = process->cmd + i;
 	tmp = ft_strdup(ft_take_cmd(process));
 	ft_take_args(process, tmp);
+	ft_clean_args(process);
 	process->cmd = tmp;
 }
 

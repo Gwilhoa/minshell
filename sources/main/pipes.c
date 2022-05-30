@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:22 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 15:34:09 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 15:45:24 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	create_pipes(t_minishell *shell)
 	t_process	*process;
 
 	process = shell->process;
+	if (process->infile != NULL)
+		process->infd = open(process->infile, O_RDONLY);
 	while (process->next != NULL)
 	{
 		if (pipe(fd) < 0)
