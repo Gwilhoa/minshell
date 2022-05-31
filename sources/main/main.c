@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 17:26:33 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 13:57:09 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_minishell	mini;
-	char	*pwd;
+	char		*pwd;
 
 	(void) argc;
 	(void) argv;
+	signal(SIGINT, get_signal);
+	signal(SIGQUIT, get_signal);
 	g_error = 0;
-	mini.process = NULL;
 	mini.default_outfd = dup(1);
 	mini.default_infd = dup(0);
 	if (ft_matrixlen(envp) == 0)
@@ -29,7 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 		mini.env[0] = 0;
 		pwd = getcwd(NULL, 0);
 		ft_addenv(&mini, "SHLVL=1");
-		ft_addenv(&mini, ft_strjoin("PWD=",pwd));
+		ft_addenv(&mini, ft_strjoin("PWD=", pwd));
 	}
 	else
 	{
@@ -44,53 +45,29 @@ int	loop(t_minishell *mini)
 {
 	char		*line;
 	t_process	*process;
-	int pid;
+	int			status;
 
 	while (1)
 	{
-		signal(SIGINT, get_signal);
-		signal(SIGQUIT, get_signal);
 		mini->process = NULL;
 		line = readline("minshell >> ");
-		if (!line)
-			break ;
+		if (line == NULL)
+			exit(0);
 		if (line[0] != 0)
 		{
 			add_history(line);
 			ft_check_string(&line, mini->env);
 			mini->str = line;
-			if (ft_parsing(mini) == -1)
-				continue ;
-			else
-			{
-				create_pipes(mini);
-				process = mini->process;
-				while (process != NULL && process->cmd != NULL)
-				{
-					pid = fork();
-					if (pid < 0)
-						perror("pid");
-					else if (pid == 0)
-					{
-						ft_cleanfork(process->outfd, process->infd, mini);
-						ft_changedup(mini, process);
-						if (process->outfd != 0)
-							close(process->outfd);
-						exit(0);
-					}
-					close(process->outfd);
-					close(process->infd);
-					dup2(mini->default_outfd, 1);
-					dup2(mini->default_infd, 0);
-					g_error = 0;
-					process = process->next;
-				}
-				while (wait(NULL) > 0)
-					;
-			}
+			ft_parsing(mini);
+			create_pipes(mini);
+			process = mini->process;
+			g_error = INEXECVE;
+			while (process != NULL && process->cmd != NULL)
+				process = process_executing(mini, process);
+			while (wait(&status) > 0)
+				g_error = status % 255;
 		}
 	}
-	exit(0);
 }
 
 void	incr_shlvl(t_minishell *mini)

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:22 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 15:45:24 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 11:29:37 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,26 @@ void	create_pipes(t_minishell *shell)
 		process->outfd = fd[1];
 		process->next->infd = fd[0];
 		process = process->next;
+		if (process->outfile != NULL)
+			change_outfd(process);
+		if (process->next != NULL)
+			change_infd(process);
 	}
-	if (process->outfile != NULL)
-	{
-		if (process->outfd != 0)
-			close(process->outfd);
-		if (process->code == 1)
-			process->outfd = open(process->outfile, O_WRONLY | O_TRUNC);
-		else
-			process->outfd = open(process->outfile, O_WRONLY | O_APPEND);
-	}
-	if (process->next != NULL)
-	{
-		if (process->next->infile != NULL)
-		{
-			if (process->next->infd != 0)
-				close(process->next->infd);
-			process->next->infd = open(process->next->infile, O_RDONLY);
-		}
-	}
+}
+
+void	change_outfd(t_process *process)
+{
+	if (process->outfd != 0)
+		close(process->outfd);
+	if (process->code == 1)
+		process->outfd = open(process->outfile, O_WRONLY | O_TRUNC);
+	else
+		process->outfd = open(process->outfile, O_WRONLY | O_APPEND);
+}
+
+void	change_infd(t_process *process)
+{
+	if (process->next->infd != 0)
+		close(process->next->infd);
+	process->next->infd = open(process->next->infile, O_RDONLY);
 }

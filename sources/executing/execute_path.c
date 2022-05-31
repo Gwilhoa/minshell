@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 17:32:03 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 10:56:00 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_bash(t_minishell *mini, t_process *process)
 		ft_searching_path(mini, process, path);
 	dup2(mini->default_outfd, 1);
 	ft_printf("%s: command not found\n", process->cmd);
-	exit(1);
+	exit(CMDNOTFOUND);
 }
 
 void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
@@ -63,7 +63,6 @@ void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 	int		i;
 	char	**splited_path;
 	char	*tmp;
-	char	*args[3];
 
 	i = 0;
 	splited_path = ft_split(path, ':');
@@ -72,31 +71,28 @@ void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 		tmp = ft_strjoin(splited_path[i], "/");
 		tmp = ft_strjoin(tmp, process->cmd);
 		if (access(tmp, F_OK) == 0)
-		{
-			args[0] = process->cmd;
-			args[1] = process->args;
-			args[2] = 0;
-			if (execve(tmp, args, mini->env) < 0)
-			{
-				perror("execve");
-				exit(127);
-			}
-			return ;
-		}
+			ft_execute(splited_path[i], process, mini);
 		i++;
 	}
 	if (access(process->cmd, F_OK) == 0)
+		ft_execute(getcwd(NULL, 0), process, mini);
+}
+
+void	ft_execute(char *path, t_process *process, t_minishell *mini)
+{
+	char	*temp;
+	char	*path_cmd;
+	char	*args[3];
+
+	temp = ft_strjoin(path, "/");
+	path_cmd = ft_strjoin(temp, process->cmd);
+	args[0] = process->cmd;
+	args[1] = process->args;
+	args[2] = 0;
+	if (execve(path_cmd, args, mini->env) < 0)
 	{
-		tmp = ft_strjoin(getcwd(NULL, 0), "/");
-		tmp = ft_strjoin(tmp, process->cmd);
-		args[0] = process->cmd;
-		args[1] = process->args;
-		args[2] = 0;
-		if (execve(tmp, args, mini->env) < 0)
-		{
-			perror("execve");
-			exit(127);
-		}
-		return ;
+		perror("execve");
+		exit(127);
 	}
+	return ;
 }

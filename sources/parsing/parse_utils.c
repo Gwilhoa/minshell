@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/17 09:28:11 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 14:17:55 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	ft_check_end(char *str)
 	while (str[i])
 		i++;
 	i--;
-	while (str[i] == ' ') // white space
+	while (str[i] == ' ')
 		i--;
 	if (str[i] == '|' || str[i] == '[' || str[i] == ']')
 		return (-1);
 	return (0);
 }
 
-int	ft_quotes(char *str) // a revoir;
+int	ft_quotes(char *str)
 {
 	int	i;
 	int	cmpt;
@@ -97,7 +97,7 @@ char	*ft_envcmp(char *str, char **env)
 		{
 			j++;
 			if (str[j] == 0)
-				return (env[i] + (ft_strlen(str) + 1)); // return env;
+				return (env[i] + (ft_strlen(str) + 1));
 		}
 		j = 0;
 		i++;

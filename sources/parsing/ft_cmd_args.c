@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/30 16:28:28 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/31 11:14:56 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_clean_args(t_process *process)
+void	ft_clean_args(t_process *process)
 {
-  int i;
-  char *tmp;
+	int		i;
+	char	*tmp;
 
-  if (process->args == NULL)
-	return;
-  i = ft_strlen(process->args) -1;
-  while (process->args[i] == ' ')
-	i--;
-  tmp = ft_substr(process->args, 0, i + 1);
-  process->args = tmp;
+	if (process->args == NULL)
+		return ;
+	i = ft_strlen(process->args) - 1;
+	while (process->args[i] == ' ')
+		i--;
+	tmp = ft_substr(process->args, 0, i + 1);
+	process->args = tmp;
 }
 
 void	ft_cmd_args(t_process *process)

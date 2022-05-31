@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 15:53:36 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 14:20:56 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ char		*ft_clean_str(char *str, int start, int end);
 char		*ft_take_cmd(t_process *process);
 char		**split_files(char	*str);
 char		*ft_envcmp(char *str, char **env);
-void		ft_closedup(t_minishell *shell, t_process	*process, int is_fork);
 void		ft_cd(t_process *process, t_minishell *mini);
 void		ft_echo(t_process *process, t_minishell *shell);
 void		ft_env(char **env);
@@ -91,26 +90,33 @@ void		ft_unset(t_process *process, t_minishell *mini);
 void		ft_changedup(t_minishell *mini, t_process *process);
 void		searching_cmd(t_minishell *mini, t_process *process);
 void		ft_bash(t_minishell *mini, t_process *process);
-void		ft_searching_path(t_minishell *mini, t_process *process, char *path);
+void		ft_searching_path(t_minishell *mini, t_process *process, \
+				char *path);
+void		ft_execute(char *path, t_process *process, t_minishell *mini);
+void		ft_forks(t_minishell *mini, t_process *process);
+void		create_pipes(t_minishell *shell);
+void		change_outfd(t_process *process);
+void		change_infd(t_process *process);
+void		delsig(void);
+void		get_signal(int sig);
 void		ft_addenv(t_minishell *mini, char *str);
 void		ft_change_env(char *key, char *newchar, t_minishell *mini);
 void		ft_delenv(t_minishell *mini, char *key);
-void		executing(t_minishell *mini, t_process *process);
 void		incr_shlvl(t_minishell *mini);
-void		create_pipes(t_minishell *shell);
-void		delsig(void);
-void		get_signal(int sig);
-void		useless_sig(int sig);
+void		ft_cleanfork(int outfd, int infd, t_minishell *mini);
 void		ft_check_string(char **str, char **env);
 void		ft_clear_cmd(t_process *process);
 void		ft_creat_command(t_minishell *main);
+void		ft_clean_args(t_process *process);
 void		ft_cmd_args(t_process *process);
 void		ft_take_args(t_process *process, char	*tmp);
 void		ft_lstadd_back2(t_process **alst, t_process *new);
 void		ft_setup(t_process *process);
 void		ft_redirec(t_process *process);
-void		ft_cleanfork(int outfd, int infd, t_minishell *mini);
+void		ft_infile(t_process *process, int i);
+void		ft_redirec(t_process *process);
+void		ft_outfile(t_process *process, int i);
 t_process	*ft_lstnew2(char *clean_cmd);
-void			ft_clean_args(t_process *process);
+t_process	*process_executing(t_minishell *mini, t_process *process);
 
 #endif

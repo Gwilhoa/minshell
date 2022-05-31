@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:42:24 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/30 18:06:43 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 14:19:26 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,24 @@ char	**split_files(char	*str)
 	int		i;
 	int		j;
 	int		f;
-	int		nb;
 	char	**split;
 
-	ft_printf("'%s'\n", str);
-	nb = ft_count_chevron(str);
-	if (nb == 0)
+	i = ft_count_chevron(str);
+	if (i == 0)
 		return (0);
-	split = malloc((nb + 1) + sizeof(char *));
-	i = 0;
+	split = malloc((i + 1) + sizeof(char *));
+	i = -1;
 	f = 0;
-	j = 2;
-	while (str[j] != 0)
+	j = 1;
+	while (str[++j] != 0)
 	{
 		if (str[j] == '>' || str[j] == '<')
 		{
-			split[i] = ft_substr(str, f, j - f);
-			i++;
+			split[++i] = ft_substr(str, f, j - f);
 			f = j;
 			if (str[j + 1] == '>' || str[j + 1] == '<')
 				j++;
 		}
-		j++;
 	}
 	split[i] = ft_substr(str, f, j);
 	split[i + 1] = 0;
