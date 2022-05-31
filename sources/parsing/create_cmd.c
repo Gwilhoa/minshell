@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/30 16:33:54 by guyar            ###   ########.fr       */
+/*   Updated: 2022/05/31 18:55:24 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_creat_command(t_minishell *main)
 		dprintf(2, "outfile = '%s'\n", tmp->outfile);
 		dprintf(2, "infile = '%s'\n", tmp->infile);
 		dprintf(2, "args = '%s'\n", tmp->args);
+		dprintf(2, "heredoc = '%s'\n", tmp->heredoc);
 		tmp = tmp->next;
 	}
 }

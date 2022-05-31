@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 15:53:36 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 17:53:17 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_process
 	char		**fullcmd;
 	int			outfd;
 	int			infd;
+	char		*hd_stop;
+	char		*heredoc;
 }	t_process;
 
 typedef struct s_minishell
@@ -112,5 +114,10 @@ void		ft_redirec(t_process *process);
 void		ft_cleanfork(int outfd, int infd, t_minishell *mini);
 t_process	*ft_lstnew2(char *clean_cmd);
 void			ft_clean_args(t_process *process);
+void    	ft_in_hd(t_process *process, int i);
+void    	ft_outfile(t_process *process, int i);
+void    	ft_infile(t_process *process, int i);
+void 		ft_heredoc(t_process *process, char *str);
+
 
 #endif
