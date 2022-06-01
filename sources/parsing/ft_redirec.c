@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 13:12:14 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 15:00:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	ft_outfile(t_process *process, int i)
 	int	s;
 	int	fd;
 
-	s = define_code(process->all_redirec[i][1]);
+	process->code = define_code(process->all_redirec[i][1]);
+	s = process->code;
 	while (ft_isspace(process->all_redirec[i][s]) == 1)
 		s++;
 	if (process->all_redirec[i][s] == 0)
