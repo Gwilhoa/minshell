@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/01 13:11:47 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 15:17:30 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_process
 	char		**fullcmd;
 	int			outfd;
 	int			infd;
+	char		*hd_stop;
+	char		*heredoc;
 }	t_process;
 
 typedef struct s_minishell
@@ -120,5 +122,4 @@ void		ft_outfile(t_process *process, int i);
 void		ft_setfilefd(t_minishell *mini);
 t_process	*ft_lstnew2(char *clean_cmd);
 t_process	*process_executing(t_minishell *mini, t_process *process);
-
 #endif
