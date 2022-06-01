@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 10:59:10 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 16:32:00 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void	ft_export(t_process *process, t_minishell *mini)
 				ft_change_env(arg[0], arg[1], mini);
 		}
 	}
-	exit(0);
 }

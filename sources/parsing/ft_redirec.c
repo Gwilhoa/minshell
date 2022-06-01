@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 15:33:03 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 17:08:06 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	ft_setup(t_process *process)
 		}
 		else if (process->all_redirec[i][0] == '<')
 		{
-			ft_infile(process, i);
+			if (process->all_redirec[i][1] == '<')
+				ft_in_hd(process, i);
+			else
+				ft_infile(process, i);
 			if (g_error != 0)
 				return ;
 		}
@@ -105,20 +108,20 @@ void	ft_redirec(t_process *process)
 	ft_setup(process);
 }
 
-// void	ft_in_hd(t_process *process, int i)
-// {
-// 	int	s;
+void	ft_in_hd(t_process *process, int i)
+{
+	int	s;
 
-// 	process->code = 2;
-// 	s = process->code;
-// 	while (process->all_redirec[i][s] == ' ')
-// 		s++;
-// 	if (process->all_redirec[i][s] == 0)
-// 	{
-// 		g_error = ERRO_SYNTAXE;
-// 		return ;
-// 	}
-// 	process->hd_stop = ft_strdup(process->all_redirec[i] + s);
-// 	process->infile = NULL;
-// 	ft_heredoc(process, process->hd_stop);
-// }
+	process->code = 2;
+	s = process->code;
+	while (process->all_redirec[i][s] == ' ')
+		s++;
+	if (process->all_redirec[i][s] == 0)
+	{
+		g_error = ERRO_SYNTAXE;
+		return ;
+	}
+	process->hd_stop = ft_strdup(process->all_redirec[i] + s);
+	process->infile = NULL;
+	ft_heredoc(process, process->hd_stop);
+}

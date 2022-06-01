@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/01 13:09:44 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 16:31:32 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,17 @@ void	inexec(t_minishell *mini)
 
 	create_pipes(mini);
 	process = mini->process;
-	g_error = INEXECVE;
-	while (process != NULL && process->cmd != NULL)
-		process = process_executing(mini, process);
-	while (wait(&status) > 0)
-		g_error = WEXITSTATUS(status);
+	if (ft_strcmp(process->cmd, "cd") == 0 && process->next == NULL)
+		ft_cd(process, mini);
+	else if (ft_strcmp(process->cmd, "export") == 0 && process->next == NULL \
+		&& process->args != NULL)
+		ft_export(process, mini);
+	else
+	{
+		g_error = INEXECVE;
+		while (process != NULL && process->cmd != NULL)
+			process = process_executing(mini, process);
+		while (wait(&status) > 0)
+			g_error = WEXITSTATUS(status);
+	}
 }
