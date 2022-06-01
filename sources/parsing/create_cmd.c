@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 16:27:09 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 19:08:13 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_creat_command(t_minishell *main)
 		dprintf(2, "outfile = '%s'\n", tmp->outfile);
 		dprintf(2, "infile = '%s'\n", tmp->infile);
 		dprintf(2, "args = '%s'\n", tmp->args);
-		//dprintf(2, "heredoc = '%s'\n", tmp->heredoc);
+		dprintf(2, "heredoc = '%s'\n", tmp->heredoc);
 		tmp = tmp->next;
 	}
 }

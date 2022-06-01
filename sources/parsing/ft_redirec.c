@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 17:08:06 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 17:45:11 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ void	ft_setup(t_process *process)
 			if (g_error != 0)
 				return ;
 		}
-		else if (process->all_redirec[i][0] == '<')
+		else if (process->all_redirec[i][0] == '<' &&
+				process->all_redirec[i][1] != '<')
 		{
-			if (process->all_redirec[i][1] == '<')
-				ft_in_hd(process, i);
-			else
-				ft_infile(process, i);
+			ft_infile(process, i);
 			if (g_error != 0)
 				return ;
 		}
@@ -104,24 +102,6 @@ void	ft_redirec(t_process *process)
 	process->all_redirec = split_files(process->redirec);
 	if (process->all_redirec == 0)
 		return ;
-	//ft_search_heredoc(process); //chercher heredoc dans splitfiles
+	ft_search_heredoc(process);
 	ft_setup(process);
-}
-
-void	ft_in_hd(t_process *process, int i)
-{
-	int	s;
-
-	process->code = 2;
-	s = process->code;
-	while (process->all_redirec[i][s] == ' ')
-		s++;
-	if (process->all_redirec[i][s] == 0)
-	{
-		g_error = ERRO_SYNTAXE;
-		return ;
-	}
-	process->hd_stop = ft_strdup(process->all_redirec[i] + s);
-	process->infile = NULL;
-	ft_heredoc(process, process->hd_stop);
 }
