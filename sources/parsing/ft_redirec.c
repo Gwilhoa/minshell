@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/31 14:21:06 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 10:50:41 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ void	ft_outfile(t_process *process, int i)
 	int	s;
 	int	fd;
 
-	if (process->all_redirec[i][1] != '>')
-		process->code = 1;
-	else
+	process->code = 1;
+	if (process->all_redirec[i][1] == '>')
 		process->code = 2;
 	s = process->code;
 	while (process->all_redirec[i][s] == ' ')
@@ -54,7 +53,10 @@ void	ft_outfile(t_process *process, int i)
 		return ;
 	}
 	process->outfile = process->all_redirec[i] + s;
-	fd = open(process->outfile, O_CREAT, 0777);
+	if (process->code == 1)
+		fd = open(process->outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	else
+		fd = open(process->outfile, O_CREAT, 0644);
 	if (fd < 0)
 	{
 		g_error = 1;

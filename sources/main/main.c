@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/31 13:57:09 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 15:31:34 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	loop(t_minishell *mini)
 			while (process != NULL && process->cmd != NULL)
 				process = process_executing(mini, process);
 			while (wait(&status) > 0)
-				g_error = status % 255;
+				g_error = WEXITSTATUS(status);
 		}
 	}
 }

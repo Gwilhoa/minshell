@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:22 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/31 11:29:37 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 10:39:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	create_pipes(t_minishell *shell)
 	t_process	*process;
 
 	process = shell->process;
-	if (process->infile != NULL)
-		process->infd = open(process->infile, O_RDONLY);
 	while (process->next != NULL)
 	{
 		if (pipe(fd) < 0)
@@ -27,26 +25,32 @@ void	create_pipes(t_minishell *shell)
 		process->outfd = fd[1];
 		process->next->infd = fd[0];
 		process = process->next;
-		if (process->outfile != NULL)
-			change_outfd(process);
-		if (process->next != NULL)
-			change_infd(process);
 	}
+	ft_setfilefd(shell);
 }
 
-void	change_outfd(t_process *process)
+void	ft_setfilefd(t_minishell *mini)
 {
-	if (process->outfd != 0)
-		close(process->outfd);
-	if (process->code == 1)
-		process->outfd = open(process->outfile, O_WRONLY | O_TRUNC);
-	else
-		process->outfd = open(process->outfile, O_WRONLY | O_APPEND);
-}
+	t_process	*process;
 
-void	change_infd(t_process *process)
-{
-	if (process->next->infd != 0)
-		close(process->next->infd);
-	process->next->infd = open(process->next->infile, O_RDONLY);
+	process = mini->process;
+	while (process != NULL)
+	{
+		if (process->outfile != NULL)
+		{
+			if (process->outfd != 0)
+				close(process->outfd);
+			if (process->code == 1)
+				process->outfd = open(process->outfile, O_WRONLY | O_TRUNC);
+			else
+				process->outfd = open(process->outfile, O_WRONLY | O_APPEND);
+		}
+		if (process->infile != NULL)
+		{
+			if (process->infd != 0)
+				close(process->infd);
+			process->infd = open(process->infile, O_RDONLY);
+		}
+		process = process->next;
+	}
 }

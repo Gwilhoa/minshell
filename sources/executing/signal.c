@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:11:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/31 11:13:51 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/05/31 15:17:28 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 void	delsig(void)
 {
+	if (g_error == INEXECVE)
+		return ;
 	rl_on_new_line();
 	rl_redisplay();
-	write(2, "  ", 2);
-	write(2, "\b\b", 2);
+	ft_printf("  \b\b\n");
 }
 
 void	get_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
-		waitpid(0, NULL, 0);
 		if (g_error != INEXECVE)
 		{
 			delsig();
-			write(2, "\n", 1);
 			rl_replace_line("", 0);
 			rl_on_new_line();
 			rl_redisplay();
 			g_error = SIGC;
 		}
-		g_error = SIGC;
 	}
 	else if (sig == SIGQUIT)
 		delsig();

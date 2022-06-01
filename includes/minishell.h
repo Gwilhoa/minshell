@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/31 14:20:56 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 10:39:50 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void		ft_redirec(t_process *process);
 void		ft_infile(t_process *process, int i);
 void		ft_redirec(t_process *process);
 void		ft_outfile(t_process *process, int i);
+void		ft_setfilefd(t_minishell *mini);
 t_process	*ft_lstnew2(char *clean_cmd);
 t_process	*process_executing(t_minishell *mini, t_process *process);
 
