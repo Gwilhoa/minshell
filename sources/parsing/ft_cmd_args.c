@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/31 15:45:17 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 13:02:18 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_clean_args(t_process *process)
 	if (process->args == NULL)
 		return ;
 	i = ft_strlen(process->args) - 1;
-	while (process->args[i] == ' ')
+	while (ft_isspace(process->args[i]) == 1)
 		i--;
 	tmp = ft_substr(process->args, 0, i + 1);
 	process->args = tmp;
@@ -32,7 +32,7 @@ void	ft_cmd_args(t_process *process)
 	char	*tmp;
 
 	i = 0;
-	while (process->cmd[i] == ' ')
+	while (ft_isspace(process->cmd[i]) == 1)
 		i++;
 	process->cmd = process->cmd + i;
 	tmp = ft_strdup(ft_take_cmd(process));
@@ -54,7 +54,7 @@ void	ft_take_args(t_process *process, char	*tmp)
 		return ;
 	}
 	process->cmd = process->cmd + ft_strlen(tmp);
-	while (process->cmd[i] == ' ')
+	while (ft_isspace(process->cmd[i]) == 1)
 		i++;
 	if (process->cmd[i] == 0)
 	{

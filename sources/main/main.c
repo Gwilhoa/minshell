@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/31 15:31:34 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 13:08:35 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	main(int argc, char *argv[], char *envp[])
 int	loop(t_minishell *mini)
 {
 	char		*line;
-	t_process	*process;
-	int			status;
 
 	while (1)
 	{
@@ -57,15 +55,11 @@ int	loop(t_minishell *mini)
 		{
 			add_history(line);
 			ft_check_string(&line, mini->env);
+			g_error = 0;
 			mini->str = line;
 			ft_parsing(mini);
-			create_pipes(mini);
-			process = mini->process;
-			g_error = INEXECVE;
-			while (process != NULL && process->cmd != NULL)
-				process = process_executing(mini, process);
-			while (wait(&status) > 0)
-				g_error = WEXITSTATUS(status);
+			if (g_error == 0)
+				inexec(mini);
 		}
 	}
 }

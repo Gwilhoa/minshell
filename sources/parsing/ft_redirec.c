@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 10:50:41 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 13:12:14 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_setup(t_process *process)
 	i = 0;
 	while (process->all_redirec[i] != 0)
 	{
-		ft_printf(" redirect en cours : '%s'\n", process->all_redirec[i]);
 		if (process->all_redirec[i][0] == '>')
 		{
 			ft_outfile(process, i);
@@ -36,20 +35,25 @@ void	ft_setup(t_process *process)
 	}
 }
 
+int	define_code(int c)
+{
+	if (c == '>')
+		return (2);
+	return (1);
+}
+
 void	ft_outfile(t_process *process, int i)
 {
 	int	s;
 	int	fd;
 
-	process->code = 1;
-	if (process->all_redirec[i][1] == '>')
-		process->code = 2;
-	s = process->code;
-	while (process->all_redirec[i][s] == ' ')
+	s = define_code(process->all_redirec[i][1]);
+	while (ft_isspace(process->all_redirec[i][s]) == 1)
 		s++;
 	if (process->all_redirec[i][s] == 0)
 	{
 		g_error = ERRO_SYNTAXE;
+		ft_printf("minshell >>> syntax error near unexpected token\n");
 		return ;
 	}
 	process->outfile = process->all_redirec[i] + s;
@@ -59,6 +63,7 @@ void	ft_outfile(t_process *process, int i)
 		fd = open(process->outfile, O_CREAT, 0644);
 	if (fd < 0)
 	{
+		perror(process->outfile);
 		g_error = 1;
 		return ;
 	}
@@ -71,17 +76,19 @@ void	ft_infile(t_process *process, int i)
 	int	fd;
 
 	s = 1;
-	while (process->all_redirec[i][s] == ' ')
+	while (ft_isspace(process->all_redirec[i][s]) == 1)
 		s++;
 	if (process->all_redirec[i][s] == 0)
 	{
 		g_error = ERRO_SYNTAXE;
+		ft_printf("minshell >>> syntax error near unexpected token\n");
 		return ;
 	}
 	process->infile = process->all_redirec[i] + s;
 	fd = open(process->infile, O_RDONLY);
 	if (fd < 0)
 	{
+		perror(process->infile);
 		g_error = 1;
 		return ;
 	}
@@ -90,7 +97,6 @@ void	ft_infile(t_process *process, int i)
 
 void	ft_redirec(t_process *process)
 {
-	ft_printf("%s\n", process->redirec);
 	process->all_redirec = split_files(process->redirec);
 	if (process->all_redirec == 0)
 		return ;

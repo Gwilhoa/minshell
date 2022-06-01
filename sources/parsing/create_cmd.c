@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/31 13:58:23 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 12:20:22 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ void	ft_creat_command(t_minishell *main)
 		ft_clear_cmd(tmp);
 		ft_redirec(tmp);
 		ft_cmd_args(tmp);
-		dprintf(2, "outfile = '%s'\n", tmp->outfile);
-		dprintf(2, "infile = '%s'\n", tmp->infile);
-		dprintf(2, "args = '%s'\n", tmp->args);
 		tmp = tmp->next;
 	}
 }

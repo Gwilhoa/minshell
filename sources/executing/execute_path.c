@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/31 10:56:00 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 13:09:21 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_changedup(t_minishell *mini, t_process *process)
 	{
 		dup2(process->outfd, 1);
 	}
-	searching_cmd(mini, process);
 }
 
 void	searching_cmd(t_minishell *mini, t_process *process)

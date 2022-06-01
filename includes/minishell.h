@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/01 10:39:50 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/01 13:11:47 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int			ft_check_end(char *str);
 int			ft_quotes(char *str);
 int			ft_simple_pipe(char *str);
 int			ft_parsing(t_minishell *main);
+void		inexec(t_minishell *mini);
 char		*ft_getenv(char *key, char **env);
 char		*ft_get_line_env(char *key, char **env);
 char		*ft_tilde_parse(int i, char *ret, char **env);
