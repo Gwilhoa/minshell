@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 19:15:38 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/02 13:10:59 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_search_heredoc(t_process *process)
+void	ft_search_heredoc(t_process *process)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (process->all_redirec[i])
 	{
-		if (process->all_redirec[i][0] == '<' && process->all_redirec[i][1] == '<')
-		ft_in_hd(process, i);
+		if (process->all_redirec[i][0] == '<' && \
+			process->all_redirec[i][1] == '<')
+			ft_in_hd(process, i);
 		i++;
 	}
 }

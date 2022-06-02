@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 16:44:14 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/30 11:01:08 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/02 13:09:18 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ void	ft_unset(t_process *process, t_minishell *mini)
 		ft_delenv(mini, args[i]);
 		i++;
 	}
-	exit(0);
 }

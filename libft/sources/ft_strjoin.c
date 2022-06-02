@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 15:24:06 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/01 19:31:55 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/02 13:13:11 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ char	*ft_strjoin_space(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_strjoin_hd(char *s1, char *s2) 		// incomplet; -> quand tu envoies plusieurs ligne vide
-{												// censé renvoi un retour a la ligne, et leaks surement
+char	*ft_strjoin_hd(char *s1, char *s2)
+{
 	char	*str;
 	int		i;
 	int		s;

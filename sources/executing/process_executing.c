@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/01 16:31:32 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/02 13:08:48 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void	inexec(t_minishell *mini)
 	else if (ft_strcmp(process->cmd, "export") == 0 && process->next == NULL \
 		&& process->args != NULL)
 		ft_export(process, mini);
+	else if (ft_strcmp(process->cmd, "unset") == 0 && process->next == NULL \
+		&& process->args != NULL)
+		ft_unset(process, mini);
 	else
 	{
 		g_error = INEXECVE;

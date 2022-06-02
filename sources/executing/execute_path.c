@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/01 16:32:20 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/02 15:11:38 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,27 @@
 
 void	ft_changedup(t_minishell *mini, t_process *process)
 {
+	int	fd[2];
+
+	if (process->heredoc != 0 && process->infd == 0)
+	{
+		pipe(fd);
+		process->infd = fd[0];
+		ft_putstr_fd(process->heredoc, fd[1]);
+		close(fd[1]);
+	}
 	if (process->infd != 0)
 	{
 		dup2(process->infd, 0);
 		close(process->infd);
 	}
 	else
-		dup2(mini->default_infd, 0);
-	if (process->outfd != 0)
 	{
-		dup2(process->outfd, 1);
+		close(0);
+		dup2(mini->default_infd, 0);
 	}
+	if (process->outfd != 0)
+		dup2(process->outfd, 1);
 }
 
 void	searching_cmd(t_minishell *mini, t_process *process)
@@ -40,10 +50,13 @@ void	searching_cmd(t_minishell *mini, t_process *process)
 		ft_export(process, mini);
 		exit(0);
 	}
+	else if (ft_strcmp(process->cmd, "unset") == 0)
+	{
+		ft_unset(process, mini);
+		exit(0);
+	}
 	else if (ft_strcmp(process->cmd, "pwd") == 0)
 		ft_pwd();
-	else if (ft_strcmp(process->cmd, "unset") == 0)
-		ft_unset(process, mini);
 	else
 		ft_bash(mini, process);
 }
