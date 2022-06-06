@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 13:02:18 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/06 15:31:54 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_clean_args(t_process *process)
-{
-	int		i;
-	char	*tmp;
-
-	if (process->args == NULL)
-		return ;
-	i = ft_strlen(process->args) - 1;
-	while (ft_isspace(process->args[i]) == 1)
-		i--;
-	tmp = ft_substr(process->args, 0, i + 1);
-	process->args = tmp;
-}
 
 void	ft_cmd_args(t_process *process)
 {
@@ -39,6 +26,20 @@ void	ft_cmd_args(t_process *process)
 	ft_take_args(process, tmp);
 	ft_clean_args(process);
 	process->cmd = tmp;
+}
+
+void	ft_clean_args(t_process *process)
+{
+	int		i;
+	char	*tmp;
+
+	if (process->args == NULL)
+		return ;
+	i = ft_strlen(process->args) - 1;
+	while (ft_isspace(process->args[i]) == 1)
+		i--;
+	tmp = ft_substr(process->args, 0, i + 1);
+	process->args = tmp;
 }
 
 void	ft_take_args(t_process *process, char	*tmp)

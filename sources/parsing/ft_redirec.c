@@ -6,11 +6,20 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 17:45:11 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/03 19:53:34 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_redirec(t_process *process)
+{
+	process->all_redirec = split_files(process->redirec);
+	if (process->all_redirec == 0)
+		return ;
+	ft_search_heredoc(process);
+	ft_setup(process);
+}
 
 void	ft_setup(t_process *process)
 {
@@ -32,6 +41,12 @@ void	ft_setup(t_process *process)
 			if (g_error != 0)
 				return ;
 		}
+		// else if (process->all_redirec[i][0] == '<' &&
+		// 		process->all_redirec[i][1] == '<')
+		// {
+		// 	free(process->infile);
+		// 	process->infile = NULL;
+		// }
 		i++;
 	}
 }
@@ -95,13 +110,4 @@ void	ft_infile(t_process *process, int i)
 		return ;
 	}
 	close(fd);
-}
-
-void	ft_redirec(t_process *process)
-{
-	process->all_redirec = split_files(process->redirec);
-	if (process->all_redirec == 0)
-		return ;
-	ft_search_heredoc(process);
-	ft_setup(process);
 }

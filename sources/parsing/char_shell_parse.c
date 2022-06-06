@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_shell_parse.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/24 12:53:53 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/06 15:59:56 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_tilde_parse(int i, char *ret, char **env)
 	}
 	change = ft_getenv("HOME", env);
 	end = ft_substr(ret, i +1, ft_strlen(ret));
-	str = ft_strjoin(ft_strjoin(start, change), end);
+	str = ft_strjoin(ft_strjoin(start, change), end);	// join_free ?
 	return (str);
 }
 

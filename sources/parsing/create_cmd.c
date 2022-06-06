@@ -6,13 +6,13 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/01 19:08:13 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/03 19:59:00 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_creat_command(t_minishell *main)
+void	ft_creat_command(t_minishell *main)	// peut etre un int;
 {
 	int			i;
 	t_process	*tmp;

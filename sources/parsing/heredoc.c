@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/02 13:10:59 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/06 15:16:15 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,14 @@ void	ft_in_hd(t_process *process, int i)
 		g_error = ERRO_SYNTAXE;
 		return ;
 	}
+	if (process->hd_stop != NULL)
+		free(process->hd_stop);
 	process->hd_stop = ft_strdup(process->all_redirec[i] + s);
-	process->infile = NULL;
+	if (process->infile != NULL)
+	{
+		free(process->infile);
+		process->infile = NULL;
+	}
 	ft_heredoc(process, process->hd_stop);
 }
 
@@ -52,6 +58,8 @@ void	ft_heredoc(t_process *process, char *str)
 	tmp = malloc(sizeof(char) * 1);
 	tmp[0] = '\0';
 	i = ft_strcmp(str, tmp);
+	if (process->heredoc != NULL)
+		free(process->heredoc);
 	process->heredoc = malloc(sizeof(char) * 1);
 	process->heredoc[0] = '\0';
 	while (i != 0)
@@ -61,4 +69,7 @@ void	ft_heredoc(t_process *process, char *str)
 		if (i != 0)
 			process->heredoc = ft_strjoin_hd(process->heredoc, tmp);
 	}
+	if (tmp != NULL)
+		free(tmp);
+	process->infd = 0;
 }

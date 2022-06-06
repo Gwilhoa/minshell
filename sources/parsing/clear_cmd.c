@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/31 13:58:14 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/03 19:33:01 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_clear_cmd(t_process *process)
 		{	
 			start = i;
 			end = ft_clean_till(process->cmd, start);
-			process->redirec = ft_strjoin(process->redirec, \
+			process->redirec = ft_strjoin_free(process->redirec, \
 			ft_substr(process->cmd, start, (end - start)));
 			process->cmd = ft_clean_str(process->cmd, (start), (end));
 			i = 0;

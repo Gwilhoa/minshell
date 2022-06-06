@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 15:24:06 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/02 13:13:11 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/06 15:25:51 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,18 @@ char	*ft_strjoin_hd(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (0);
-	str = malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 3);
+	if (s1 != NULL)
+		str = malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 3);	// gerer le leaks ici; 
+	else
+		str = malloc(ft_strlen(s2) * sizeof(char) + 1);
 	if (!str)
 		return (0);
 	i = -1;
 	s = -1;
-	if (s1[i] != '\0')
-	{	
-		while (s1[++i])
-			str[i] = s1[i];
+	while (s1[++i])
+		str[i] = s1[i];
+	if (s1[0] != '\0')
+	{
 		str[i] = '\n';
 		i = i + 1;
 	}
