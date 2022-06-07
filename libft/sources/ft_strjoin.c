@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 15:24:06 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/06 15:25:51 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/07 16:43:54 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,33 +98,3 @@ char	*ft_strjoin_space(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_strjoin_hd(char *s1, char *s2)
-{
-	char	*str;
-	int		i;
-	int		s;
-
-	if (!s1 || !s2)
-		return (0);
-	if (s1 != NULL)
-		str = malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 3);	// gerer le leaks ici; 
-	else
-		str = malloc(ft_strlen(s2) * sizeof(char) + 1);
-	if (!str)
-		return (0);
-	i = -1;
-	s = -1;
-	while (s1[++i])
-		str[i] = s1[i];
-	if (s1[0] != '\0')
-	{
-		str[i] = '\n';
-		i = i + 1;
-	}
-	while (s2[++s])
-		str[i + s] = s2[s];
-	str[i + s] = 0;
-	free(s1);
-	free(s2);
-	return (str);
-}

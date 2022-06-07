@@ -6,7 +6,7 @@
 #    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/06/01 17:10:26 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/06/07 15:06:45 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ NAME		:= minishell
 FLAGS		:= -Werror -Wall -Wextra #-g3 -fsanitize=address
 CC			:= gcc
 
+LST_GNL			:= get_next_line.c
 LST_BUILT_IN	:= cd.c exit.c export.c pwd.c unset.c echo.c env.c
 LST_EXEC		:= execute_path.c pipes.c signal.c process_executing.c
 LST_MAIN		:= env_utils.c main.c

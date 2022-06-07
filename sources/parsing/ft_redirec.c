@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/03 19:53:34 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/07 14:40:10 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	ft_setup(t_process *process)
 			if (g_error != 0)
 				return ;
 		}
-		// else if (process->all_redirec[i][0] == '<' &&
-		// 		process->all_redirec[i][1] == '<')
-		// {
-		// 	free(process->infile);
-		// 	process->infile = NULL;
-		// }
+		else if (process->all_redirec[i][0] == '<' &&
+				process->all_redirec[i][1] == '<')
+		{
+			free(process->infile);
+			process->infile = NULL;
+		}
 		i++;
 	}
 }

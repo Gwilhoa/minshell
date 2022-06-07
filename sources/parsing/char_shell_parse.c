@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_shell_parse.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/06 15:59:56 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/07 14:30:20 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,16 @@ char	*ft_tilde_parse(int i, char *ret, char **env)
 	char	*end;
 	char	*str;
 
+	change = ft_getenv("HOME", env);
+	if (change == NULL)
+		return (ret);
 	if (i != 0)
-	start = ft_substr(ret, 0, i);
+		start = ft_substr(ret, 0, i);
 	else
 	{
 		start = malloc(1);
 		start[0] = 0;
 	}
-	change = ft_getenv("HOME", env);
 	end = ft_substr(ret, i +1, ft_strlen(ret));
 	str = ft_strjoin(ft_strjoin(start, change), end);	// join_free ?
 	return (str);
@@ -82,7 +84,10 @@ char	*ft_dollar_parse(int i, char *ret, char **env)
 		end = malloc(1);
 		end[0] = 0;
 	}
-	ret = ft_strjoin(ft_strjoin(start, change), end);
+	if (change == NULL)
+		ret = ft_strjoin(start, end);
+	else
+		ret = ft_strjoin(ft_strjoin(start, change), end);
 	return (ret);
 }
 

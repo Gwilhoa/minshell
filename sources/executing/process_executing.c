@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/02 13:08:48 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/07 18:12:51 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ void	inexec(t_minishell *mini)
 	else if (ft_strcmp(process->cmd, "unset") == 0 && process->next == NULL \
 		&& process->args != NULL)
 		ft_unset(process, mini);
+	else if (ft_strcmp(process->cmd, "exit") == 0 && process->next == NULL)
+		ft_exit(mini, process);
 	else
 	{
 		g_error = INEXECVE;
 		while (process != NULL && process->cmd != NULL)
 			process = process_executing(mini, process);
-		while (wait(&status) > 0)
+		while (wait(NULL) > 0)
 			g_error = WEXITSTATUS(status);
 	}
 }

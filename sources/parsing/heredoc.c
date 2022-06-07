@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/06 15:16:15 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/07 16:16:53 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	ft_heredoc(t_process *process, char *str)
 {
 	char	*tmp;
 	int		i;
+	int		fd;
+	int		piped[2];
+	int		status;
 
 	tmp = malloc(sizeof(char) * 1);
 	tmp[0] = '\0';
@@ -62,14 +65,53 @@ void	ft_heredoc(t_process *process, char *str)
 		free(process->heredoc);
 	process->heredoc = malloc(sizeof(char) * 1);
 	process->heredoc[0] = '\0';
-	while (i != 0)
+	pipe(piped);
+	if (pipe < 0)
+		return ;
+	fd = fork();
+	g_error = INHEREDOC;
+	if (fd == 0)
 	{
-		tmp = readline("heredoc> ");
-		i = ft_strcmp(str, tmp);
-		if (i != 0)
-			process->heredoc = ft_strjoin_hd(process->heredoc, tmp);
+		g_error = INHEREDOC_FORK;
+		close(piped[0]);
+		process->heredoc = malloc(1);
+		process->heredoc[0] = '\0';
+		while (i != 0)
+		{
+			tmp = readline("> ");
+			i = ft_strcmp(str, tmp);
+			if (i != 0)
+			{
+				ft_putstr_fd(tmp, piped[1]);
+				ft_putstr_fd("\n", piped[1]);
+			}
+		}
+		close(piped[1]);
+		exit(0);
 	}
+	close(piped[1]);
+	wait(&status);
+	g_error = WEXITSTATUS(status);
+	process->heredoc = readfd(piped[0]);
+	close(piped[0]);
+	g_error = 0;
 	if (tmp != NULL)
 		free(tmp);
 	process->infd = 0;
+}
+
+char	*readfd(int fd)
+{
+	char	*ret;
+	char	*reader;
+
+	reader = get_next_line(fd);
+	ret = malloc(1);
+	ret[0] = '\0';
+	while (reader != NULL)
+	{
+		ret = ft_strjoin_free(ret, reader);
+		reader = get_next_line(fd);
+	}
+	return (ret);
 }

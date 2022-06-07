@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/02 15:11:38 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/07 17:23:34 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_changedup(t_minishell *mini, t_process *process)
 {
 	int	fd[2];
 
-	if (process->heredoc != 0 && process->infd == 0)
+	if (process->heredoc != 0 && process->infile == NULL)
 	{
 		pipe(fd);
 		process->infd = fd[0];
@@ -57,6 +57,8 @@ void	searching_cmd(t_minishell *mini, t_process *process)
 	}
 	else if (ft_strcmp(process->cmd, "pwd") == 0)
 		ft_pwd();
+	else if (ft_strcmp(process->cmd, "exit") == 0)
+		ft_exit(mini, process);
 	else
 		ft_bash(mini, process);
 }
@@ -65,6 +67,11 @@ void	ft_bash(t_minishell *mini, t_process *process)
 {
 	char	*path;
 
+	if (access(process->cmd, F_OK) == 0)
+	{
+		if (access(process->cmd, F_OK) == 0)
+			ft_execute(process->cmd, process, mini, 1);
+	}
 	path = ft_getenv("PATH", mini->env);
 	if (path)
 		ft_searching_path(mini, process, path);
@@ -86,26 +93,37 @@ void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 		tmp = ft_strjoin(splited_path[i], "/");
 		tmp = ft_strjoin(tmp, process->cmd);
 		if (access(tmp, F_OK) == 0)
-			ft_execute(splited_path[i], process, mini);
+			ft_execute(splited_path[i], process, mini, 0);
 		i++;
 	}
 	if (access(process->cmd, F_OK) == 0)
-		ft_execute(getcwd(NULL, 0), process, mini);
+		ft_execute(getcwd(NULL, 0), process, mini, 0);
 }
 
-void	ft_execute(char *path, t_process *process, t_minishell *mini)
+void	ft_execute(char *path, t_process *process, t_minishell *mini, \
+	int isabsolute)
 {
 	char	*temp;
 	char	*path_cmd;
 	char	*args[3];
 
-	temp = ft_strjoin(path, "/");
-	path_cmd = ft_strjoin(temp, process->cmd);
+	if (isabsolute == 0)
+	{
+		temp = ft_strjoin(path, "/");
+		path_cmd = ft_strjoin(temp, process->cmd);
+	}
+	else
+		path_cmd = process->cmd;
 	args[0] = process->cmd;
 	args[1] = process->args;
 	args[2] = 0;
 	if (execve(path_cmd, args, mini->env) < 0)
 	{
+		if (isabsolute == 1)
+		{
+			ft_printf("minshell >>> %s : is a directory\n", process->cmd);
+			exit(126);
+		}
 		perror("execve");
 		exit(127);
 	}
