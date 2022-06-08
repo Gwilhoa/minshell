@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/07 17:23:34 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 20:28:56 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 {
 	char	*temp;
 	char	*path_cmd;
-	char	*args[3];
+	char	*args[4];
 
 	if (isabsolute == 0)
 	{
@@ -114,9 +114,18 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 	}
 	else
 		path_cmd = process->cmd;
+	ft_printf("%s\n", process->cmd);
 	args[0] = process->cmd;
-	args[1] = process->args;
-	args[2] = 0;
+	if (process->args != NULL && process->args[0] == '-'){
+		args[1] = ft_split(process->args, ' ')[0];
+		args[2] = ft_substr(process->args, ft_strlen(args[1]) + 1, \
+			ft_strlen(process->args));
+		args[3] = NULL;
+	}
+	else{
+		args[1] = process->args;
+		args[2] = NULL;
+	}
 	if (execve(path_cmd, args, mini->env) < 0)
 	{
 		if (isabsolute == 1)

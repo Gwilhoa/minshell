@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/08 18:23:16 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 19:45:27 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ void	ft_check_dollar(char **str, char **env, int isheredoc)
 	singlequote = 0;
 	ret = *str;
 	i = 0;
-	isheredoc = 0;
 	while (ret[i] != 0)
 	{
-		if (singlequote == 0 && ret[i] == '\"')
+		if (isheredoc == 0 && singlequote == 0 && ret[i] == '\"')
 		{
 			ft_del_char(str, i);
 			i--;
 			doublequote = -doublequote + 1;
 		}
-		else if (doublequote == 0 && ret[i] == '\'')
+		else if (isheredoc == 0 && doublequote == 0 && ret[i] == '\'')
 		{
 			ft_del_char(str, i);
 			i--;
