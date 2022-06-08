@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/08 13:08:52 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 21:35:49 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ int	loop(t_minishell *mini)
 			{
 				g_error = 0;
 				mini->str = line;
-				ft_parsing(mini);
+				if (ft_parsing(mini) != 0)
+				{
+					printf("syntax error\n"); // sortir ici de la commande
+				}
 				if (g_error == 0)
 					inexec(mini);
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/08 15:30:38 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 23:13:00 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	ft_setup(t_process *process, t_minishell *mini)
 		else if (process->all_redirec[i][0] == '<' &&
 				process->all_redirec[i][1] == '<')
 		{
-			free(process->infile);
+			if (process->infile != NULL)
+				free(process->infile);
 			process->infile = NULL;
 		}
 		i++;

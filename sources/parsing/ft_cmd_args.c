@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/08 10:28:34 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/09 01:09:34 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ void	ft_cmd_args(t_process *process)
 	tmp = ft_strdup(ft_take_cmd(process));
 	ft_take_args(process, tmp);
 	ft_clean_args(process);
-	process->cmd = tmp;
+	// clean les " et ' ici ;	car " cat "makefile" "	ne marche pas;
+ 	process->cmd = tmp;				// define ici;
 }
 
-void	ft_clean_args(t_process *process)
+void	ft_clean_args(t_process *process)			// fonction incomplete supprimer tout les espaces entre les args;
 {
 	int		i;
 	char	*tmp;

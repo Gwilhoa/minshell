@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/31 14:17:55 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 21:32:00 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,28 @@ int	ft_quotes(char *str)
 	int	cmpt;
 	int	cmpt2;
 
-	i = 0;
+	i = -1;
 	cmpt = 0;
 	cmpt2 = 0;
-	while (str[i])
+	while (str[++i])
 	{
 		if (str[i] == '"')
-			cmpt++;
-		if (str[i] == '\'')
-			cmpt++;
-		if (cmpt == 2)
 		{
-			cmpt = 0;
-			if (cmpt2 == 1)
+			cmpt2++;
+			if (cmpt2 == 2)
 				cmpt2 = 0;
 		}
-		i++;
+		if (str[i] == 39)
+		{
+			cmpt++;
+			if (cmpt == 2)
+				cmpt = 0;
+		}
 	}
-	return (0);
+	if (cmpt2 == 1 || cmpt == 1)
+		return (-1);
+	else
+		return (0);
 }
 
 int	ft_simple_pipe(char *str)

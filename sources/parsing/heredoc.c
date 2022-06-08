@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/08 15:26:59 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 23:38:11 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 	{
 		g_error = INHEREDOC_FORK;
 		close(piped[0]);
-		process->heredoc = malloc(1);
-		process->heredoc[0] = '\0';
+		// process->heredoc = malloc(1);	// malloc qui ne sert a rien ?
+		// process->heredoc[0] = '\0';
 		while (i != 0)
 		{
 			tmp = readline("> ");
@@ -87,6 +87,8 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 				ft_putstr_fd("\n", piped[1]);
 			}
 		}
+		if (tmp != NULL)
+			free(tmp);
 		close(piped[1]);
 		exit(0);
 	}
