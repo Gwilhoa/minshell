@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/08 15:32:10 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 18:23:16 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	isenddollar(int c)
 {
-	if (ft_isspace(c) == 1 || c == 0 || ft_isalnum(c) != 1)
+	if (ft_isalnum(c) != 1)
 		return (1);
 	return (0);
 }
@@ -23,15 +23,34 @@ void	ft_check_dollar(char **str, char **env, int isheredoc)
 {
 	int		i;
 	char	*ret;
+	int		doublequote;
+	int		singlequote;
 
-	isheredoc = 0;
+	doublequote = 0;
+	singlequote = 0;
 	ret = *str;
 	i = 0;
-	while (ret[i] != 0){
-		if (ret[i] == '$')
+	isheredoc = 0;
+	while (ret[i] != 0)
+	{
+		if (singlequote == 0 && ret[i] == '\"')
+		{
+			ft_del_char(str, i);
+			i--;
+			doublequote = -doublequote + 1;
+		}
+		else if (doublequote == 0 && ret[i] == '\'')
+		{
+			ft_del_char(str, i);
+			i--;
+			singlequote = -singlequote + 1;
+		}
+		else if (ret[i] == '$' && singlequote == 0)
 			ft_dollar_parse(i, str, env);
+		ret = *str;
 		i++;
 	}
+	ret = *str;
 }
 
 void	ft_dollar_parse(int i, char **str, char **env)
