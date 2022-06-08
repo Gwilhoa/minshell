@@ -6,110 +6,64 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/07 14:30:20 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 15:32:10 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_check_string(char **str, char **env)
+int	isenddollar(int c)
+{
+	if (ft_isspace(c) == 1 || c == 0 || ft_isalnum(c) != 1)
+		return (1);
+	return (0);
+}
+
+void	ft_check_dollar(char **str, char **env, int isheredoc)
 {
 	int		i;
-	int		f;
 	char	*ret;
 
+	isheredoc = 0;
 	ret = *str;
 	i = 0;
-	f = 0;
-	while (ret[i] != 0)
-	{
-		if (ret[i] == '\'')
-			f = -f + 1;
-		else if (ret[i] == '~' && f == 0)
-			ret = ft_tilde_parse(i, ret, env);
-		else if (ret[i] == '$' && f == 0)
-			ret = ft_dollar_parse(i, ret, env);
+	while (ret[i] != 0){
+		if (ret[i] == '$')
+			ft_dollar_parse(i, str, env);
 		i++;
 	}
-	if (ft_strcmp(ret, "") == 0)
-		*str = NULL;
-	else
-		*str = ret;
 }
 
-char	*ft_tilde_parse(int i, char *ret, char **env)
+void	ft_dollar_parse(int i, char **str, char **env)
 {
-	char	*start;
-	char	*change;
-	char	*end;
-	char	*str;
-
-	change = ft_getenv("HOME", env);
-	if (change == NULL)
-		return (ret);
-	if (i != 0)
-		start = ft_substr(ret, 0, i);
-	else
-	{
-		start = malloc(1);
-		start[0] = 0;
-	}
-	end = ft_substr(ret, i +1, ft_strlen(ret));
-	str = ft_strjoin(ft_strjoin(start, change), end);	// join_free ?
-	return (str);
-}
-
-char	*ft_dollar_parse(int i, char *ret, char **env)
-{
+	char	*ret;
 	char	*start;
 	char	*end;
 	char	*change;
 	int		j;
 
-	if (i != 0)
-		start = ft_substr(ret, 0, i);
-	else
-	{
-		start = malloc(1);
-		start[0] = 0;
-	}
-	change = ft_getchange(i, ret, env);
-	j = i;
-	while (ret[j] != ' ' && ret[j] != 0)
+	j = 0;
+	ret = *str;
+	start = ft_substr(ret, 0, i);
+	j = i + 1;
+	while (isenddollar(ret[j]) == 0)
 		j++;
-	i = i + j;
-	end = ft_substr(ret, i, ft_strlen(ret));
-	if (end == NULL)
-	{
-		end = malloc(1);
-		end[0] = 0;
-	}
-	if (change == NULL)
-		ret = ft_strjoin(start, end);
-	else
-		ret = ft_strjoin(ft_strjoin(start, change), end);
-	return (ret);
+	change = ft_substr(ret, i + 1, j - i - 1);
+	change = ft_getenv(change, env);
+	end = ft_substr(ret, j, ft_strlen(ret + j));
+	start = ft_strjoin(start, change);
+	ret = ft_strjoin(start, end);
+	*str = ret;
 }
 
-char	*ft_getchange(int i, char *ret, char **env)
+void	ft_del_char(char **str, int index)
 {
-	int		f;
-	char	*change;
+	char	*start;
+	char	*end;
 
-	f = i;
-	while (ret[i] != ' ' && ret[i] != 0)
-		i++;
-	change = ft_substr(ret, f + 1, i - f - 1);
-	if (strcmp(change, "?") == 0)
-	{
-		change = ft_itoa(g_error);
-		return (change);
-	}
-	change = ft_getenv(change, env);
-	if (change == NULL)
-	{
-		change = malloc(1);
-		change[0] = 0;
-	}
-	return (change);
+	start = ft_substr(*str, 0, index);
+	end = ft_substr(*str, index + 1, ft_strlen(*str));
+	*str = ft_strjoin(start, end);
+	free(start);
+	free(end);
 }

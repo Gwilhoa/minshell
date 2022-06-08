@@ -6,26 +6,27 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/07 14:40:10 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 15:30:38 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_redirec(t_process *process)
+void	ft_redirec(t_process *process, t_minishell *mini)
 {
 	process->all_redirec = split_files(process->redirec);
 	if (process->all_redirec == 0)
 		return ;
-	ft_search_heredoc(process);
-	ft_setup(process);
+	ft_search_heredoc(process, mini);
+	ft_setup(process, mini);
 }
 
-void	ft_setup(t_process *process)
+void	ft_setup(t_process *process, t_minishell *mini)
 {
 	int	i;
 
 	i = 0;
+	(void) mini;
 	while (process->all_redirec[i] != 0)
 	{
 		if (process->all_redirec[i][0] == '>')
@@ -70,7 +71,7 @@ void	ft_outfile(t_process *process, int i)
 	if (process->all_redirec[i][s] == 0)
 	{
 		g_error = ERRO_SYNTAXE;
-		ft_printf("minshell >>> syntax error near unexpected token\n");
+		ft_putstr_fd("minishell: syntax error near'\n", 2);
 		return ;
 	}
 	process->outfile = process->all_redirec[i] + s;
@@ -98,7 +99,7 @@ void	ft_infile(t_process *process, int i)
 	if (process->all_redirec[i][s] == 0)
 	{
 		g_error = ERRO_SYNTAXE;
-		ft_printf("minshell >>> syntax error near unexpected token\n");
+		ft_putstr_fd("minishell: syntax error near'\n", 2);
 		return ;
 	}
 	process->infile = process->all_redirec[i] + s;

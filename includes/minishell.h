@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/07 18:09:01 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 15:23:17 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int			ft_search(char *str, int charset);
 int			reader(char **str, int fd);
 int			main(int argc, char *argv[], char *envp[]);
 int			loop(t_minishell *mini);
+int			isenddollar(int c);
 int			ft_clean_till(char *str, int i);
 int			define_code(int c);
 int			ft_count_chevron(char	*str);
@@ -83,9 +84,6 @@ char		*ft_init(char *ret, char *str, int r);
 char		*get_next_line(int fd);
 char		*ft_getenv(char *key, char **env);
 char		*ft_get_line_env(char *key, char **env);
-char		*ft_tilde_parse(int i, char *ret, char **env);
-char		*ft_dollar_parse(int i, char *ret, char **env);
-char		*ft_getchange(int i, char *ret, char **env);
 char		*ft_clean_str(char *str, int start, int end);
 char		*ft_take_cmd(t_process *process);
 char		**split_files(char	*str);
@@ -101,10 +99,9 @@ void		ft_unset(t_process *process, t_minishell *mini);
 void		ft_changedup(t_minishell *mini, t_process *process);
 void		searching_cmd(t_minishell *mini, t_process *process);
 void		ft_bash(t_minishell *mini, t_process *process);
-void		ft_searching_path(t_minishell *mini, t_process *process, \
-				char *path);
+void		ft_searching_path(t_minishell *mini, t_process *process, char *path);
 void		ft_execute(char *path, t_process *process, t_minishell *mini, \
-				int isprocess);
+																	int i);
 void		create_pipes(t_minishell *shell);
 void		ft_setfilefd(t_minishell *mini);
 void		ft_forks(t_minishell *mini, t_process *process);
@@ -116,20 +113,22 @@ void		ft_change_env(char *key, char *newchar, t_minishell *mini);
 void		ft_delenv(t_minishell *mini, char *key);
 void		incr_shlvl(t_minishell *mini);
 void		ft_cleanfork(int outfd, int infd, t_minishell *mini);
-void		ft_check_string(char **str, char **env);
+void		ft_check_dollar(char **str, char **env, int isheredoc);
+void		ft_dollar_parse(int i, char **str, char **env);
+void		ft_del_char(char **str, int index);
 void		ft_clear_cmd(t_process *process);
 void		ft_creat_command(t_minishell *main);
 void		ft_cmd_args(t_process *process);
 void		ft_clean_args(t_process *process);
 void		ft_take_args(t_process *process, char	*tmp);
 void		ft_lstadd_back2(t_process **alst, t_process *new);
-void		ft_redirec(t_process *process);
-void		ft_setup(t_process *process);
+void		ft_redirec(t_process *process, t_minishell *mini);
+void		ft_setup(t_process *process, t_minishell *mini);
 void		ft_outfile(t_process *process, int i);
 void		ft_infile(t_process *process, int i);
-void		ft_search_heredoc(t_process *process);
-void		ft_in_hd(t_process *process, int i);
-void		ft_heredoc(t_process *process, char *str);
+void		ft_search_heredoc(t_process *process, t_minishell *mini);
+void		ft_in_hd(t_process *process, int i, t_minishell *mini);
+void		ft_heredoc(t_process *process, char *str, t_minishell *mini);
 t_process	*ft_lstnew2(char *clean_cmd);
 t_process	*process_executing(t_minishell *mini, t_process *process);
 

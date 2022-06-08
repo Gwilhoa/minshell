@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/01 16:32:00 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 12:37:21 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,21 @@ void	ft_export(t_process *process, t_minishell *mini)
 	char		**args;
 	char		**arg;
 	char		*env;
+	char		*tmp;
 
 	i = -1;
 	if (process->args == 0)
 	{
 		while (mini->env[++i] != 0)
-			ft_printf("declare -x %s\n", mini->env[i]);
+		{
+			tmp = ft_split(mini->env[i], '=')[0];
+			if (ft_getenv(tmp, mini->env) != NULL)
+				ft_printf("declare -x %s=\"%s\"\n", tmp, ft_getenv(tmp, mini->env));
+			else if (ft_strlen(ft_get_line_env(tmp, mini->env)) > ft_strlen(tmp))
+				ft_printf("declare -x %s=\"\"\n", tmp);
+			else
+				ft_printf("declare -x %s\n", tmp);
+		}
 	}
 	else
 	{

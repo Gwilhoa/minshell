@@ -6,13 +6,13 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/07 16:16:53 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 15:26:59 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_search_heredoc(t_process *process)
+void	ft_search_heredoc(t_process *process, t_minishell *mini)
 {
 	int	i;
 
@@ -21,12 +21,12 @@ void	ft_search_heredoc(t_process *process)
 	{
 		if (process->all_redirec[i][0] == '<' && \
 			process->all_redirec[i][1] == '<')
-			ft_in_hd(process, i);
+			ft_in_hd(process, i, mini);
 		i++;
 	}
 }
 
-void	ft_in_hd(t_process *process, int i)
+void	ft_in_hd(t_process *process, int i, t_minishell *mini)
 {
 	int	s;
 
@@ -47,10 +47,10 @@ void	ft_in_hd(t_process *process, int i)
 		free(process->infile);
 		process->infile = NULL;
 	}
-	ft_heredoc(process, process->hd_stop);
+	ft_heredoc(process, process->hd_stop, mini);
 }
 
-void	ft_heredoc(t_process *process, char *str)
+void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 {
 	char	*tmp;
 	int		i;
@@ -82,6 +82,7 @@ void	ft_heredoc(t_process *process, char *str)
 			i = ft_strcmp(str, tmp);
 			if (i != 0)
 			{
+				ft_check_dollar(&tmp, mini->env, 1);
 				ft_putstr_fd(tmp, piped[1]);
 				ft_putstr_fd("\n", piped[1]);
 			}

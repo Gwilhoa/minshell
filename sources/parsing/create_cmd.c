@@ -6,13 +6,13 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/07 16:15:15 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 13:09:17 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_creat_command(t_minishell *main)	// peut etre un int;
+void	ft_creat_command(t_minishell *main)
 {
 	int			i;
 	t_process	*tmp;
@@ -28,7 +28,7 @@ void	ft_creat_command(t_minishell *main)	// peut etre un int;
 	while (tmp)
 	{
 		ft_clear_cmd(tmp);
-		ft_redirec(tmp);
+		ft_redirec(tmp, main);
 		ft_cmd_args(tmp);
 		dprintf(2, "outfile = '%s'\n", tmp->outfile);
 		dprintf(2, "infile = '%s'\n", tmp->infile);

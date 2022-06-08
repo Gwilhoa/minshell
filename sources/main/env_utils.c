@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/24 15:57:19 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 11:57:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ft_getenv(char *key, char **env)
 	if (line != 0)
 	{
 		parse = ft_split(line, '=');
+		if (ft_matrixlen(parse) == 1)
+			return (0);
 		temp = ft_strdup(parse[1]);
 		free(parse[0]);
 		free(parse[1]);
@@ -39,21 +41,16 @@ char	*ft_get_line_env(char *key, char **env)
 	i = 0;
 	while (env[i] != 0)
 	{
-		if (ft_strcmp(env[i], "") != 0)
+		parse = ft_split(env[i], '=');
+		if (ft_strcmp(key, parse[0]) == 0)
 		{
-			parse = ft_split(env[i], '=');
-			if (ft_strcmp(key, parse[0]) == 0)
-			{
-				ft_free_matrix(parse);
-				free(parse);
-				return (env[i]);
-			}
-			i++;
 			ft_free_matrix(parse);
 			free(parse);
+			return (env[i]);
 		}
-		else
-			i++;
+		i++;
+		ft_free_matrix(parse);
+		free(parse);
 	}
 	return (NULL);
 }

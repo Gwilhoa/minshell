@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/07 17:44:47 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 13:08:52 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	loop(t_minishell *mini)
 		if (line[0] != 0)
 		{
 			add_history(line);
-			ft_check_string(&line, mini->env);
 			if (line != NULL)
 			{
 				g_error = 0;
