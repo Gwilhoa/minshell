@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/08 15:23:17 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/09 21:58:07 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,8 @@ void		ft_in_hd(t_process *process, int i, t_minishell *mini);
 void		ft_heredoc(t_process *process, char *str, t_minishell *mini);
 t_process	*ft_lstnew2(char *clean_cmd);
 t_process	*process_executing(t_minishell *mini, t_process *process);
-
+char 		**ft_split_cmd(char *str);
+int 		ft_nbword(char *str);
+int 		ft_wordstart(char *str, int i);
+int			ft_wordend(char *str, int i);
 #endif

@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/08 21:33:17 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/09 22:20:20 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	ft_parsing(t_minishell *main)
 	}
 	if (ft_simple_pipe(main->str) == -1)
 		return (-1);
-	if (ft_quotes(main->str) == -1)
-		return (-1);
+	//if (ft_quotes(main->str) == -1) 		pas opti
+	//	return (-1);
 	main->nbcmd = ft_nbcmd(main->str);
 	main->splitcmd = ft_split(main->str, '|');
 	ft_creat_command(main);
