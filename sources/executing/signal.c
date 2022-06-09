@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:11:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/07 16:41:36 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/09 18:32:31 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,5 @@ void	get_signal(int sig)
 		if (g_error == INHEREDOC_FORK)
 			exit(0);
 		delsig();
-	}
-	else if (sig == SIGKILL)
-	{
-		waitpid(0, NULL, 0);
-		exit(0);
 	}
 }
