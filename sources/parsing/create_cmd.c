@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/10 10:51:05 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/10 18:30:39 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	ft_creat_command(t_minishell *main)
 	t_process	*tmp;
 
 	i = 0;
-	main->process = ft_lstnew2(main->splitcmd[i]);
+	main->process = ft_init_process(main->splitcmd[i]);
 	while (main->splitcmd[++i])
 	{
-		tmp = ft_lstnew2(main->splitcmd[i]);
-		ft_lstadd_back2(&main->process, tmp);
+		tmp = ft_init_process(main->splitcmd[i]);
+		addprocess(&main->process, tmp);
 	}
 	tmp = main->process;
 	while (tmp)
@@ -31,10 +31,6 @@ void	ft_creat_command(t_minishell *main)
 		ft_redirec(tmp, main);
 		ft_split_bash(tmp->cmd);
 		ft_cmd_args(tmp);
-		dprintf(2, "outfile = '%s'\n", tmp->outfile);
-		dprintf(2, "infile = '%s'\n", tmp->infile);
-		dprintf(2, "args = '%s'\n", tmp->args);
-		dprintf(2, "heredoc = '%s'\n", tmp->heredoc);
 		tmp = tmp->next;
 	}
 }

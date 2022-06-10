@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:06:40 by guyar             #+#    #+#             */
-/*   Updated: 2022/05/23 17:31:42 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/10 17:11:25 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstadd_back2(t_process **alst, t_process *new)
+void	addprocess(t_process **alst, t_process *new)
 {
 	t_process	*t;
 	int			i;

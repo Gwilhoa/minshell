@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:54:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/10 15:56:52 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/10 19:22:07 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ void	ft_echo(t_process *process, t_minishell *shell)
 	i = 0;
 	while (parse[i] != 0)
 	{
+		j = 0;
 		if (isflag == 1)
 		{
 			j = 1;
-			if (parse[i][0] != '-')
+			if (parse[i][0] != '-' || parse[i][1] == 0)
 				isflag = 0;
 			while (parse[i][j] != 0)
 			{

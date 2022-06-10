@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/08 23:13:00 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/10 18:22:10 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,29 @@ void	ft_setup(t_process *process, t_minishell *mini)
 	int	i;
 
 	i = 0;
-	(void) mini;
 	while (process->all_redirec[i] != 0)
 	{
-		if (process->all_redirec[i][0] == '>')
+		if (process->all_redirec[i][0] == '<' &&
+		process->all_redirec[i][1] == '<')
 		{
-			ft_outfile(process, i);
-			if (g_error != 0)
-				return ;
+			if (process->infile != NULL)
+				free(process->infile);
+			process->infile = NULL;
 		}
-		else if (process->all_redirec[i][0] == '<' &&
-				process->all_redirec[i][1] != '<')
+		ft_check_dollar(&process->all_redirec[i], mini->env, 0);
+		ft_delquotes(&process->all_redirec[i]);
+		if (process->all_redirec[i][0] == '<' &&
+		process->all_redirec[i][1] != '<')
 		{
 			ft_infile(process, i);
 			if (g_error != 0)
 				return ;
 		}
-		else if (process->all_redirec[i][0] == '<' &&
-				process->all_redirec[i][1] == '<')
+		if (process->all_redirec[i][0] == '>')
 		{
-			if (process->infile != NULL)
-				free(process->infile);
-			process->infile = NULL;
+			ft_outfile(process, i);
+			if (g_error != 0)
+				return ;
 		}
 		i++;
 	}

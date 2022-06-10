@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/09 00:08:49 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/10 17:19:53 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,25 @@ void	ft_clear_cmd(t_process *process)
 
 int	ft_clean_till(char *str, int i)
 {
+	int	q;
+	int	q2;
+
+	q = 0;
+	q2 = 0;
 	while (str[i] == '<' \
 		|| str[i] == '>' \
 		|| str[i] == ' ')
 		i++;
-	while (str[i] != ' ' && str[i])
+	while (str[i])
+	{
+		if (str[i] == '"' && q != 1)
+			q2 = -q2 + 1;
+		else if (str[i] == '\'' && q2 != 1)
+			q = -q + 1;
+		if (str[i] == ' ' && q == 0 && q2 == 0)
+			return (i);
 		i++;
+	}
 	return (i);
 }
 

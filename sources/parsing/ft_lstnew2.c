@@ -6,13 +6,13 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 17:36:41 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/07 14:17:51 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/10 17:09:16 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_process	*ft_lstnew2(char *str)
+t_process	*ft_init_process(char *str)
 {
 	t_process	*l;
 

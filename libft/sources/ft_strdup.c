@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 12:35:10 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/04 12:11:42 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/10 18:11:23 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(char const *src)
 	int		i;
 
 	i = 0;
+	if (!src)
+		return (0);
 	ret = malloc((ft_strlen(src) + 1) * sizeof(char));
 	if (!ret)
 		return (0);
