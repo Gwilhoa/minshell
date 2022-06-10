@@ -3,41 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/09 22:20:34 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/10 08:47:03 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **ft_split_cmd(char *str)
+char	**ft_split_cmd(char *str)
 {
-	int i;
-	char **split;
-	int start;
-	int end;
-	
-	start = 0;
-	end = 0; 
-	i = ft_nbword(str);
-	split = malloc(sizeof(char *) * i + 1);
+	int		nb;
+	int		i;
+	char	**split;
+	char	*tmp;
+
+	nb = ft_nbword(str);
+	split = malloc(sizeof(char *) * nb + 1);
+	nb = 0;
 	i = 0;
-	while (i < ft_nbword(str))
+	while (str[i] != 0)
 	{
-		start = ft_wordstart(str, end);
-		end = ft_wordend(str, start);
-		dprintf(2, "start = %d\n", start);
-		dprintf(2, "end = %d\n", end);
-		split[i] = ft_substr(str, start, (end + 1)  - start);
-		i++;
+		i = ft_split_bash2(str, i, &tmp); //str la chaine de caractere a decouper, i la position de départ, tmp le resultat de la decoupe, retourne la position de fin de la decoupe
+		nb++;
 	}
-	split[i] = 0;
+	split[nb] = 0;
 	return (split);
 }
 
-int ft_wordstart(char *str, int i)
+int	ft_wordstart(char *str, int i)
 {
 	if (i != 0)
 		i++;
@@ -46,60 +41,32 @@ int ft_wordstart(char *str, int i)
 	return (i);
 }
 
-int ft_wordend(char *str, int i)
+int	ft_nbword(char *str)
 {
-	if (str[i] == '"')
-	{
-		i++;
-		while (str[i] != '"')
-			i++;
-		return(i);
-	}
-	if (str[i] == '\'')
-	{
-		i++;
-		while (str[i] != '\'')
-			i++;
-		return(i);
-	}
-	while (str[i] != ' ' && str[i])
-		i++;
-	return(i);
-}
+	int	i;
+	int	q;
+	int	q2;
+	int	nb;
 
-
-int ft_nbword(char *str)
-{
-	int i; 
-	int q;
-	int q2;
-	int nb;
-	
 	q = 0;
 	q2 = 0;
 	i = 0;
 	nb = 0;
-	while(str[i] == ' ')
-		i++;
-	while(str[i])
+
+	while (str[i])
 	{
 		if (str[i] == '"' && q != 1)
+			q2 = -q2 + 1;
+		else if (str[i] == '\'' && q2 != 1)
+			q = -q + 1;
+		if (str[i] == ' ' && q == 0 && q2 == 0)
 		{
-			q2++;	
-			if (q2 == 2)
-				q2 = 0;
-		}
-		if (str[i] == '\'' && q2 != 1)
-		{
-			q++;
-			if (q == 2)
-				q = 0;
-		}
-		if ((str[i] == ' ' && str[i + 1] != ' '
-			&& q == 0 && q2 == 0)
-			|| (!str[i + 1]))
 			nb++;
-		i++;
+			while (str[i] == ' ')
+			i++;
+		}
+		else
+			i++;
 	}
 	return (nb);
 }
