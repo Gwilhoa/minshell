@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:54:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/08 15:25:51 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/10 15:56:52 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ void	ft_echo(t_process *process, t_minishell *shell)
 	back = 0;
 	if (process->args == NULL)
 		exit(0);
-	parse = ft_split(process->args, ' ');
+	ft_check_dollar(&process->args, shell->env, 0);
+	parse = ft_split_bash(process->args);
+	if (g_error == -1)
+	{
+		ft_putstr_fd("error : bad syntax\n", 2);
+		exit(1);
+	}
 	i = 0;
 	while (parse[i] != 0)
 	{
-		ft_check_dollar(&parse[i], shell->env, 0);
 		if (isflag == 1)
 		{
 			j = 1;
