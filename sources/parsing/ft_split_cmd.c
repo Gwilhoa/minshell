@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/10 20:26:08 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/11 16:58:56 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	**ft_split_bash(char *str)
 	int		q;
 	int		q2;
 
+	if (str == NULL)
+		return (NULL);
 	nb = ft_nbword(str);
 	ret = malloc(sizeof(char *) * (nb + 1));
 	nb = 0;
@@ -37,6 +39,8 @@ char	**ft_split_bash(char *str)
 		if (str[i] == ' ' && q == 0 && q2 == 0)
 		{
 			ret[nb] = ft_substr(str, p, i - p);
+			while (str[i] == ' ')
+				i++;
 			nb++;
 			p = i;
 		}
