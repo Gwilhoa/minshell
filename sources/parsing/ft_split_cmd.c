@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/11 16:58:56 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/11 17:32:03 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	**ft_split_bash(char *str)
 		i++;
 	}
 	ret[nb] = ft_substr(str,p , p - i);
+	if (i - 1 == p)
+		ret[nb] = 0;
 	ret[nb + 1] = 0;
 	return (ret);
 }

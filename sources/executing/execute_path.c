@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 17:09:02 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/11 17:25:22 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 	char	*temp;
 	char	*path_cmd;
 	char	**args;
+	int		i;
 
+	i = 0;
 	if (isabsolute == 0)
 	{
 		temp = ft_strjoin(path, "/");
@@ -115,6 +117,11 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 	else
 		path_cmd = process->cmd;
 	args = ft_split_bash(process->args);
+	while (args && args[i])
+	{
+		ft_delquotes(&args[i]);
+		i++;
+	}
 	ft_push_matrix(&args, process->cmd);
 	if (execve(path_cmd, args, mini->env) < 0)
 	{
