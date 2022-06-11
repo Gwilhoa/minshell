@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/08 12:37:21 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/11 19:17:34 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	ft_export(t_process *process, t_minishell *mini)
 	}
 	else
 	{
-		args = ft_split(process->args, ' ');
+		args = ft_split_bash(process->args);
 		while (args[++i] != 0)
 		{
+			ft_delquotes(&args[i]);
 			arg = ft_split(args[i], '=');
 			env = ft_get_line_env(arg[0], mini->env);
 			if (env == 0)

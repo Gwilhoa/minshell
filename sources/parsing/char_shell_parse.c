@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 17:16:55 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/11 21:01:31 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_dollar_parse(int i, char **str, char **env)
 	if (change == NULL)
 	{
 		*str = ft_strjoin(start, end);
-		return;
+		return ;
 	}
 	start = ft_strjoin(start, change);
 	ret = ft_strjoin(start, end);

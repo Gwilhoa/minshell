@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/11 17:19:58 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/11 18:57:57 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ char	*ft_take_cmd(t_process *process)
 	i++;
 	process->args = ft_strdup(spited[i]);
 	while (spited[++i]) {
-		process->args = ft_strjoin(process->args, spited[i]);
 		process->args = ft_strjoin(process->args, " ");
+		process->args = ft_strjoin(process->args, spited[i]);
 	}
 	ft_free_matrix(spited);
 	free(spited);

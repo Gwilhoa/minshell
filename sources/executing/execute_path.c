@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 17:25:22 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/11 20:44:59 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,8 @@ void	ft_bash(t_minishell *mini, t_process *process)
 {
 	char	*path;
 
-	if (access(process->cmd, F_OK) == 0)
-	{
-		if (access(process->cmd, F_OK) == 0)
-			ft_execute(process->cmd, process, mini, 1);
-	}
+	if (access(process->cmd, F_OK) == 0 && access(process->cmd, X_OK) == 0)
+		ft_execute(process->cmd, process, mini, 1);
 	path = ft_getenv("PATH", mini->env);
 	if (path)
 		ft_searching_path(mini, process, path);
@@ -96,12 +93,12 @@ void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 			ft_execute(splited_path[i], process, mini, 0);
 		i++;
 	}
-	if (access(process->cmd, F_OK) == 0)
+	if (access(process->cmd, F_OK) == 0 && access(process->cmd, X_OK) == 0)
 		ft_execute(getcwd(NULL, 0), process, mini, 0);
 }
 
 void	ft_execute(char *path, t_process *process, t_minishell *mini, \
-	int isabsolute)
+		int isabsolute)
 {
 	char	*temp;
 	char	*path_cmd;
@@ -127,6 +124,7 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 	{
 		if (isabsolute == 1)
 		{
+			dup2(2, 1);
 			ft_printf("minshell >>> %s : is a directory\n", process->cmd);
 			exit(126);
 		}
