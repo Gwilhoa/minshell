@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 11:01:56 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 16:12:24 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	fork_hd(int *piped, char *str, char **env)
 	int		i;
 	char	*tmp;
 
-	i = 0;
+	i = 1;
 	g_error = INHEREDOC_FORK;
 	close(piped[0]);
 	while (i != 0)
@@ -118,8 +118,6 @@ void	fork_hd(int *piped, char *str, char **env)
 			free(tmp);
 		}
 	}
-	if (tmp != NULL)
-		free(tmp);
 	close(piped[1]);
 	exit(0);
 }
