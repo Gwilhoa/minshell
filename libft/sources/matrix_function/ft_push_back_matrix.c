@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back2.c                                  :+:      :+:    :+:   */
+/*   ft_push_back_matrix.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 18:06:40 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/10 17:11:25 by gchatain         ###   ########lyon.fr   */
+/*   Created: 2022/06/13 11:15:18 by gchatain          #+#    #+#             */
+/*   Updated: 2022/06/13 11:50:07 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	addprocess(t_process **alst, t_process *new)
+void	ft_push_back_matrix(char ***matrix, char *str)
 {
-	t_process	*t;
-	int			i;
+	char	**tmp;
+	char	**tmp2;
+	int		i;
 
 	i = 0;
-	if (alst && *alst)
+	tmp = *matrix;
+	if (matrix == NULL)
 	{
-		t = *alst;
-		while (t->next)
-		{
-			t = t->next;
-			i++;
-		}
-		t->next = new;
+		ft_push_matrix(matrix, str);
+		return ;
 	}
-	else if (alst)
-		*alst = new;
-	new->process_nb = i;
+	tmp2 = malloc(sizeof(char *) * (ft_matrix_size((const char **)tmp) + 2));
+	while (tmp[i] != 0)
+	{
+		tmp2[i] = tmp[i];
+		i++;
+	}
+	tmp2[i] = ft_strdup(str);
+	tmp2[i + 1] = 0;
+	*matrix = tmp2;
 }

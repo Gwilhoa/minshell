@@ -6,12 +6,13 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:01:49 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 19:59:12 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 11:37:58 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# include "get_next_line.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
@@ -23,6 +24,7 @@ typedef struct s_list
 }	t_list;
 # define STRING char *
 
+void	ft_delchar(char **str, int index);
 int		ft_atoi(char const *str);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -31,7 +33,7 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		sizeint(long int n);
 int		ft_lstsize(t_list *lst);
-int		ft_matrixlen(char **matrix);
+int		ft_matrix_size(const char **matrix);
 int		ft_memcmp(const void *str1, const void *str2, size_t n);
 int		function_parser(va_list args, int c);
 int		ft_printf(const char *str, ...);

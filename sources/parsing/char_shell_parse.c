@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 21:01:31 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 13:18:17 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	isenddollar(int c)
 	return (0);
 }
 
-void	ft_check_dollar(char **str, char **env, int isheredoc)
+void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 {
 	int		i;
 	char	*ret;
@@ -37,14 +37,14 @@ void	ft_check_dollar(char **str, char **env, int isheredoc)
 		else if (isheredoc == 0 && doublequote == 0 && ret[i] == '\'')
 			singlequote = -singlequote + 1;
 		else if (ret[i] == '$' && singlequote == 0)
-			ft_dollar_parse(i, str, env);
+			ft_dollar_parse(i, str, env, error);
 		ret = *str;
 		i++;
 	}
 	ret = *str;
 }
 
-void	ft_dollar_parse(int i, char **str, char **env)
+void	ft_dollar_parse(int i, char **str, char **env, int error)
 {
 	char	*ret;
 	char	*start;
@@ -56,10 +56,13 @@ void	ft_dollar_parse(int i, char **str, char **env)
 	ret = *str;
 	start = ft_substr(ret, 0, i);
 	j = i + 1;
-	while (isenddollar(ret[j]) == 0)
+	while (isenddollar(ret[j]) == 0 || (ret[j] == '?' && error))
 		j++;
 	change = ft_substr(ret, i + 1, j - i - 1);
-	change = ft_getenv(change, env);
+	if (ft_strcmp(change, "?") == 0 && error == 1)
+		change = ft_itoa(g_error);
+	else
+		change = ft_getenv(change, env);
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	if (change == NULL)
 	{
@@ -69,16 +72,4 @@ void	ft_dollar_parse(int i, char **str, char **env)
 	start = ft_strjoin(start, change);
 	ret = ft_strjoin(start, end);
 	*str = ret;
-}
-
-void	ft_del_char(char **str, int index)
-{
-	char	*start;
-	char	*end;
-
-	start = ft_substr(*str, 0, index);
-	end = ft_substr(*str, index + 1, ft_strlen(*str));
-	*str = ft_strjoin(start, end);
-	free(start);
-	free(end);
 }

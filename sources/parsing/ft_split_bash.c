@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_cmd.c                                     :+:      :+:    :+:   */
+/*   ft_split_bash.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/11 19:16:01 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 13:34:11 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	ft_nbword(char *str)
 	return (nb);
 }
 
-
 void	ft_delquotes(char **str)
 {
 	char	*tmp;
@@ -99,13 +98,13 @@ void	ft_delquotes(char **str)
 		if (tmp[i] == '"' && q != 1)
 		{
 			q2 = -q2 + 1;
-			ft_del_char(&tmp, i);
+			ft_delchar(&tmp, i);
 			i--;
 		}
 		else if (tmp[i] == '\'' && q2 != 1)
 		{
 			q = -q + 1;
-			ft_del_char(&tmp, i);
+			ft_delchar(&tmp, i);
 			i--;
 		}
 		if ((tmp[i] == ' ' || tmp[i] == 0) && q == 0 && q2 == 0)

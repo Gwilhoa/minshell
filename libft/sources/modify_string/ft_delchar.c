@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_matrixlen.c                                     :+:      :+:    :+:   */
+/*   ft_delchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/12 13:59:42 by gchatain          #+#    #+#             */
-/*   Updated: 2022/04/12 14:01:46 by gchatain         ###   ########lyon.fr   */
+/*   Created: 2022/06/13 10:49:38 by gchatain          #+#    #+#             */
+/*   Updated: 2022/06/13 10:49:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_matrixlen(const char **matrix)
-{
-	int	i;
+#include "libft.h"
 
-	i = 0;
-	while (matrix[i] != 0)
-	{
-		i++;
-	}
-	return (i);
+void	ft_delchar(char **str, int index)
+{
+	char	*start;
+	char	*end;
+
+	start = ft_substr(*str, 0, index);
+	end = ft_substr(*str, index + 1, ft_strlen(*str));
+	*str = ft_strjoin(start, end);
+	free(start);
+	free(end);
 }

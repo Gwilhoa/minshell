@@ -13,8 +13,7 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#include "libft.h"
-
+# include "libft.h"
 # define BUFFER_SIZE 30
 
 int		ft_search(char *str, int charset);

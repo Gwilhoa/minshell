@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 20:44:59 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 10:43:41 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 	char	**args;
 	int		i;
 
-	i = 0;
+	i = -1;
 	if (isabsolute == 0)
 	{
 		temp = ft_strjoin(path, "/");
@@ -114,22 +114,14 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 	else
 		path_cmd = process->cmd;
 	args = ft_split_bash(process->args);
-	while (args && args[i])
-	{
+	while (args && args[++i])
 		ft_delquotes(&args[i]);
-		i++;
-	}
 	ft_push_matrix(&args, process->cmd);
 	if (execve(path_cmd, args, mini->env) < 0)
 	{
 		if (isabsolute == 1)
-		{
-			dup2(2, 1);
-			ft_printf("minshell >>> %s : is a directory\n", process->cmd);
-			exit(126);
-		}
+			absolute_failed(process->cmd);
 		perror("execve");
 		exit(127);
 	}
-	return ;
 }

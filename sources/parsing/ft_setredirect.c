@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_redirec.c                                       :+:      :+:    :+:   */
+/*   ft_setredirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/10 18:22:10 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 11:01:17 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,15 @@ void	ft_setup(t_process *process, t_minishell *mini)
 				free(process->infile);
 			process->infile = NULL;
 		}
-		ft_check_dollar(&process->all_redirec[i], mini->env, 0);
+		ft_check_dollar(&process->all_redirec[i], mini->env, 0, 0);
 		ft_delquotes(&process->all_redirec[i]);
 		if (process->all_redirec[i][0] == '<' &&
 		process->all_redirec[i][1] != '<')
-		{
 			ft_infile(process, i);
-			if (g_error != 0)
-				return ;
-		}
 		if (process->all_redirec[i][0] == '>')
-		{
 			ft_outfile(process, i);
-			if (g_error != 0)
-				return ;
-		}
+		if (g_error != 0)
+			return ;
 		i++;
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/11 18:57:57 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 13:34:42 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cmd_args(t_process *process)
+void	ft_split_cmd_args(t_process *process)
 {
 	int		i;
 	char	*tmp;
@@ -23,10 +23,10 @@ void	ft_cmd_args(t_process *process)
 	process->cmd = process->cmd + i;
 	tmp = ft_take_cmd(process);
 	ft_clean_args(process);
- 	process->cmd = tmp;
+	process->cmd = tmp;
 }
 
-void	ft_clean_args(t_process *process)			// fonction incomplete supprimer tout les espaces entre les args;
+void	ft_clean_args(t_process *process)
 {
 	int		i;
 	char	*tmp;
@@ -47,11 +47,13 @@ char	*ft_take_cmd(t_process *process)
 	int		i;
 
 	i = 0;
+	ft_clean_str(process->cmd);
 	spited = ft_split_bash(process->cmd);
 	ret = ft_strdup(spited[i]);
 	i++;
 	process->args = ft_strdup(spited[i]);
-	while (spited[++i]) {
+	while (spited[++i])
+	{
 		process->args = ft_strjoin(process->args, " ");
 		process->args = ft_strjoin(process->args, spited[i]);
 	}

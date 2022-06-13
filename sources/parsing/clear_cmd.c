@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/10 17:19:53 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 10:18:43 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_clear_cmd(t_process *process)
 		if (process->cmd[i] == '>' || process->cmd[i] == '<')
 		{	
 			start = i;
-			end = ft_clean_till(process->cmd, start);
+			end = ft_end_redirec(process->cmd, start);
 			process->redirec = ft_strjoin_free(process->redirec, \
 			ft_substr(process->cmd, start, (end - start)));
 			process->cmd = ft_clean_str(process->cmd, (start), (end));
@@ -35,7 +35,7 @@ void	ft_clear_cmd(t_process *process)
 	}
 }
 
-int	ft_clean_till(char *str, int i)
+int	ft_end_redirec(char *str, int i)
 {
 	int	q;
 	int	q2;

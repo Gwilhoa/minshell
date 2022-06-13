@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:53:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/05/10 08:55:56 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 11:49:34 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**ft_matrix_dup(char **matrix)
 	char	**new;
 	int		i;
 
-	new = malloc((ft_matrixlen(matrix) + 1) * sizeof(char *));
+	new = malloc((ft_matrix_size((const char **)matrix) + 1) * sizeof(char *));
 	i = 0;
 	while (matrix[i] != 0)
 	{

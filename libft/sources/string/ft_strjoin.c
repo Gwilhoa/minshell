@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 15:24:06 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/07 16:43:54 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 10:44:06 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,3 @@ char	*ft_strjoin_space(char *s1, char *s2)
 	free(s2);
 	return (str);
 }
-

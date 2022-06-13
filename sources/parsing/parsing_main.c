@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/11 17:02:36 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 11:02:21 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_parsing(t_minishell *main)
 	}
 	main->nbcmd = ft_nbcmd(main->str);
 	main->splitcmd = ft_split_cmd(main->str, main->nbcmd);
-	ft_creat_command(main);
+	ft_create_command(main);
 	return (0);
 }
 

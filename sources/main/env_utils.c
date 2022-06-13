@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 20:07:14 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 11:59:00 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_getenv(char *key, char **env)
 	if (line != 0)
 	{
 		parse = ft_split(line, '=');
-		if (ft_matrixlen(parse) == 1)
+		if (ft_matrix_size((const char **)parse) == 1)
 			return (0);
 		temp = line + ft_strlen(parse[0]) + 1;
 		ft_free_matrix(parse);
@@ -96,7 +96,7 @@ void	ft_delenv(t_minishell *mini, char *key)
 	line = ft_get_line_env(key, mini->env);
 	if (line == 0)
 		return ;
-	ret = malloc(ft_matrixlen(mini->env) * sizeof(char *));
+	ret = malloc(ft_matrix_size((const char **)mini->env) * sizeof(char *));
 	while (mini->env[++i])
 	{
 		if (ft_strcmp(line, mini->env[i]) == 0)

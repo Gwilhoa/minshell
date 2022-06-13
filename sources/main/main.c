@@ -6,16 +6,34 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/10 13:47:36 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 13:22:09 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	init_env(char **envp, t_minishell *mini)
+{
+	char	*pwd;
+
+	if (ft_matrix_size((const char **)envp) == 0)
+	{
+		mini->env = malloc(sizeof(char *));
+		mini->env[0] = 0;
+		pwd = getcwd(NULL, 0);
+		ft_addenv(mini, "SHLVL=1");
+		ft_addenv(mini, ft_strjoin("PWD=", pwd));
+	}
+	else
+	{
+		mini->env = ft_matrix_dup(envp);
+		incr_shlvl(mini);
+	}
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_minishell	mini;
-	char		*pwd;
 
 	(void) argc;
 	(void) argv;
@@ -24,19 +42,7 @@ int	main(int argc, char *argv[], char *envp[])
 	g_error = 0;
 	mini.default_outfd = dup(1);
 	mini.default_infd = dup(0);
-	if (ft_matrixlen(envp) == 0)
-	{
-		mini.env = malloc(sizeof(char *));
-		mini.env[0] = 0;
-		pwd = getcwd(NULL, 0);
-		ft_addenv(&mini, "SHLVL=1");
-		ft_addenv(&mini, ft_strjoin("PWD=", pwd));
-	}
-	else
-	{
-		mini.env = ft_matrix_dup(envp);
-		incr_shlvl(&mini);
-	}
+	init_env(envp, &mini);
 	mini.process = NULL;
 	loop(&mini);
 	return (0);
@@ -48,7 +54,7 @@ int	loop(t_minishell *mini)
 
 	while (1)
 	{
-		mini->process = NULL;//si mini->process != null alors free process
+		mini->process = NULL;//si mini->process != null alors free tout les process
 		line = readline("minshell >> ");
 		if (line == NULL)
 			ft_exit(mini, NULL);
@@ -57,12 +63,13 @@ int	loop(t_minishell *mini)
 			add_history(line);
 			if (line != NULL)
 			{
-				g_error = 0;
 				mini->str = line;
+				ft_check_dollar(&mini->str, mini->env, 0, 1);
+				g_error = 0;
 				if (ft_parsing(mini) != 0)
 				{
 					g_error = ERRO_SYNTAXE;
-					printf("syntax error\n"); // sortir ici de la commande
+					printf("syntax error\n");
 				}
 				if (g_error == 0)
 					inexec(mini);

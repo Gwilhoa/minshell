@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:54:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 19:04:20 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 10:59:24 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_echo(t_process *process, t_minishell *shell)
 	back = 0;
 	if (process->args == NULL)
 		exit(0);
-	ft_check_dollar(&process->args, shell->env, 0);
+	ft_check_dollar(&process->args, shell->env, 0, 0);
 	parse = ft_split_bash(process->args);
 	i = 0;
 	while (parse && parse[i])

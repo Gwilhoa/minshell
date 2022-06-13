@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/09 18:33:11 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 11:01:56 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,7 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 	fd = fork();
 	g_error = INHEREDOC;
 	if (fd == 0)
-	{
-		g_error = INHEREDOC_FORK;
-		close(piped[0]);
-		while (i != 0)
-		{
-			tmp = readline("> ");
-			i = ft_strcmp(str, tmp);
-			if (i != 0)
-			{
-				ft_check_dollar(&tmp, mini->env, 1);
-				ft_putstr_fd(tmp, piped[1]);
-				ft_putstr_fd("\n", piped[1]);
-			}
-		}
-		if (tmp != NULL)
-			free(tmp);
-		close(piped[1]);
-		exit(0);
-	}
+		fork_hd(piped, str, mini->env);
 	close(piped[1]);
 	wait(&status);
 	g_error = WEXITSTATUS(status);
@@ -114,4 +96,30 @@ char	*readfd(int fd)
 		reader = get_next_line(fd);
 	}
 	return (ret);
+}
+
+void	fork_hd(int *piped, char *str, char **env)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	g_error = INHEREDOC_FORK;
+	close(piped[0]);
+	while (i != 0)
+	{
+		tmp = readline("> ");
+		i = ft_strcmp(str, tmp);
+		if (i != 0)
+		{
+			ft_check_dollar(&tmp, env, 1, 0);
+			ft_putstr_fd(tmp, piped[1]);
+			ft_putstr_fd("\n", piped[1]);
+			free(tmp);
+		}
+	}
+	if (tmp != NULL)
+		free(tmp);
+	close(piped[1]);
+	exit(0);
 }

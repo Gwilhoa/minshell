@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 19:09:47 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 13:31:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,14 @@ void	inexec(t_minishell *mini)
 		g_error = INEXECVE;
 		while (process != NULL && process->cmd != NULL)
 			process = process_executing(mini, process);
-		while (wait(NULL) > 0)
-			g_error = WEXITSTATUS(status);
 	}
+	while (wait(&status) > 0)
+			g_error = WEXITSTATUS(status);
+}
+
+void	absolute_failed(char *str)
+{
+	dup2(2, 1);
+	ft_printf("minshell >>> %s : is a directory\n", str);
+	exit(126);
 }
