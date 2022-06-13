@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 16:00:15 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 18:08:36 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ char		*get_next_line(int fd);
 char		*ft_getenv(char *key, char **env);
 char		*ft_get_line_env(char *key, char **env);
 char		*ft_take_cmd(t_process *process);
+char		*readfd(int fd);
+char		*ft_cutfile(char *str, int start);
 char		**ft_split_bash(char *str);
 char		**split_files(char	*str);
-char		*readfd(int fd);
 char		**ft_split_cmd(char *str, int nb);
 void		ft_clean_str(char **str);
 void		ft_cd(t_process *process, t_minishell *mini);

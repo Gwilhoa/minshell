@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 15:47:45 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 18:44:41 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_redirec(t_process *process, t_minishell *mini)
 {
 	process->all_redirec = split_files(process->redirec);
+	ft_disp_matrix(process->all_redirec);
 	if (process->all_redirec == 0)
 		return ;
 	ft_search_heredoc(process, mini);
