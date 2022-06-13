@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 11:00:57 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 14:59:37 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ t_process	*ft_init_process(char *str)
 	l->infile = NULL;
 	l->next = NULL;
 	l->heredoc = NULL;
+	l->pid = 0;
 	return (l);
 }

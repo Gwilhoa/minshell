@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 10:18:43 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 15:04:21 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_clear_cmd(t_process *process)
 			end = ft_end_redirec(process->cmd, start);
 			process->redirec = ft_strjoin_free(process->redirec, \
 			ft_substr(process->cmd, start, (end - start)));
-			process->cmd = ft_clean_str(process->cmd, (start), (end));
+			ft_clean_str(&process->cmd);
 			i = 0;
 		}
 	}
@@ -57,16 +57,4 @@ int	ft_end_redirec(char *str, int i)
 		i++;
 	}
 	return (i);
-}
-
-char	*ft_clean_str(char *str, int start, int end)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	tmp = ft_strjoin(ft_substr(str, i, start), \
-	ft_substr(str, end, (ft_strlen(str))));
-	free(str);
-	return (tmp);
 }

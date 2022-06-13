@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 13:35:49 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 14:55:56 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_process	t_process;
 
 typedef struct s_process
 {
+	int			pid;
 	int			code;
 	int			process_nb;
 	t_process	*next;
@@ -55,7 +56,6 @@ typedef struct s_process
 
 typedef struct s_minishell
 {
-	int			pid;
 	t_process	*process;
 	char		**env;
 	int			default_outfd;
@@ -83,14 +83,14 @@ char		*ft_init(char *ret, char *str, int r);
 char		*get_next_line(int fd);
 char		*ft_getenv(char *key, char **env);
 char		*ft_get_line_env(char *key, char **env);
-char		*ft_clean_str(char *str, int start, int end);
 char		*ft_take_cmd(t_process *process);
 char		**ft_split_bash(char *str);
 char		**split_files(char	*str);
 char		*readfd(int fd);
 char		**ft_split_cmd(char *str, int nb);
+void		ft_clean_str(char **str);
 void		ft_cd(t_process *process, t_minishell *mini);
-void		ft_echo(t_process *process, t_minishell *shell);
+void		ft_echo(t_process *process);
 void		ft_env(char **env);
 void		ft_exit(t_minishell *mini, t_process *process);
 void		ft_export(t_process *process, t_minishell *mini);
@@ -99,7 +99,8 @@ void		ft_unset(t_process *process, t_minishell *mini);
 void		ft_changedup(t_minishell *mini, t_process *process);
 void		searching_cmd(t_minishell *mini, t_process *process);
 void		ft_bash(t_minishell *mini, t_process *process);
-void		ft_searching_path(t_minishell *mini, t_process *process, char *path);
+void		ft_searching_path(t_minishell *mini, t_process *process, \
+																	char *path);
 void		ft_execute(char *path, t_process *process, t_minishell *mini, \
 																	int i);
 void		create_pipes(t_minishell *shell);

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 13:31:46 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 15:13:07 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_process	*process_executing(t_minishell *mini, t_process *process)
 	int	pid;
 
 	pid = fork();
+	process->pid = pid;
 	if (pid < 0)
 		perror("pid");
 	else if (pid == 0)
@@ -61,9 +62,14 @@ void	inexec(t_minishell *mini)
 		g_error = INEXECVE;
 		while (process != NULL && process->cmd != NULL)
 			process = process_executing(mini, process);
-	}
-	while (wait(&status) > 0)
+		process = mini->process;
+		while (process != NULL)
+		{
+			waitpid(process->pid, &status, 0);
 			g_error = WEXITSTATUS(status);
+			process = process->next;
+		}
+	}
 }
 
 void	absolute_failed(char *str)

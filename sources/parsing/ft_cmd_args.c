@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 13:34:42 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 13:56:07 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_take_cmd(t_process *process)
 	int		i;
 
 	i = 0;
-	ft_clean_str(process->cmd);
+	ft_clean_str(&process->cmd);
 	spited = ft_split_bash(process->cmd);
 	ret = ft_strdup(spited[i]);
 	i++;
@@ -60,4 +60,14 @@ char	*ft_take_cmd(t_process *process)
 	ft_free_matrix(spited);
 	free(spited);
 	return (ret);
+}
+
+void	ft_clean_str(char **str)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	tmp = *str;
+	*str = ft_strtrim(tmp, " ");
 }

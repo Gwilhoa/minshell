@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:27:13 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/07 14:44:59 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 15:12:11 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_cd(t_process *process, t_minishell *mini)
 	{
 		perror("cd >>>");
 		g_error = 1;
+		return;
 	}
 	pwd = getcwd(NULL, 0);
 	free(path);

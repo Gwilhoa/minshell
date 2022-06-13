@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 10:43:41 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 14:56:21 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	searching_cmd(t_minishell *mini, t_process *process)
 	else if (ft_strcmp(process->cmd, "env") == 0)
 		ft_env(mini->env);
 	else if (ft_strcmp(process->cmd, "echo") == 0)
-		ft_echo(process, mini);
+		ft_echo(process);
 	else if (ft_strcmp(process->cmd, "export") == 0)
 	{
 		ft_export(process, mini);
