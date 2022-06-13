@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 14:55:56 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/13 16:00:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void		ft_search_heredoc(t_process *process, t_minishell *mini);
 void		ft_in_hd(t_process *process, int i, t_minishell *mini);
 void		ft_heredoc(t_process *process, char *str, t_minishell *mini);
 void		fork_hd(int *piped, char *str, char **env);
+void		remove_file(char **str, int start, int end);
 t_process	*ft_init_process(char *str);
 t_process	*process_executing(t_minishell *mini, t_process *process);
 #endif
