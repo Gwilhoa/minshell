@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 10:35:56 by gchatain          #+#    #+#              #
-#    Updated: 2022/06/13 11:56:25 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/06/20 15:00:02 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ clean:
 			printf "${RED}[DELETE]${END} directory .objects"
 
 fclean:	clean
-			${RM} -r ${NAME} .objects
+			${RM} -r .objects
 			printf "${ERASE}${RED}[DELETE]${END} ${NAME}\n"
 
 re:			fclean all

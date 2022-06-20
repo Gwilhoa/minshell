@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:11:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 13:49:32 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/20 14:42:58 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	get_signal(int sig)
 			rl_redisplay();
 		}
 		g_error = SIGC;
-		
 	}
 	else if (sig == SIGQUIT)
 	{
@@ -47,7 +46,6 @@ void	get_signal(int sig)
 
 void	sigfork(int sig)
 {
-	wait(NULL);
 	if (SIGINT == sig)
 		g_error = SIGC;
 }

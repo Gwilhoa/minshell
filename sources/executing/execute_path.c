@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 13:19:12 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/20 14:42:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 		if (isabsolute == 1)
 			absolute_failed(process->cmd);
 		perror("execve");
-		exit(127);
+		exit(CMDNOTFOUND);
 	}
 }
