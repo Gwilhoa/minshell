@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 16:15:42 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/18 19:38:24 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char *argv[], char *envp[])
 int	loop(t_minishell *mini)
 {
 	char		*line;
+	t_process	*tmp;
 
 	while (1)
 	{
@@ -74,6 +75,14 @@ int	loop(t_minishell *mini)
 				if (g_error == 0)
 					inexec(mini);
 			}
+		}
+		free(line);
+		while (mini->process)
+		{
+			tmp = mini->process->next;
+			ft_free_process(mini->process);
+			free(mini->process);
+			mini->process = tmp;
 		}
 	}
 }

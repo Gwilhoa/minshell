@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 15:48:53 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 12:30:29 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ t_process	*ft_init_process(char *str)
 	l->infile = NULL;
 	l->next = NULL;
 	l->heredoc = NULL;
+	l->hd_stop = NULL;
 	l->pid = 0;
+	l->fullcmd = NULL;
+	l->all_redirec = NULL;
 	return (l);
 }

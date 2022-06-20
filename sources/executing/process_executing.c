@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_executing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 15:13:07 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 13:50:45 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_process	*process_executing(t_minishell *mini, t_process *process)
 		perror("pid");
 	else if (pid == 0)
 		ft_forks(mini, process);
+	// else
+	// 	signal(SIGINT, sigfork);
 	close(process->outfd);
 	close(process->infd);
 	dup2(mini->default_outfd, 1);
@@ -42,8 +44,9 @@ t_process	*process_executing(t_minishell *mini, t_process *process)
 
 void	inexec(t_minishell *mini)
 {
-	t_process	*process;
 	int			status;
+	t_process	*process;
+	//t_process	*tmp;
 
 	create_pipes(mini);
 	process = mini->process;

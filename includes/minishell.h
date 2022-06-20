@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 18:08:36 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 13:11:02 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define SIGD -3
 # define INHEREDOC -2
 # define INHEREDOC_FORK -2000
+# define INFORK -500
 
 int							g_error;
 typedef struct s_process	t_process;
@@ -110,6 +111,7 @@ void		ft_forks(t_minishell *mini, t_process *process);
 void		inexec(t_minishell *mini);
 void		absolute_failed(char *str);
 void		delsig(void);
+void		sigfork(int sig);
 void		get_signal(int sig);
 void		ft_addenv(t_minishell *mini, char *str);
 void		ft_change_env(char *key, char *newchar, t_minishell *mini);
@@ -136,4 +138,6 @@ void		fork_hd(int *piped, char *str, char **env);
 void		remove_file(char **str, int start, int end);
 t_process	*ft_init_process(char *str);
 t_process	*process_executing(t_minishell *mini, t_process *process);
+void		ft_free_process(t_process *process);
+char		*ft_strjoin_free_first(char *s1, char *s2);
 #endif

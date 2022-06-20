@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_bash.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 13:34:11 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 03:54:18 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_nbword(char *str)
 	return (nb);
 }
 
-void	ft_delquotes(char **str)
+void	ft_delquotes(char **str)	// leaks here ?
 {
 	char	*tmp;
 	int		i;

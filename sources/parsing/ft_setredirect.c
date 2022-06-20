@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_setredirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 18:44:41 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 12:31:17 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_redirec(t_process *process, t_minishell *mini)
 {
 	process->all_redirec = split_files(process->redirec);
-	ft_disp_matrix(process->all_redirec);
 	if (process->all_redirec == 0)
 		return ;
 	ft_search_heredoc(process, mini);
@@ -108,4 +107,4 @@ void	ft_infile(t_process *process, int i)
 		return ;
 	}
 	close(fd);
-}
+} 

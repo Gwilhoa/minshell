@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_files.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:42:24 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 18:45:17 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 12:13:54 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ int	ft_count_chevron(char	*str)
 	int	i;
 	int	r;
 
-	r = 1;
+	r = 0;
 	i = 0;
 	while (str[i] != 0)
 	{
 		if (str[i] == '>' || str[i] == '<')
 		{
-			if (str[i + 1] == '>' || str[i + 1] == '<')
-				i++;
+			printf("i = %i\n", i);
+			i++;
 			r++;
+			if (str[i] == '>' || str[i] == '<')
+				i++;
 		}
 		i++;
 	}

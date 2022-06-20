@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/13 16:00:43 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 12:39:29 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_clear_cmd(t_process *process)
 	process->redirec = malloc(sizeof(char) * 1);
 	process->redirec[0] = '\0';
 	i = -1;
+	
 	while (process->cmd[++i])
 	{
 		if (process->cmd[i] == '>' || process->cmd[i] == '<')
@@ -31,6 +32,7 @@ void	ft_clear_cmd(t_process *process)
 			ft_substr(process->cmd, start, (end - start)));
 			remove_file(&process->cmd, start, end);
 			ft_clean_str(&process->cmd);
+			i = -1;
 		}
 	}
 }
@@ -42,8 +44,10 @@ void	remove_file(char **str, int start, int end)
 
 	i = 0;
 	tmp = *str;
-	tmp = ft_strjoin(ft_substr(tmp, i, start), \
+	tmp = ft_strjoin_free(ft_substr(tmp, i, start), \
 	ft_substr(tmp, end, (ft_strlen(tmp))));
+	// if (str != NULL)	// semble ne pas marché avec "<< heredoc"
+	// 	free(str);
 	*str = tmp;
 }
 

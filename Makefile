@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: guyar <guyar@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/06/13 11:06:35 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/06/17 04:30:21 by guyar            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ CC			:= gcc
 LST_BUILT_IN	:= cd.c exit.c export.c pwd.c unset.c echo.c env.c
 LST_EXEC		:= execute_path.c pipes.c signal.c process_executing.c
 LST_MAIN		:= env_utils.c main.c
-LST_PARSING		:= char_shell_parse.c clear_cmd.c create_cmd_process.c ft_cmd_args.c ft_setredirect.c ft_split_bash.c ft_split_files.c heredoc.c parse_utils.c parsing_main.c
+LST_PARSING		:= char_shell_parse.c clear_cmd.c create_cmd_process.c ft_cmd_args.c ft_setredirect.c ft_split_bash.c ft_split_files.c heredoc.c parse_utils.c parsing_main.c ft_free.c
 LST_SRCS		:= $(addprefix built-in/,$(LST_BUILT_IN)) $(addprefix executing/,$(LST_EXEC)) $(addprefix main/,$(LST_MAIN)) $(addprefix parsing/,$(LST_PARSING)) $(addprefix get_next_line/,$(LST_GNL))
 
 LST_OBJS		:= $(LST_SRCS:.c=.o)
