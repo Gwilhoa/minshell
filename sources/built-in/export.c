@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/11 19:17:34 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 14:20:55 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_export(t_process *process, t_minishell *mini)
 			tmp = ft_split(mini->env[i], '=')[0];
 			if (ft_getenv(tmp, mini->env) != NULL)
 				ft_printf("declare -x %s=\"%s\"\n", tmp, ft_getenv(tmp, mini->env));
-			else if (ft_strlen(ft_get_line_env(tmp, mini->env)) > ft_strlen(tmp))
+			else if (ft_strlen(*ft_get_line_env(tmp, mini->env)) > ft_strlen(tmp))
 				ft_printf("declare -x %s=\"\"\n", tmp);
 			else
 				ft_printf("declare -x %s\n", tmp);
@@ -41,7 +41,7 @@ void	ft_export(t_process *process, t_minishell *mini)
 		{
 			ft_delquotes(&args[i]);
 			arg = ft_split(args[i], '=');
-			env = ft_get_line_env(arg[0], mini->env);
+			env = *ft_get_line_env(arg[0], mini->env);
 			if (env == 0)
 				ft_addenv(mini, args[i]);
 			else if (arg[1] != 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/18 19:38:24 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/20 14:19:49 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_env(char **envp, t_minishell *mini)
 	else
 	{
 		mini->env = ft_matrix_dup(envp);
+		*ft_get_line_env("OLDPWD", mini->env) = ft_strdup("OLDPWD");
 		incr_shlvl(mini);
 	}
 }

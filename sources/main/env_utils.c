@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 11:59:00 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 14:22:05 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_getenv(char *key, char **env)
 	char	*line;
 	char	*temp;
 
-	line = ft_get_line_env(key, env);
+	line = *ft_get_line_env(key, env);
 	if (line != 0)
 	{
 		parse = ft_split(line, '=');
@@ -32,7 +32,7 @@ char	*ft_getenv(char *key, char **env)
 	return (NULL);
 }
 
-char	*ft_get_line_env(char *key, char **env)
+char	**ft_get_line_env(char *key, char **env)
 {
 	int		i;
 	char	**parse;
@@ -45,7 +45,7 @@ char	*ft_get_line_env(char *key, char **env)
 		{
 			ft_free_matrix(parse);
 			free(parse);
-			return (env[i]);
+			return (&env[i]);
 		}
 		i++;
 		ft_free_matrix(parse);
@@ -93,7 +93,7 @@ void	ft_delenv(t_minishell *mini, char *key)
 
 	i = -1;
 	j = 0;
-	line = ft_get_line_env(key, mini->env);
+	line = *ft_get_line_env(key, mini->env);
 	if (line == 0)
 		return ;
 	ret = malloc(ft_matrix_size((const char **)mini->env) * sizeof(char *));

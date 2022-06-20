@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:27:13 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 15:12:11 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 14:19:50 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_cd(t_process *process, t_minishell *mini)
 	{
 		perror("cd >>>");
 		g_error = 1;
-		return;
+		return ;
 	}
 	pwd = getcwd(NULL, 0);
 	free(path);
