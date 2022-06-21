@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/17 03:54:18 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/20 16:16:06 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,15 @@ char	**ft_split_bash(char *str)
 	if (i - 1 == p)
 	{
 		if (str[i - 1] != ' ')
+		{
+			free(ret[nb]);
 			ret[nb] = ft_substr(str, i - 1, 1);
+		}
 		else
+		{
+			free(ret[nb]);
 			ret[nb] = 0;
+		}
 	}
 	ret[nb + 1] = 0;
 	return (ret);
@@ -82,7 +88,7 @@ int	ft_nbword(char *str)
 	return (nb);
 }
 
-void	ft_delquotes(char **str)	// leaks here ?
+void	ft_delquotes(char **str)
 {
 	char	*tmp;
 	int		i;

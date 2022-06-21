@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 14:19:49 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 17:34:50 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	init_env(char **envp, t_minishell *mini)
 {
 	char	*pwd;
+	int i; 
 
+	i = 0;
 	if (ft_matrix_size((const char **)envp) == 0)
 	{
 		mini->env = malloc(sizeof(char *));
@@ -27,7 +29,13 @@ void	init_env(char **envp, t_minishell *mini)
 	else
 	{
 		mini->env = ft_matrix_dup(envp);
-		*ft_get_line_env("OLDPWD", mini->env) = ft_strdup("OLDPWD");
+		while (mini->env[i] != 0)
+        {
+            if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0){
+                mini->env[i] = ft_strdup("OLDPWD");
+            }
+            i++;
+        }
 		incr_shlvl(mini);
 	}
 }

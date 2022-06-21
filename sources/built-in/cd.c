@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:27:13 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 14:19:50 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 16:11:15 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_cd(t_process *process, t_minishell *mini)
 			g_error = 1;
 			return ;
 		}
+		free(path);
 		path = ft_strdup(pwd);
 	}
 	if (chdir(path) != 0)

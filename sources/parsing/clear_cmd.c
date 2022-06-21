@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/20 12:39:29 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/20 15:30:49 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	remove_file(char **str, int start, int end)
 	tmp = *str;
 	tmp = ft_strjoin_free(ft_substr(tmp, i, start), \
 	ft_substr(tmp, end, (ft_strlen(tmp))));
-	// if (str != NULL)	// semble ne pas marché avec "<< heredoc"
-	// 	free(str);
+	free(*str);
 	*str = tmp;
 }
 

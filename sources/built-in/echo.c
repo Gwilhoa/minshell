@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:54:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 14:42:41 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 16:15:28 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_echo(t_process *process)
 	if (process->args == NULL)
 		exit(0);
 	parse = ft_split_bash(process->args);
+	if (parse == NULL)
+		g_error = 1; 
 	i = 0;
 	while (parse && parse[i])
 	{

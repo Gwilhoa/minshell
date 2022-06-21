@@ -6,13 +6,13 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 09:56:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 11:43:26 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/20 16:04:40 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned long int	ft_start(char *s1, char const *set)
+unsigned long int	ft_start(char const *s1, char const *set)
 {
 	unsigned long int	i;
 	unsigned long int	j;
@@ -52,7 +52,7 @@ unsigned long int	ft_end(char const *s1, char const *set)
 	return (i);
 }
 
-char	*ft_strtrim(char *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	unsigned long int	end;
 	unsigned long int	start;
@@ -78,6 +78,6 @@ char	*ft_strtrim(char *s1, char const *set)
 		start++;
 	}
 	ret_str[i] = '\0';
-	free(s1);
 	return (ret_str);
 }
+

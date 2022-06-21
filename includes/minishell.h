@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 14:19:46 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 17:30:17 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char		*ft_has_nl(char *ret, char *rest);
 char		*ft_init(char *ret, char *str, int r);
 char		*get_next_line(int fd);
 char		*ft_getenv(char *key, char **env);
-char		**ft_get_line_env(char *key, char **env);
+char		*ft_get_line_env(char *key, char **env);
 char		*ft_take_cmd(t_process *process);
 char		*readfd(int fd);
 char		*ft_cutfile(char *str, int start);
