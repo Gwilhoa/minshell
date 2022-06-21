@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:01:40 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/18 20:40:35 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/21 17:42:27 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_free_process(t_process *process)
 {
-	
 
 	if (process->cmd != NULL)
 		free(process->cmd);
@@ -42,4 +41,22 @@ void	ft_free_process(t_process *process)
 		free(process->hd_stop);
 	if (process->heredoc != NULL)
 		free(process->heredoc);
+}
+
+void ft_free_struc(t_minishell *mini)
+{
+	if (mini->env != NULL)
+	{
+		ft_free_matrix(mini->env);
+		free(mini->env);
+	}
+	if (mini->splitcmd != NULL)
+	{
+		ft_free_matrix(mini->splitcmd);
+		free(mini->splitcmd);
+	}
+	if (mini->argv != NULL)
+		free(mini->argv);
+	if (mini->str)
+		free(mini->str);	
 }

@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 17:34:50 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/21 17:11:42 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	loop(t_minishell *mini)
 
 	while (1)
 	{
+		mini->splitcmd = NULL;	// init mini
 		mini->process = NULL;//si mini->process != null alors free tout les process
 		line = readline("minshell >> ");
 		if (line == NULL)

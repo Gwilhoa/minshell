@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/07 17:43:32 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/21 17:56:48 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_exit(t_minishell *mini, t_process *process)
 {
 	int			i;
+	int 		tmp;
 
 	(void) mini; //free structure
 	i = 0;
@@ -29,9 +30,20 @@ void	ft_exit(t_minishell *mini, t_process *process)
 		if (ft_isdigit(process->args[i]) == 0)
 		{
 			ft_printf("exit: %s: numeric argument required\n", process->args);
+			ft_free_struc(mini);
+			free(mini);
+			ft_free_process(process);
+			free(process);
 			exit(255);
 		}
 		else
-			exit(ft_atoi(process->args) % 256);
+		{
+			tmp = ft_atoi(process->args);
+			ft_free_struc(mini);
+			free(mini);
+			ft_free_process(process);
+			free(process);
+			exit(tmp % 256);
+		}
 	}
 }

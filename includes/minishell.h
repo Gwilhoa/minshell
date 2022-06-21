@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 17:30:17 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/21 17:42:59 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ typedef struct s_process
 typedef struct s_minishell
 {
 	t_process	*process;
-	char		**env;
+	char		**env;		// leaks here
 	int			default_outfd;
 	int			default_infd;
-	char		*argv;
-	char		*str;
-	char		**splitcmd;
+	char		*argv;		// argv;
+	char		*str;		// str;
+	char		**splitcmd;	// a free;
 	int			nbcmd;
 }	t_minishell;
 
@@ -140,4 +140,5 @@ t_process	*ft_init_process(char *str);
 t_process	*process_executing(t_minishell *mini, t_process *process);
 void		ft_free_process(t_process *process);
 char		*ft_strjoin_free_first(char *s1, char *s2);
+void 		ft_free_struc(t_minishell *mini);
 #endif
