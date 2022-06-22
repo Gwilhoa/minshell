@@ -3,65 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_bash.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/20 16:16:06 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 15:17:39 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	ft_split_bash_2(t_split *split_struct, char *str)
+{
+	while (str[split_struct->i])
+	{
+		if (str[split_struct->i] == '"' && split_struct->q[0] != 1)
+			split_struct->q[1] = -split_struct->q[1] + 1;
+		else if (str[split_struct->i] == '\'' && split_struct->q[1] != 1)
+			split_struct->q[0] = -split_struct->q[0] + 1;
+		if (str[split_struct->i] == ' ' && \
+		split_struct->q[0] == 0 && split_struct->q[1] == 0)
+		{
+			split_struct->ret[split_struct->nb] = \
+			ft_substr(str, split_struct->p, split_struct->i - split_struct->p);
+			while (str[split_struct->i] == ' ')
+				split_struct->i++;
+			split_struct->nb++;
+			split_struct->p = split_struct->i;
+		}
+		split_struct->i++;
+	}
+}
+
 char	**ft_split_bash(char *str)
 {
-	char	**ret;
-	int		nb;
-	int		i;
-	int		p;
-	int		q;
-	int		q2;
+	t_split	split_struct;
 
 	if (str == NULL)
 		return (NULL);
-	nb = ft_nbword(str);
-	ret = malloc(sizeof(char *) * (nb + 1));
-	nb = 0;
-	i = 0;
-	p = 0;
-	q = 0;
-	q2 = 0;
-	while (str[i])
+	split_struct.nb = ft_nbword(str);
+	split_struct.ret = malloc(sizeof(char *) * (split_struct.nb + 1));
+	split_struct.nb = 0;
+	split_struct.i = 0;
+	split_struct.p = 0;
+	split_struct.q[0] = 0;
+	split_struct.q[1] = 0;
+	ft_split_bash_2(&split_struct, str);
+	split_struct.ret[split_struct.nb] = \
+	ft_substr(str, split_struct.p, split_struct.p - split_struct.i);
+	if (split_struct.i - 1 == split_struct.p)
 	{
-		if (str[i] == '"' && q != 1)
-			q2 = -q2 + 1;
-		else if (str[i] == '\'' && q2 != 1)
-			q = -q + 1;
-		if (str[i] == ' ' && q == 0 && q2 == 0)
-		{
-			ret[nb] = ft_substr(str, p, i - p);
-			while (str[i] == ' ')
-				i++;
-			nb++;
-			p = i;
-		}
-		i++;
-	}
-	ret[nb] = ft_substr(str, p, p - i);
-	if (i - 1 == p)
-	{
-		if (str[i - 1] != ' ')
-		{
-			free(ret[nb]);
-			ret[nb] = ft_substr(str, i - 1, 1);
-		}
+		free(split_struct.ret[split_struct.nb]);
+		if (str[split_struct.i - 1] != ' ')
+			split_struct.ret[split_struct.nb] = \
+			ft_substr(str, split_struct.i - 1, 1);
 		else
-		{
-			free(ret[nb]);
-			ret[nb] = 0;
-		}
+			split_struct.ret[split_struct.nb] = 0;
 	}
-	ret[nb + 1] = 0;
-	return (ret);
+	split_struct.ret[split_struct.nb + 1] = 0;
+	return (split_struct.ret);
 }
 
 int	ft_nbword(char *str)
@@ -95,11 +94,11 @@ void	ft_delquotes(char **str)
 	int		q;
 	int		q2;
 
-	i = 0;
+	i = -1;
 	q = 0;
 	q2 = 0;
 	tmp = *str;
-	while (tmp[i] != 0)
+	while (tmp[++i] != 0)
 	{
 		if (tmp[i] == '"' && q != 1)
 		{
@@ -113,10 +112,6 @@ void	ft_delquotes(char **str)
 			ft_delchar(&tmp, i);
 			i--;
 		}
-		if ((tmp[i] == ' ' || tmp[i] == 0) && q == 0 && q2 == 0)
-			i++;
-		else
-			i++;
 	}
 	*str = tmp;
 }

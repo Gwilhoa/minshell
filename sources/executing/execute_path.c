@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 16:58:43 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 16:29:52 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	searching_cmd(t_minishell *mini, t_process *process)
 		ft_echo(process);
 	else if (ft_strcmp(process->cmd, "export") == 0)
 	{
-		ft_export(process, mini);	// after;
+		ft_export(process, mini);
 		exit(0);
 	}
 	else if (ft_strcmp(process->cmd, "unset") == 0)

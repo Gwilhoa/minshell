@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:22 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/01 10:39:15 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 13:57:31 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ void	ft_setfilefd(t_minishell *mini)
 				close(process->infd);
 			process->infd = open(process->infile, O_RDONLY);
 		}
+		process = process->next;
+	}
+}
+
+void	ft_cleanfork(int outfd, int infd, t_minishell *mini)
+{
+	t_process	*process;
+
+	process = mini->process;
+	while (process != NULL)
+	{
+		if (process->outfd != outfd)
+			close(process->outfd);
+		if (process->infd != infd)
+			close(process->infd);
 		process = process->next;
 	}
 }

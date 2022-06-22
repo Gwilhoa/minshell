@@ -1,0 +1,10 @@
+Makefile
+README.md
+headers.sh
+includes
+libft
+minishell
+minishell.dSYM
+sources
+t
+valgrind-out.txt

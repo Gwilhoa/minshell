@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/17 23:38:54 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 14:09:04 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,10 @@ void	ft_in_hd(t_process *process, int i, t_minishell *mini)
 
 void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 {
-	char	*tmp;
-	int		i;
 	int		fd;
 	int		piped[2];
 	int		status;
 
-	tmp = malloc(sizeof(char) * 1);
-	tmp[0] = '\0';
-	i = ft_strcmp(str, tmp);
-	if (process->heredoc != NULL)
-		free(process->heredoc);
-	process->heredoc = malloc(sizeof(char) * 1);
-	process->heredoc[0] = '\0';
 	pipe(piped);
 	if (pipe < 0)
 		return ;
@@ -77,8 +68,6 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 	g_error = WEXITSTATUS(status);
 	process->heredoc = readfd(piped[0]);
 	close(piped[0]);
-	if (tmp != NULL)
-		free(tmp);
 	process->infd = 0;
 }
 

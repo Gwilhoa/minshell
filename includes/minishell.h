@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/21 17:42:59 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 15:03:21 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,21 @@ typedef struct s_process
 	char		*heredoc;
 }	t_process;
 
+typedef struct s_split
+{
+	char	**ret;
+	int		nb;
+	int		i;
+	int		p;
+	int		q[2];
+}				t_split;
 typedef struct s_minishell
 {
 	t_process	*process;
-	char		**env;		// leaks here
+	char		**env;
 	int			default_outfd;
 	int			default_infd;
-	char		*argv;		// argv;
-	char		*str;		// str;
-	char		**splitcmd;	// a free;
+	char		**splitcmd;
 	int			nbcmd;
 }	t_minishell;
 
@@ -78,7 +84,7 @@ int			ft_nbword(char *str);
 int			ft_count_chevron(char	*str);
 int			ft_nbcmd(char *str);
 int			ft_check_syntaxe(char *str);
-int			ft_parsing(t_minishell *main);
+int			ft_parsing(t_minishell *main, char *line);
 char		*ft_has_nl(char *ret, char *rest);
 char		*ft_init(char *ret, char *str, int r);
 char		*get_next_line(int fd);
@@ -140,5 +146,5 @@ t_process	*ft_init_process(char *str);
 t_process	*process_executing(t_minishell *mini, t_process *process);
 void		ft_free_process(t_process *process);
 char		*ft_strjoin_free_first(char *s1, char *s2);
-void 		ft_free_struc(t_minishell *mini);
+void		ft_free_struc(t_minishell *mini);
 #endif

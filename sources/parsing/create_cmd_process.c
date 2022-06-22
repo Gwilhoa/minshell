@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/20 12:30:29 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 11:18:37 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	ft_create_command(t_minishell *main)
 		ft_redirec(tmp, main);
 		ft_split_cmd_args(tmp);
 		ft_check_dollar(&tmp->cmd, main->env, 0, 0);
-		if (ft_strcmp(tmp->cmd, "~") == 0)
-			tmp->cmd = getenv("HOME");
 		ft_delquotes(&tmp->cmd);
 		if (tmp->args != NULL)
 			ft_check_dollar(&tmp->args, main->env, 0, 0);

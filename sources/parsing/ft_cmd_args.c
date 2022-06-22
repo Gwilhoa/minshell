@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/20 15:46:04 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 11:24:16 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,5 @@ char	*ft_take_cmd(t_process *process)
 
 void	ft_clean_str(char **str)
 {
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	tmp = *str;
-	*str = ft_strtrim(tmp, " ");
-	free(tmp);
+	*str = ft_strtrim(*str, " ");
 }

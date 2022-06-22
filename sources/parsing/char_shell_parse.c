@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_shell_parse.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/17 04:21:50 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 17:10:00 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	ft_dollar_parse(int i, char **str, char **env, int error)
 	int		j;
 
 	j = 0;
-	ret = *str;
+	ret = ft_strdup(*str);
+	free(*str);
 	start = ft_substr(ret, 0, i);
 	j = i + 1;
 	while (isenddollar(ret[j]) == 0 || (ret[j] == '?' && error))
@@ -65,11 +66,11 @@ void	ft_dollar_parse(int i, char **str, char **env, int error)
 		change = ft_getenv(change, env);
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	if (change == NULL)
+		*str = ft_strjoin_free(start, end);
+	else
 	{
-		*str = ft_strjoin(start, end);
-		return ;
+		start = ft_strjoin_free(start, change);
+		ret = ft_strjoin_free(start, end);
+		*str = ret;
 	}
-	start = ft_strjoin(start, change);
-	ret = ft_strjoin(start, end);
-	*str = ret;
 }

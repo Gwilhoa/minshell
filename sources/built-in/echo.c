@@ -3,46 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:54:59 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 16:15:28 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 13:31:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	flag_prompt(char *str)
+{
+	int	j;
+
+	j = 1;
+	if (str[0] != '-' || str[1] == 0)
+		return (0);
+	while (str[j] != 0)
+	{
+		if (str[j] != 'n')
+			return (0);
+		j++;
+	}
+	return (1);
+}
+
+void static	init_var(int *a, int *b, int *c)
+{
+	*a = 1;
+	*b = 0;
+	*c = 0;
+}
+
 void	ft_echo(t_process *process)
 {
 	char	**parse;
 	int		i;
-	int		j;
 	int		isflag;
 	int		back;
 
-	isflag = 1;
-	back = 0;
-	if (process->args == NULL)
-		exit(0);
+	init_var(&isflag, &i, &back);
 	parse = ft_split_bash(process->args);
-	if (parse == NULL)
-		g_error = 1; 
-	i = 0;
 	while (parse && parse[i])
 	{
 		ft_delquotes(&parse[i]);
-		j = 0;
 		if (isflag == 1)
 		{
-			j = 1;
-			if (parse[i][0] != '-' || parse[i][1] == 0)
-				isflag = 0;
-			while (parse[i][j] != 0)
-			{
-				if (parse[i][j] != 'n')
-					isflag = 0;
-				j++;
-			}
+			isflag = flag_prompt(parse[i]);
 			if (isflag == 1)
 				back = 1;
 		}
