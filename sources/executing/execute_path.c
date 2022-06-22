@@ -6,11 +6,37 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 16:58:43 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 18:45:07 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	searching_cmd(t_minishell *mini, t_process *process)
+{
+	if (ft_strcmp(process->cmd, "cd") == 0)
+		ft_cd(process, mini);
+	else if (ft_strcmp(process->cmd, "env") == 0)
+		ft_env(mini->env);
+	else if (ft_strcmp(process->cmd, "echo") == 0)
+		ft_echo(process);
+	else if (ft_strcmp(process->cmd, "export") == 0)
+	{
+		ft_export(process, mini);
+		exit(0);
+	}
+	else if (ft_strcmp(process->cmd, "unset") == 0)
+	{
+		ft_unset(process, mini);
+		exit(0);
+	}
+	else if (ft_strcmp(process->cmd, "pwd") == 0)
+		ft_pwd();
+	else if (ft_strcmp(process->cmd, "exit") == 0)
+		ft_exit(mini, process);
+	else
+		ft_bash(mini, process);
+}
 
 void	ft_changedup(t_minishell *mini, t_process *process)
 {
@@ -37,31 +63,6 @@ void	ft_changedup(t_minishell *mini, t_process *process)
 		dup2(process->outfd, 1);
 }
 
-void	searching_cmd(t_minishell *mini, t_process *process)
-{
-	if (ft_strcmp(process->cmd, "cd") == 0)
-		ft_cd(process, mini);
-	else if (ft_strcmp(process->cmd, "env") == 0)
-		ft_env(mini->env);
-	else if (ft_strcmp(process->cmd, "echo") == 0)
-		ft_echo(process);
-	else if (ft_strcmp(process->cmd, "export") == 0)
-	{
-		ft_export(process, mini);	// after;
-		exit(0);
-	}
-	else if (ft_strcmp(process->cmd, "unset") == 0)
-	{
-		ft_unset(process, mini);
-		exit(0);
-	}
-	else if (ft_strcmp(process->cmd, "pwd") == 0)
-		ft_pwd();
-	else if (ft_strcmp(process->cmd, "exit") == 0)
-		ft_exit(mini, process);
-	else
-		ft_bash(mini, process);
-}
 
 void	ft_bash(t_minishell *mini, t_process *process)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/21 17:56:48 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 13:31:38 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	ft_exit(t_minishell *mini, t_process *process)
 {
 	int			i;
-	int 		tmp;
+	int			tmp;
 
-	(void) mini; //free structure
+	close(mini->default_infd);
+	close(mini->default_outfd);
+	ft_free_matrix(mini->env);
 	i = 0;
 	if (process == NULL || process->args == NULL)
 	{

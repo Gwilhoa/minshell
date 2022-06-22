@@ -6,50 +6,64 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:27:13 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 16:11:15 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 18:56:26 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char static	*init_path(char *arg, char **env)
+{
+	char	**args;
+	char	*ret;
+
+	if (arg == 0)
+		return (ft_getenv("HOME", env));
+	args = ft_split_bash(arg);
+	ret = ft_strdup(args[0]);
+	ft_free_matrix(args);
+	if (ft_strcmp(ret, "-") == 0)
+	{
+		free(ret);
+		ret = ft_getenv("OLDPWD", env);
+	}
+	return (ret);
+}
+
+void	error_path(char *args)
+{
+	if (args != 0 && ft_strncmp(args, "-", 2) == 0)
+		ft_printf("cd: OLDPWD not set\n");
+	else
+		ft_printf("cd: HOME not set\n");
+	g_error = 1;
+}
 
 void	ft_cd(t_process *process, t_minishell *mini)
 {
 	char		*pwd;
 	char		*path;
 
-	if (process->args == 0)
-		path = ft_getenv("HOME", mini->env);
-	else
-		path = ft_strdup(process->args);
+	path = init_path(process->args, mini->env);
 	if (path == 0)
-	{
-		ft_printf("cd >> no path HOME\n");
-		g_error = 1;
-		return ;
-	}
-	if (ft_strcmp(path, "-") == 0)
-	{
-		pwd = ft_getenv("OLDPWD", mini->env);
-		if (pwd == 0)
-		{
-			ft_printf("cd >> no OLDPWD\n");
-			g_error = 1;
-			return ;
-		}
-		free(path);
-		path = ft_strdup(pwd);
-	}
+		error_path(process->args);
+	ft_delquotes(&path);
 	if (chdir(path) != 0)
 	{
-		perror("cd >>>");
+		perror("cd");
 		g_error = 1;
-		return ;
 	}
-	pwd = getcwd(NULL, 0);
-	free(path);
-	path = ft_getenv("PWD", mini->env);
-	ft_change_env("OLDPWD", path, mini);
-	ft_change_env("PWD", pwd, mini);
-	g_error = 0;
+	else
+	{
+		pwd = getcwd(NULL, 0);
+		free(path);
+		path = ft_getenv("PWD", mini->env);
+		ft_change_env("OLDPWD", path, mini);
+		ft_change_env("PWD", pwd, mini);
+		g_error = 0;
+		free(pwd);
+		free(path);
+	}
+	
 	return ;
 }

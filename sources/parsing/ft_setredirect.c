@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_setredirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/20 12:31:17 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 13:46:05 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,4 @@ void	ft_infile(t_process *process, int i)
 		return ;
 	}
 	close(fd);
-} 
+}

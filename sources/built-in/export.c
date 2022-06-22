@@ -6,11 +6,35 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 17:30:36 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 19:05:23 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void static	prompt_export(char **env)
+{
+	int		i;
+	char	*tmp;
+	char	*var;
+
+	i = 0;
+	while (env[++i] != 0)
+	{
+		tmp = ft_split(env[i], '=')[0];
+		var = ft_getenv(tmp, env);
+		if (var != NULL)
+		{
+			ft_printf("declare -x %s=\"%s\"\n", tmp, ft_getenv(tmp, env));
+			free(var);
+		}
+		else if (ft_strlen(ft_get_line_env(tmp, env)) > ft_strlen(tmp))
+			ft_printf("declare -x %s=\"\"\n", tmp);
+		else
+			ft_printf("declare -x %s\n", tmp);
+		free(tmp);
+	}
+}
 
 void	ft_export(t_process *process, t_minishell *mini)
 {
@@ -18,22 +42,10 @@ void	ft_export(t_process *process, t_minishell *mini)
 	char		**args;
 	char		**arg;
 	char		*env;
-	char		*tmp;
 
 	i = -1;
 	if (process->args == 0)
-	{
-		while (mini->env[++i] != 0)
-		{
-			tmp = ft_split(mini->env[i], '=')[0];
-			if (ft_getenv(tmp, mini->env) != NULL)
-				ft_printf("declare -x %s=\"%s\"\n", tmp, ft_getenv(tmp, mini->env));
-			else if (ft_strlen(ft_get_line_env(tmp, mini->env)) > ft_strlen(tmp))
-				ft_printf("declare -x %s=\"\"\n", tmp);
-			else
-				ft_printf("declare -x %s\n", tmp);
-		}
-	}
+		prompt_export(mini->env);
 	else
 	{
 		args = ft_split_bash(process->args);
@@ -47,5 +59,9 @@ void	ft_export(t_process *process, t_minishell *mini)
 			else if (arg[1] != 0)
 				ft_change_env(arg[0], arg[1], mini);
 		}
+		ft_free_matrix(args);
+		free(args);
+		ft_free_matrix(arg);
+		free(arg);
 	}
 }

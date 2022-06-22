@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 09:56:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 16:04:40 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 11:38:58 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	ret_str[i] = '\0';
 	return (ret_str);
 }
-

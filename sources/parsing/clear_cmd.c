@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/20 15:30:49 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 11:38:44 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_clear_cmd(t_process *process)
 	process->redirec = malloc(sizeof(char) * 1);
 	process->redirec[0] = '\0';
 	i = -1;
-	
 	while (process->cmd[++i])
 	{
 		if (process->cmd[i] == '>' || process->cmd[i] == '<')

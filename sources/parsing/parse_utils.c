@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/10 18:28:09 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 11:03:51 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,24 @@ int	ft_nbcmd(char *str)
 
 int	ft_check_syntaxe(char *str)
 {
-	int	i;
-	int	q;
-	int	q2;
+	int		i;
+	int		q;
+	int		q2;
+	char	*temp;
 
 	q = 0;
 	q2 = 0;
 	i = 0;
-	while (str[i])
+	temp = ft_strtrim((const char *) str, " ");
+	while (temp[i])
 	{
-		if (str[i] == '"' && q != 1)
+		if (temp[i] == '"' && q != 1)
 			q2 = -q2 + 1;
-		else if (str[i] == '\'' && q2 != 1)
+		else if (temp[i] == '\'' && q2 != 1)
 			q = -q + 1;
 		i++;
 	}
-	if (q != 0 || q2 != 0 || str[-1] == '|')
+	if (q != 0 || q2 != 0 || temp[i - 1] == '|')
 		return (-1);
 	return (0);
 }

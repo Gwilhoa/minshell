@@ -3,26 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/15 23:02:48 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 16:32:41 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parsing(t_minishell *main)
+int	ft_parsing(t_minishell *main, char *line)
 {
-	if (ft_check_syntaxe(main->str) == -1)
+	if (ft_check_syntaxe(line) == -1)
 	{
+		free(line);
 		g_error = ERRO_SYNTAXE;
+		ft_printf("error syntaxe\n");
 		return (-1);
 	}
-	main->nbcmd = ft_nbcmd(main->str);
-	main->splitcmd = ft_split_cmd(main->str, main->nbcmd);
+	main->nbcmd = ft_nbcmd(line);
+	main->splitcmd = ft_split_cmd(line, main->nbcmd);
+	free(line);
 	ft_create_command(main);
 	return (0);
+}
+
+void	init_var(int *a, int *b, int *c, int *d)
+{
+	*a = 0;
+	*b = 0;
+	*c = 0;
+	*d = 0;
 }
 
 char	**ft_split_cmd(char *str, int nb)
@@ -33,13 +44,10 @@ char	**ft_split_cmd(char *str, int nb)
 	int		p;
 	char	**ret;
 
-	q = 0;
-	q2 = 0;
-	i = 0;
-	p = 0;
 	ret = malloc((sizeof(char *)) * (nb + 1));
-	nb = 0;
-	while (str[i])
+	init_var(&nb, &q, &q2, &p);
+	i = -1;
+	while (str[++i])
 	{
 		if (str[i] == '"' && q != 1)
 			q2 = -q2 + 1;
@@ -51,7 +59,6 @@ char	**ft_split_cmd(char *str, int nb)
 			nb++;
 			p = i + 1;
 		}
-		i++;
 	}
 	ret[nb] = ft_substr(str, p, i - p);
 	ret[nb + 1] = 0;

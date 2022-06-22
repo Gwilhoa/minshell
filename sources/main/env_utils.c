@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 17:31:11 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 11:53:24 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_getenv(char *key, char **env)
 		parse = ft_split(line, '=');
 		if (ft_matrix_size((const char **)parse) == 1)
 			return (0);
-		temp = line + ft_strlen(parse[0]) + 1;
+		temp = ft_strdup(line + ft_strlen(parse[0]) + 1);
 		ft_free_matrix(parse);
 		free(parse);
 		return (temp);

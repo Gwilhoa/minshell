@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_executing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 14:56:35 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 19:24:00 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void	ft_forks(t_minishell *mini, t_process *process)
 {
 	if (ft_strlen(process->cmd) == 0)
-		exit(0);
+		ft_exit(mini, process); 
 	g_error = 0;
 	ft_cleanfork(process->outfd, process->infd, mini);
 	ft_changedup(mini, process);
 	searching_cmd(mini, process);
-	exit(0);
+	dprintf(2, "\nBonjour\n");
+	ft_exit(mini, process);
 }
 
 t_process	*process_executing(t_minishell *mini, t_process *process)
@@ -42,11 +43,27 @@ t_process	*process_executing(t_minishell *mini, t_process *process)
 	return (process->next);
 }
 
-void	inexec(t_minishell *mini)
+void static	exec2(t_process *process, t_minishell *mini)
 {
 	int			status;
+
+	g_error = INEXECVE;
+	while (process != NULL && process->cmd != NULL)
+		process = process_executing(mini, process);
+	process = mini->process;
+	while (process != NULL)
+	{
+		waitpid(process->pid, &status, 0);
+		if (g_error != SIGC)
+			g_error = WEXITSTATUS(status);
+		process = process->next;
+	}
+	signal(SIGINT, get_signal);
+}
+
+void	inexec(t_minishell *mini)
+{
 	t_process	*process;
-	//t_process	*tmp;
 
 	create_pipes(mini);
 	process = mini->process;
@@ -61,20 +78,7 @@ void	inexec(t_minishell *mini)
 	else if (ft_strcmp(process->cmd, "exit") == 0 && process->next == NULL)
 		ft_exit(mini, process);
 	else
-	{
-		g_error = INEXECVE;
-		while (process != NULL && process->cmd != NULL)
-			process = process_executing(mini, process);
-		process = mini->process;
-		while (process != NULL)
-		{
-			waitpid(process->pid, &status, 0);
-			if (g_error != SIGC)
-				g_error = WEXITSTATUS(status);
-			process = process->next;
-		}
-		signal(SIGINT, get_signal);
-	}
+		exec2(process, mini);
 }
 
 void	absolute_failed(char *str)

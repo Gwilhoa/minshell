@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:01:40 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/21 17:42:27 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/22 13:46:00 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_free_process(t_process *process)
 {
-
 	if (process->cmd != NULL)
 		free(process->cmd);
 	if (process->args != NULL)
@@ -27,23 +26,17 @@ void	ft_free_process(t_process *process)
 		free(process->all_redirec);
 		process->all_redirec = NULL;
 	}
-	// if (process->outfile != NULL)		// bug ici;
-		// free(process->outfile);
-	// if (process->infile != NULL)
-	// 	free(process->infile);
 	if (process->fullcmd != NULL)
 	{
 		ft_free_matrix(process->fullcmd);
 		free(process->fullcmd);
 		process->fullcmd = NULL;
 	}
-	if (process->hd_stop != NULL)		// bug ici;
-		free(process->hd_stop);
 	if (process->heredoc != NULL)
 		free(process->heredoc);
 }
 
-void ft_free_struc(t_minishell *mini)
+void	ft_free_struc(t_minishell *mini)
 {
 	if (mini->env != NULL)
 	{
@@ -55,8 +48,4 @@ void ft_free_struc(t_minishell *mini)
 		ft_free_matrix(mini->splitcmd);
 		free(mini->splitcmd);
 	}
-	if (mini->argv != NULL)
-		free(mini->argv);
-	if (mini->str)
-		free(mini->str);	
 }
