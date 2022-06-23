@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/23 13:50:26 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 23:00:19 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,4 +146,7 @@ void		fork_hd(int *piped, char *str, char **env);
 void		ft_free_proccesses(t_process *process);
 t_process	*ft_init_process(char *str);
 t_process	*process_executing(t_minishell *mini, t_process *process);
+void		ft_exit_code(t_minishell *mini, t_process *process, int tmp);
+void		ft_export_free(char **args, char **arg);
+char		*ft_dollar_parse_ret(char *start, char *end, char *change);
 #endif
