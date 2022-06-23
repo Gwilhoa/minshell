@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 12:35:10 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/10 18:11:23 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 13:11:09 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,13 @@ char	*ft_strdup(char const *src)
 	}
 	ret[i] = 0;
 	return (ret);
+}
+
+void	ft_strreplace(char **str, char *rep)
+{
+	char	*ret;
+
+	ret = ft_strdup(rep);
+	free(*str);
+	*str = ret;
 }

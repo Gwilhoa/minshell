@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/22 18:45:07 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/23 10:07:20 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	ft_changedup(t_minishell *mini, t_process *process)
 	if (process->outfd != 0)
 		dup2(process->outfd, 1);
 }
-
 
 void	ft_bash(t_minishell *mini, t_process *process)
 {

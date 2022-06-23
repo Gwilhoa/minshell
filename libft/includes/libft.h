@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:01:49 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/20 15:49:14 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/23 13:11:26 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		ft_puthexnbr(unsigned int nbr, const char *base);
 int		ft_putpointer(unsigned long long nbr);
 int		ft_strcmp(char *str, char *str2);
 int		ft_isspace(unsigned char c);
+char	*ft_strjoin_free(char *s1, char *s2);
+char	*ft_strjoin_free_first(char *s1, char *s2);
 char	*ft_itoa(int n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(char const *src);
@@ -80,6 +82,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_push_matrix(char ***matrix, char *str);
 void	ft_push_back_matrix(char ***matrix, char *str);
+void	ft_strreplace(char **str, char *rep);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(int));
 t_list	*ft_lstnew(int content);

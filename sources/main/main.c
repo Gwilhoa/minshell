@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/22 17:15:20 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 13:50:58 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	loop(t_minishell *mini)
 				g_error = 0;
 				if (ft_parsing(mini, line) == 0 && g_error == 0)
 					inexec(mini);
+				ft_free_proccesses(mini->process);
 			}
 		}
 	}

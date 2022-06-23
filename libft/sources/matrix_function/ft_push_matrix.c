@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:55:05 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/13 11:57:22 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 14:21:10 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ void	ft_push_matrix(char ***matrix, char *str)
 			tmp2[i + 1] = tmp[i];
 		tmp2[i + 1] = 0;
 	}
-	free(*matrix);
 	*matrix = tmp2;
 }

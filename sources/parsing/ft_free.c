@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:01:40 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/22 13:46:00 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 13:49:33 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,24 @@ void	ft_free_process(t_process *process)
 	}
 	if (process->heredoc != NULL)
 		free(process->heredoc);
+	free(process);
+}
+
+void	ft_free_proccesses(t_process *process)
+{
+	t_process	*tmp;
+
+	while (process != NULL)
+	{
+		tmp = process;
+		process = process->next;
+		ft_free_process(tmp);
+	}
 }
 
 void	ft_free_struc(t_minishell *mini)
 {
+	ft_free_proccesses(mini->process);
 	if (mini->env != NULL)
 	{
 		ft_free_matrix(mini->env);

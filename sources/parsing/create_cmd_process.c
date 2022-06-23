@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/22 11:18:37 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 12:22:24 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_create_command(t_minishell *main)
 {
 	int			i;
+	char		*home;
 	t_process	*tmp;
 
 	i = 0;
@@ -29,7 +30,9 @@ void	ft_create_command(t_minishell *main)
 	{
 		ft_clear_cmd(tmp);
 		ft_redirec(tmp, main);
-		ft_split_cmd_args(tmp);
+		home = ft_getenv("HOME", main->env);
+		ft_split_cmd_args(tmp, home);
+		free(home);
 		ft_check_dollar(&tmp->cmd, main->env, 0, 0);
 		ft_delquotes(&tmp->cmd);
 		if (tmp->args != NULL)

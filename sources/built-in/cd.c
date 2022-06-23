@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:27:13 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/22 18:56:26 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/23 14:03:07 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char static	*init_path(char *arg, char **env)
 	args = ft_split_bash(arg);
 	ret = ft_strdup(args[0]);
 	ft_free_matrix(args);
+	free(args);
 	if (ft_strcmp(ret, "-") == 0)
 	{
 		free(ret);
@@ -64,6 +65,5 @@ void	ft_cd(t_process *process, t_minishell *mini)
 		free(pwd);
 		free(path);
 	}
-	
 	return ;
 }

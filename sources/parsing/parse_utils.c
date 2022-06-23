@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/22 11:03:51 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 13:37:51 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ int	ft_check_syntaxe(char *str)
 		i++;
 	}
 	if (q != 0 || q2 != 0 || temp[i - 1] == '|')
+	{
+		free(temp);
 		return (-1);
+	}
+	free(temp);
 	return (0);
 }

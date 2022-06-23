@@ -6,13 +6,13 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/22 11:24:16 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 13:12:21 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_split_cmd_args(t_process *process)
+void	ft_split_cmd_args(t_process *process, char *home)
 {
 	int		i;
 	char	*tmp;
@@ -21,7 +21,7 @@ void	ft_split_cmd_args(t_process *process)
 	while (ft_isspace(process->cmd[i]) == 1)
 		i++;
 	process->cmd = process->cmd + i;
-	tmp = ft_take_cmd(process);
+	tmp = ft_take_cmd(process, home);
 	ft_clean_args(process);
 	if (process->cmd != NULL)
 		free(process->cmd);
@@ -44,7 +44,7 @@ void	ft_clean_args(t_process *process)
 	process->args = tmp;
 }
 
-char	*ft_take_cmd(t_process *process)
+char	*ft_take_cmd(t_process *process, char *home)
 {
 	char	*ret;
 	char	**spited;
@@ -53,14 +53,20 @@ char	*ft_take_cmd(t_process *process)
 	i = 0;
 	ft_clean_str(&process->cmd);
 	spited = ft_split_bash(process->cmd);
+	while (spited[++i])
+	{
+		if (ft_strcmp(spited[i], "~") == 0)
+			ft_strreplace(&spited[i], home);
+	}
+	i = 0;
 	ret = ft_strdup(spited[i]);
-	i++;
-	process->args = ft_strdup(spited[i]);
+	process->args = ft_strdup(spited[++i]);
 	while (spited[++i])
 	{
 		process->args = ft_strjoin_free_first(process->args, " ");
 		process->args = ft_strjoin_free(process->args, spited[i]);
 	}
+	ft_free_matrix(spited);
 	free(spited);
 	return (ret);
 }
