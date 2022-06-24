@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:13:19 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/23 23:16:54 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/24 14:23:25 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	ft_change_env(char *key, char *newchar, t_minishell *mini)
 		{
 			free(mini->env[i]);
 			mini->env[i] = ft_strjoin(key, "=");
-			mini->env[i] = ft_strjoin_free(mini->env[i], ft_strdup(newchar));
+			if (newchar != NULL)
+				mini->env[i] = ft_strjoin_free(mini->env[i], \
+				ft_strdup(newchar));
 			ft_free_matrix(parse);
 			free(parse);
 			return ;

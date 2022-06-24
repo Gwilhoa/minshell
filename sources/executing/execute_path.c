@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/23 10:07:20 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/24 13:07:32 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,14 @@ void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 	while (splited_path[i] != 0)
 	{
 		tmp = ft_strjoin(splited_path[i], "/");
-		tmp = ft_strjoin(tmp, process->cmd);
+		tmp = ft_strjoin_free_first(tmp, process->cmd);
 		if (access(tmp, F_OK) == 0)
 			ft_execute(splited_path[i], process, mini, 0);
+		free(tmp);
 		i++;
 	}
+	ft_free_matrix(splited_path);
+	free(splited_path);
 	if (access(process->cmd, F_OK) == 0 && access(process->cmd, X_OK) == 0)
 		ft_execute(getcwd(NULL, 0), process, mini, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:01:40 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/24 01:34:08 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/24 11:28:28 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_free_proccesses(t_process *process)
 		tmp = process;
 		process = process->next;
 		ft_free_process(tmp);
+		tmp = NULL;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/23 23:00:19 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/24 14:49:38 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_minishell
 	int			nbcmd;
 }	t_minishell;
 
+int			verif_args_env(char *str);
 int			flag_prompt(char *str);
 int			main(int argc, char *argv[], char *envp[]);
 int			loop(t_minishell *mini);

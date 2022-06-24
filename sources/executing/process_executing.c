@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_executing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/23 20:56:13 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/24 15:27:03 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	ft_forks(t_minishell *mini, t_process *process)
 {
-	close(mini->default_infd);
-	close(mini->default_outfd);
 	if (ft_strlen(process->cmd) == 0)
 		ft_exit(mini, process);
 	g_error = 0;
 	ft_cleanfork(process->outfd, process->infd, mini);
 	ft_changedup(mini, process);
 	searching_cmd(mini, process);
+	close(mini->default_infd);
+	close(mini->default_outfd);
 	ft_exit(mini, process);
 }
 
