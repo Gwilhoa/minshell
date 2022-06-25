@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/24 15:05:01 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/25 12:27:04 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 			singlequote = -singlequote + 1;
 		else if (ret[i] == '$' && singlequote == 0)
 		{
-			if (ret[i + 1] != 0 || ret[i + 1] != ' ')
+			if (ret[i + 1] != 0 && ret[i + 1] != ' ')
 				ft_dollar_parse(i, str, env, error);
 		}
 		ret = *str;
@@ -64,10 +64,10 @@ void	ft_dollar_parse(int i, char **str, char **env, int error)
 	if (error == 1 && ret[j] == '?')
 		change = ft_substr(ret, i, j - i);
 	else
-		change = ft_substr(ret, i + 1, j - i - 1);
+		change = ft_substr(ret, i + 1, j - i);
 	if (ft_strcmp(change, "?") == 0 && error == 1)
 		change = ft_itoa(g_error);
-	else if (error != 1)
+	else
 		change = ft_getenv(change, env);
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	*str = ft_dollar_parse_ret(start, end, change);
