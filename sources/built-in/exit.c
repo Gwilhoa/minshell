@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/25 13:06:20 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/25 17:49:33 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 void	ft_exit(t_minishell *mini, t_process *process)
 {
-	int			i;
 	int			tmp;
 
 	tmp = 0;
 	close(mini->default_infd);
 	close(mini->default_outfd);
 	ft_free_matrix(mini->env);
-	i = 0;
 	if (process == NULL || process->args == NULL)
 	{
 		ft_printf("exit\n");
