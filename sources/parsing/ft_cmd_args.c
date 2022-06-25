@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/24 13:22:30 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/25 22:38:13 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_take_cmd(t_process *process, char *home)
 	}
 	i = 0;
 	ret = ft_strdup(spited[i]);
-	process->args = ft_strdup(spited[++i]);
+	process->args = ft_strdup(spited[i + 1]);
 	while (spited[++i])
 	{
 		process->args = ft_strjoin_free_first(process->args, " ");

@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/24 01:46:04 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/25 22:36:18 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	remove_file(char **str, int start, int end)
 	tmp = *str;
 	tmp = ft_strjoin_free(ft_substr(tmp, i, start), \
 	ft_substr(tmp, end, (ft_strlen(tmp))));
-	free(*str);
+	//free(*str);
 	*str = tmp;
 }
 
