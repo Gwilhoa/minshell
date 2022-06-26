@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: guyar <guyar@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 10:35:56 by gchatain          #+#    #+#              #
-#    Updated: 2022/06/24 15:46:54 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/06/25 22:33:53 by guyar            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SUR			=	\033[7m
 END			=	\033[0m
 
 NAME		:= libft.a
-FLAGS		:= -Werror -Wall -Wextra -g3 #-fsanitize=address
+FLAGS		:= -Werror -Wall -Wextra -g3 -fsanitize=address
 CC			:= gcc
 
 LST_CONVERT		:= ft_atoi.c ft_itoa.c ft_split.c

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: guyar <guyar@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/06/24 11:32:27 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/06/25 22:33:56 by guyar            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SUR			=	\033[7m
 END			=	\033[0m
 
 NAME		:= minishell
-FLAGS		:= -Werror -Wall -Wextra -g3 #-fsanitize=address
+FLAGS		:= -Werror -Wall -Wextra -g3 -fsanitize=address
 CC			:= gcc
 
 LST_BUILT_IN	:= cd.c exit.c export.c pwd.c unset.c echo.c env.c
