@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/25 13:15:54 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 20:06:45 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_parsing(t_minishell *main, char *line)
 		return (-1);
 	}
 	main->nbcmd = ft_nbcmd(line);
-	main->splitcmd = ft_split_cmd(line, main->nbcmd);
+	main->splitcmd = ft_split_cmd(line, main->nbcmd);	// split par pipe
 	ft_create_command(main);
 	ft_free_matrix(main->splitcmd);
 	free(main->splitcmd);

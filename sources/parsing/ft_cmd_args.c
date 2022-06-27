@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/27 17:20:15 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 23:16:43 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ void	ft_split_cmd_args(t_process *process, char *home)
 {
 	int		i;
 	char	*tmp;
+	char	*tmp2;
 
 	i = 0;
 	while (ft_isspace(process->cmd[i]) == 1)
 		i++;
-	process->cmd = process->cmd + i;
+	tmp2 = ft_strdup(process->cmd + i);
+	free(process->cmd);
+	process->cmd = tmp2;
 	tmp = ft_take_cmd(process, home);
 	ft_clean_args(process);
 	if (process->cmd != NULL)
@@ -51,8 +54,11 @@ char	*ft_take_cmd(t_process *process, char *home)
 	int		i;
 
 	i = 0;
-	ft_clean_str(&process->cmd);
+	dprintf(2, " cmd1 = %s add = %p\n", process->cmd, process->cmd);
+	ft_clean_str(&process->cmd);				// cette fonction qui nous a bien fais chié ne sert a rien;
+	dprintf(2, " cmd2 = %s add = %p\n", process->cmd, process->cmd);
 	spited = ft_split_bash(process->cmd);
+
 	while (spited[++i])
 	{
 		if (ft_strcmp(spited[i], "~") == 0)
@@ -75,9 +81,5 @@ char	*ft_take_cmd(t_process *process, char *home)
 
 void	ft_clean_str(char **str)
 {
-	char	*temp;
-
-	temp = ft_strtrim(*str, " ");
-	free(*str);
-	*str = temp;
+	*str = ft_strtrim2(*str, " ");
 }

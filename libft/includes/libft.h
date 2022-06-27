@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:01:49 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/23 13:11:26 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 21:06:25 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void	ft_strreplace(char **str, char *rep);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(int));
 t_list	*ft_lstnew(int content);
+char	*ft_strtrim2(char *s1, char const *set);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/27 16:36:41 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 22:36:30 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,5 @@ t_process	*process_executing(t_minishell *mini, t_process *process);
 void		ft_exit_code(t_minishell *mini, t_process *process, int tmp);
 void		ft_export_free(char **args, char **arg);
 char		*ft_dollar_parse_ret(char *start, char *end, char *change);
+char  		*ft_test(char *str);
 #endif
