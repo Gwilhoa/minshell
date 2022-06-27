@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_shell_parse.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/26 10:27:16 by gchatain         ###   ########lyon.fr   */
-=======
-/*   Updated: 2022/06/25 22:56:47 by guyar            ###   ########.fr       */
->>>>>>> c56db93e6b8bb38eb547a93ad19e3105a1210d73
+/*   Updated: 2022/06/27 15:56:55 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +28,8 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 
 	doublequote = 0;
 	singlequote = 0;
-	ret = *str;
+	ret = ft_strdup(*str);
+	free(*str);
 	i = 0;
 	while (ret[i] != 0)
 	{
@@ -43,15 +40,17 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 		else if (ret[i] == '$' && singlequote == 0)
 		{
 			if (ret[i + 1] != 0 && ret[i + 1] != ' ')
-				ft_dollar_parse(i, str, env, error);
+			{
+				i = ft_dollar_parse(i, &ret, env, error);
+				continue ;
+			}
 		}
-		ret = *str;
 		i++;
 	}
-	ret = *str;
+	*str = ret;
 }
 
-void	ft_dollar_parse(int i, char **str, char **env, int error)
+int	ft_dollar_parse(int i, char **str, char **env, int error)
 {
 	char	*ret;
 	char	*start;
@@ -83,6 +82,7 @@ void	ft_dollar_parse(int i, char **str, char **env, int error)
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	free(ret);
 	*str = ft_dollar_parse_ret(start, end, change);
+	return (ft_strlen(*str));
 }
 
 char	*ft_dollar_parse_ret(char *start, char *end, char *change)

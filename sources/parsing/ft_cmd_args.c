@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/25 22:38:13 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/27 17:20:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,12 @@ char	*ft_take_cmd(t_process *process, char *home)
 	i = 0;
 	ret = ft_strdup(spited[i]);
 	process->args = ft_strdup(spited[i + 1]);
-	while (spited[++i])
+	i++;
+	while (spited[i])
 	{
 		process->args = ft_strjoin_free_first(process->args, " ");
 		process->args = ft_strjoin_free_first(process->args, spited[i]);
+		i++;
 	}
 	ft_free_matrix(spited);
 	free(spited);
@@ -73,5 +75,9 @@ char	*ft_take_cmd(t_process *process, char *home)
 
 void	ft_clean_str(char **str)
 {
-	*str = ft_strtrim(*str, " ");
+	char	*temp;
+
+	temp = ft_strtrim(*str, " ");
+	free(*str);
+	*str = temp;
 }

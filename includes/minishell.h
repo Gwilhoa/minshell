@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/24 14:49:38 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 16:36:41 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int			ft_count_chevron(char	*str);
 int			ft_nbcmd(char *str);
 int			ft_check_syntaxe(char *str);
 int			ft_parsing(t_minishell *main, char *line);
+int			ft_dollar_parse(int i, char **str, char **env, int error);
 char		*ft_getenv(char *key, char **env);
 char		*ft_get_line_env(char *key, char **env);
 char		*ft_take_cmd(t_process *process, char *home);
@@ -124,7 +125,6 @@ void		init_empty_env(t_minishell *mini);
 void		init_env(char **envp, t_minishell *mini);
 void		incr_shlvl(t_minishell *mini);
 void		ft_check_dollar(char **str, char **env, int isheredoc, int error);
-void		ft_dollar_parse(int i, char **str, char **env, int error);
 void		ft_clear_cmd(t_process *process);
 void		remove_file(char **str, int start, int end);
 void		ft_create_command(t_minishell *main);

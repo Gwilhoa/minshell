@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/25 21:35:59 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 16:41:52 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,18 @@ int	verif_args_env(char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-			break;
+			break ;
 		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
 			return (1);
 		i++;
 	}
-	return (0);
 	if (!str[i])
 		return (0);
 	i++;
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) || str[i] == '.' || str[i] == '/'
-			|| str[i] == '_' || str[i] == ':')
-			continue ;
-		else
+		if (ft_isalnum(str[i]) == 0 && str[i] != '.' && str[i] != '/'
+			&& str[i] != '_' && str[i] != ':')
 			return (1);
 		i++;
 	}

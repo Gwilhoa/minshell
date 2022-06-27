@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:56:36 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/25 22:36:18 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/27 16:21:16 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	remove_file(char **str, int start, int end)
 	tmp = *str;
 	tmp = ft_strjoin_free(ft_substr(tmp, i, start), \
 	ft_substr(tmp, end, (ft_strlen(tmp))));
-	//free(*str);
+	free(*str);
 	*str = tmp;
 }
 

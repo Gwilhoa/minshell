@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 09:56:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/22 11:38:58 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 17:15:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	start = ft_start(s1, set);
 	end = ft_end(s1, set);
 	if (start >= end)
-		ret_str = malloc(0);
+	{
+		ret_str = malloc(1);
+		ret_str[0] = '\0';
+	}
 	else
 	{
 		ret_str = malloc ((end - start) + 1);

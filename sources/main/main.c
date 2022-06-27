@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/26 10:44:12 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 17:21:18 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_empty_env(t_minishell *mini)
 	pwd = getcwd(NULL, 0);
 	ft_addenv(mini, "SHLVL=1");
 	ft_addenv(mini, ft_strjoin("PWD=", pwd));
+	ft_addenv(mini, ft_strdup("OLDPWD"));
 	free(pwd);
 }
 
@@ -79,15 +80,15 @@ int	loop(t_minishell *mini)
 			{
 				ft_check_dollar(&line, mini->env, 0, 1);
 				if (ft_strlen(line) <= 0)
-				{
 					free(line);
-					continue;
-				}
-				g_error = 0;
-				if (ft_parsing(mini, line) == 0 && g_error == 0)
+				else
 				{
-					inexec(mini);
-					ft_free_proccesses(mini->process);
+					g_error = 0;
+					if (ft_parsing(mini, line) == 0 && g_error == 0)
+					{
+						inexec(mini);
+						ft_free_proccesses(mini->process);
+					}
 				}
 			}
 		}

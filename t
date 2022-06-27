@@ -1,14 +1,11 @@
 Makefile
 README.md
-gtfd
 headers.sh
 includes
 libft
 minishell
 minishell.dSYM
-rd
 sources
+str
 t
-trbfv rbtf
-twger
 valgrind-out.txt

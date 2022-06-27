@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/22 14:09:04 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 16:09:36 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 		fork_hd(piped, str, mini->env);
 	close(piped[1]);
 	wait(&status);
+	free(process->hd_stop);
 	g_error = WEXITSTATUS(status);
 	process->heredoc = readfd(piped[0]);
 	close(piped[0]);
