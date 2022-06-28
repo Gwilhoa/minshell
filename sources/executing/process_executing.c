@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/24 15:27:03 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 14:16:32 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ void static	exec2(t_process *process, t_minishell *mini)
 	while (process != NULL)
 	{
 		waitpid(process->pid, &status, 0);
-		if (g_error != SIGC)
+		if (g_error != SIGC && g_error != 131)
 			g_error = WEXITSTATUS(status);
 		process = process->next;
 	}
+	if (g_error == 131)
+		ft_printf("Quit: 3\n");
 	signal(SIGINT, get_signal);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:11:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/25 13:05:14 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 14:21:59 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,15 @@ void	get_signal(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
-		if (g_error == INHEREDOC_FORK)
-			exit(0);
-		delsig();
+		if (g_error == INEXECVE)
+			g_error = 131;
+		else
+		{
+			rl_on_new_line();
+			rl_redisplay();
+			write(2, "  ", 2);
+			write(2, "\b\b", 2);
+		}
 	}
 }
 

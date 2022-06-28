@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 12:54:45 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 15:17:06 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void static	init_var(int *a, int *b, int *c, int *d)
+{
+	*a = 0;
+	*b = 0;
+	*c = 0;
+	*d = 0;
+}
 
 int	ft_nbcmd(char *str)
 {
@@ -39,14 +47,18 @@ int	ft_nbcmd(char *str)
 int	ft_check_syntaxe(char *str)
 {
 	int		i;
+	int		r;
 	int		q;
 	int		q2;
 	char	*temp;
 
-	q = 0;
-	q2 = 0;
-	i = 0;
+	init_var(&q, &q2, &i, &r);
 	temp = ft_strtrim((const char *) str, " ");
+	if (ft_strlen(temp) == 0)
+	{
+		free(temp);
+		return (-2);
+	}
 	while (temp[i])
 	{
 		if (temp[i] == '"' && q != 1)
@@ -55,11 +67,8 @@ int	ft_check_syntaxe(char *str)
 			q = -q + 1;
 		i++;
 	}
-	if (q != 0 || q2 != 0 || (i > 0 && temp[i - 1] == '|'))
-	{
-		free(temp);
-		return (-1);
-	}
+	if (q != 0 || q2 != 0 || (i > 0 && temp[i - 1] == '|') || temp[0] == '|')
+		r = -1;
 	free(temp);
-	return (0);
+	return (r);
 }

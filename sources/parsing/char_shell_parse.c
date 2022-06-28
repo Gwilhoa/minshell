@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_shell_parse.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 12:50:08 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 14:36:19 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,22 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 		else if (ret[i] == '$' && singlequote == 0)
 		{
 			if (ret[i + 1] != 0 && ret[i + 1] != ' ')
-			{
 				i = ft_dollar_parse(i, &ret, env, error);
-				continue ;
-			}
 		}
 	}
 	*str = ret;
+}
+
+char	*ft_dollarenv(char *str, char **env, int error)
+{
+	char	*ret;
+
+	if (ft_strcmp(str, "?") == 0 && error == 1)
+		ret = ft_itoa(g_error);
+	else
+		ret = ft_getenv(str, env);
+	free(str);
+	return (ret);
 }
 
 int	ft_dollar_parse(int i, char **str, char **env, int error)
@@ -67,17 +76,7 @@ int	ft_dollar_parse(int i, char **str, char **env, int error)
 		change = ft_substr(ret, i, j - i);
 	else
 		change = ft_substr(ret, i + 1, j - i);
-	if (ft_strcmp(change, "?") == 0 && error == 1)
-	{
-		free(change);
-		change = ft_itoa(g_error);
-	}
-	else
-	{
-		end = ft_getenv(change, env);
-		free(change);
-		change = end;
-	}
+	change = ft_dollarenv(change, env, error);
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	free(ret);
 	*str = ft_dollar_parse_ret(start, end, change);

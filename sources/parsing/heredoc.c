@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/27 16:09:36 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 15:41:54 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,24 @@ char	*readfd(int fd)
 void	fork_hd(int *piped, char *str, char **env)
 {
 	int		i;
+	int		f;
 	char	*tmp;
 
 	i = 1;
+	f = 0;
 	g_error = INHEREDOC_FORK;
 	close(piped[0]);
 	while (i != 0)
 	{
 		tmp = readline("> ");
+		if (ft_strcmp(str, tmp) != 0 && f != 0)
+			ft_putstr_fd("\n", piped[1]);
+		f++;
 		i = ft_strcmp(str, tmp);
 		if (i != 0)
 		{
 			ft_check_dollar(&tmp, env, 1, 0);
 			ft_putstr_fd(tmp, piped[1]);
-			ft_putstr_fd("\n", piped[1]);
 			free(tmp);
 		}
 	}

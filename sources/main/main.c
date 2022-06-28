@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/27 17:21:18 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 15:07:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,17 @@ int	loop(t_minishell *mini)
 			if (line != NULL)
 			{
 				ft_check_dollar(&line, mini->env, 0, 1);
-				if (ft_strlen(line) <= 0)
-					free(line);
-				else
+				g_error = 0;
+				if (ft_parsing(mini, line) == 0 && g_error == 0)
 				{
-					g_error = 0;
-					if (ft_parsing(mini, line) == 0 && g_error == 0)
-					{
-						inexec(mini);
-						ft_free_proccesses(mini->process);
-					}
+					inexec(mini);
+					ft_free_proccesses(mini->process);
 				}
+				free(line);
 			}
 		}
-		free(line);
 	}
+	free(line);
 }
 
 void	incr_shlvl(t_minishell *mini)

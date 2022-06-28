@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: guyar <guyar@student.42.fr>                +#+  +:+       +#+         #
+#    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/06/28 12:21:21 by guyar            ###   ########.fr        #
+#    Updated: 2022/06/28 14:45:15 by gchatain         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,10 @@ all: compilation $(NAME)
 			${CC} ${FLAGS} -c $< -o $@ ${DIR_INCLUDES}
 			printf "${ERASE}${BLUE}[BUILD]${END} $<"
 
-$(NAME): $(OBJS) Makefile $(INCLUDES)
+$(LIBFT): 
+	rm -rf .objects
+
+$(NAME): $(LIBFT) $(OBJS) Makefile $(INCLUDES)
 		${CC} ${FLAGS} -o ${NAME} -lreadline -L$(shell brew --prefix readline)/lib ${OBJS} ${LIBFT} ${DIR_INCLUDES}
 		printf $(NORM_RET)
 
