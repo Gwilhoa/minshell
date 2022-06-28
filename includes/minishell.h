@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 15:56:07 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 17:12:19 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,4 +151,6 @@ void		ft_export_free(char **args, char **arg);
 char		*ft_dollar_parse_ret(char *start, char *end, char *change);
 void		ft_export_loop(char **args, char **arg, \
 				char *env, t_minishell *mini);
+void		ft_create_command_loop(t_process *tmp, t_minishell *main, \
+				char *home);
 #endif
