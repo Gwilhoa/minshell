@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/24 13:07:32 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 16:22:41 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,9 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 	if (isabsolute == 0)
 	{
 		temp = ft_strjoin(path, "/");
+		free(path);
 		path_cmd = ft_strjoin(temp, process->cmd);
+		free(temp);
 	}
 	else
 		path_cmd = process->cmd;

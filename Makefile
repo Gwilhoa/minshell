@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: guyar <guyar@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 10:03:39 by gchatain          #+#    #+#              #
-#    Updated: 2022/06/28 14:45:15 by gchatain         ###   ########lyon.fr    #
+#    Updated: 2022/06/28 15:52:16 by guyar            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ OBJS			:= $(addprefix .objects/,$(LST_OBJS))
 SRCS			:= $(addprefix sources/,$(LST_SRCS))
 LIBFT			:= libft/libft.a
 
-INCLUDES		:= includes/ libft/includes/ $(shell brew --prefix readline)/include/
+INCLUDES		:= includes/minishell.h libft/includes/get_next_line.h libft/includes/libft.h $(shell brew --prefix readline)/include/
 DIR_INCLUDES	:= $(sort $(addprefix -I, $(dir $(INCLUDES))))
 
 NORM		:= $(shell norminette sources | grep -c 'Error!')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 15:07:46 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 16:35:38 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,9 @@ int	loop(t_minishell *mini)
 				ft_check_dollar(&line, mini->env, 0, 1);
 				g_error = 0;
 				if (ft_parsing(mini, line) == 0 && g_error == 0)
-				{
 					inexec(mini);
+				if (mini->process != NULL)
 					ft_free_proccesses(mini->process);
-				}
 				free(line);
 			}
 		}
