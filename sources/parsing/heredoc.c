@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 15:41:54 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 17:55:04 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 	fd = fork();
 	g_error = INHEREDOC;
 	if (fd == 0)
-		fork_hd(piped, str, mini->env);
+		fork_hd(piped, str);
 	close(piped[1]);
 	wait(&status);
 	free(process->hd_stop);
 	g_error = WEXITSTATUS(status);
 	process->heredoc = readfd(piped[0]);
+	ft_check_dollar(&process->heredoc, mini->env, 1, 0);
 	close(piped[0]);
 	process->infd = 0;
 }
@@ -88,7 +89,7 @@ char	*readfd(int fd)
 	return (ret);
 }
 
-void	fork_hd(int *piped, char *str, char **env)
+void	fork_hd(int *piped, char *str)
 {
 	int		i;
 	int		f;
@@ -107,7 +108,6 @@ void	fork_hd(int *piped, char *str, char **env)
 		i = ft_strcmp(str, tmp);
 		if (i != 0)
 		{
-			ft_check_dollar(&tmp, env, 1, 0);
 			ft_putstr_fd(tmp, piped[1]);
 			free(tmp);
 		}

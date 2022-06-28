@@ -1,0 +1,10 @@
+Makefile
+README.md
+gg
+headers.sh
+includes
+libft
+minishell
+minishell.dSYM
+sources
+t

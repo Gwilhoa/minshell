@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 14:36:19 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 17:46:49 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ char	*ft_dollarenv(char *str, char **env, int error)
 
 	if (ft_strcmp(str, "?") == 0 && error == 1)
 		ret = ft_itoa(g_error);
-	else
+	else if (error == 0)
 		ret = ft_getenv(str, env);
+	else
+		ret = ft_strjoin("$", str);
 	free(str);
 	return (ret);
 }
@@ -80,6 +82,7 @@ int	ft_dollar_parse(int i, char **str, char **env, int error)
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	free(ret);
 	*str = ft_dollar_parse_ret(start, end, change);
+	ft_clean_str(str);
 	return (ft_strlen(*str));
 }
 

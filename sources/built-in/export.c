@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 16:13:10 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 17:23:42 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	verif_args_env(char *str)
 	int	i;
 
 	i = 0;
-	if (ft_isalnum(str[0]) == 0 || str[0] == '_' || str[0] == '=')
+	if (ft_isdigit(str[0]) == 1 || str[0] == '=')
 		return (1);
 	while (str[i])
 	{
@@ -84,8 +84,6 @@ void	ft_export_loop(char **args, char **arg, char *env, t_minishell *mini)
 		{
 			g_error = 1;
 			ft_printf("export: %s: invalid argument\n", args[i]);
-			ft_free_matrix(args);
-			free(args);
 			return ;
 		}
 		ft_delquotes(&args[i]);
