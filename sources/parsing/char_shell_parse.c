@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_shell_parse.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/27 15:56:55 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 12:50:08 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 	singlequote = 0;
 	ret = ft_strdup(*str);
 	free(*str);
-	i = 0;
-	while (ret[i] != 0)
+	i = -1;
+	while (ret[++i] != 0)
 	{
 		if (isheredoc == 0 && singlequote == 0 && ret[i] == '\"')
 			doublequote = -doublequote + 1;
@@ -45,7 +45,6 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 				continue ;
 			}
 		}
-		i++;
 	}
 	*str = ret;
 }

@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/27 22:01:13 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 12:48:52 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_create_command(t_minishell *main)
 	tmp = main->process;
 	while (tmp)
 	{
-		ft_clear_cmd(tmp);			// clear les redirect
+		ft_clear_cmd(tmp);
 		ft_redirec(tmp, main);
 		home = ft_getenv("HOME", main->env);
 		ft_split_cmd_args(tmp, home);

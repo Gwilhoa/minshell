@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:02:17 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/27 16:41:52 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 12:46:58 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,39 +66,47 @@ int	verif_args_env(char *str)
 
 void	ft_export(t_process *process, t_minishell *mini)
 {
-	int			i;
 	char		**args;
 	char		**arg;
 	char		*env;
 
-	i = -1;
+	arg = NULL;
+	env = NULL;
 	if (process->args == 0)
 		prompt_export(mini->env);
 	else
 	{
 		args = ft_split_bash(process->args);
-		while (args[++i] != 0)
-		{
-			if (verif_args_env(args[i]) == 1)
-			{
-				g_error = 1;
-				ft_printf("export: %s: invalid argument\n", args[i]);
-				ft_free_matrix(args);
-				free(args);
-				return ;
-			}
-			ft_delquotes(&args[i]);
-			arg = ft_split(args[i], '=');
-			env = ft_get_line_env(arg[0], mini->env);
-			if (env == 0)
-				ft_addenv(mini, args[i]);
-			else if (arg[1] != 0 || ft_strcmp(args[i] \
-				+ ft_strlen(args[i]) - 1, "=") == 0)
-				ft_change_env(arg[0], arg[1], mini);
-			ft_free_matrix(arg);
-			free(arg);
-		}
+		ft_export_loop(args, arg, env, mini);
 		ft_free_matrix(args);
 		free(args);
+	}
+}
+
+void	ft_export_loop(char **args, char **arg, char *env, t_minishell *mini)
+{
+	int	i;
+
+	i = -1;
+	while (args[++i] != 0)
+	{
+		if (verif_args_env(args[i]) == 1)
+		{
+			g_error = 1;
+			ft_printf("export: %s: invalid argument\n", args[i]);
+			ft_free_matrix(args);
+			free(args);
+			return ;
+		}
+		ft_delquotes(&args[i]);
+		arg = ft_split(args[i], '=');
+		env = ft_get_line_env(arg[0], mini->env);
+		if (env == 0)
+			ft_addenv(mini, args[i]);
+		else if (arg[1] != 0 || ft_strcmp(args[i] \
+			+ ft_strlen(args[i]) - 1, "=") == 0)
+			ft_change_env(arg[0], arg[1], mini);
+		ft_free_matrix(arg);
+		free(arg);
 	}
 }

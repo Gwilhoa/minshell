@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 09:56:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/27 21:08:45 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 12:35:50 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (0);
 	start = ft_start(s1, set);
 	end = ft_end(s1, set);
-	if (start >= end)
-	{
-		ret_str = malloc(1);
-		ret_str[0] = '\0';
-	}
-	else
-	{
-		ret_str = malloc ((end - start) + 1);
-		if (!ret_str)
-			return (NULL);
-	}
+	ret_str = NULL;
+	ret_str = ft_malloc_strtrim(ret_str, end, start);
 	while (start < end)
 	{
 		ret_str[i++] = s1[start];
@@ -97,6 +88,20 @@ char	*ft_strtrim2(char *s1, char const *set)
 		return (0);
 	start = ft_start(s1, set);
 	end = ft_end(s1, set);
+	ret_str = NULL;
+	ret_str = ft_malloc_strtrim(ret_str, end, start);
+	while (start < end)
+	{
+		ret_str[i++] = s1[start];
+		start++;
+	}
+	ret_str[i] = '\0';
+	free(s1);
+	return (ret_str);
+}
+
+char	*ft_malloc_strtrim(char *ret_str, int end, int start)
+{
 	if (start >= end)
 	{
 		ret_str = malloc(1);
@@ -108,12 +113,5 @@ char	*ft_strtrim2(char *s1, char const *set)
 		if (!ret_str)
 			return (NULL);
 	}
-	while (start < end)
-	{
-		ret_str[i++] = s1[start];
-		start++;
-	}
-	ret_str[i] = '\0';
-	free(s1);
 	return (ret_str);
 }

@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/27 23:16:43 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 13:07:54 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,8 @@ char	*ft_take_cmd(t_process *process, char *home)
 	int		i;
 
 	i = 0;
-	dprintf(2, " cmd1 = %s add = %p\n", process->cmd, process->cmd);
-	ft_clean_str(&process->cmd);				// cette fonction qui nous a bien fais chié ne sert a rien;
-	dprintf(2, " cmd2 = %s add = %p\n", process->cmd, process->cmd);
+	ft_clean_str(&process->cmd);
 	spited = ft_split_bash(process->cmd);
-
 	while (spited[++i])
 	{
 		if (ft_strcmp(spited[i], "~") == 0)
@@ -68,12 +65,14 @@ char	*ft_take_cmd(t_process *process, char *home)
 	ret = ft_strdup(spited[i]);
 	process->args = ft_strdup(spited[i + 1]);
 	i++;
+	ft_disp_matrix(spited);
 	while (spited[i])
 	{
 		process->args = ft_strjoin_free_first(process->args, " ");
 		process->args = ft_strjoin_free_first(process->args, spited[i]);
 		i++;
 	}
+	// process->args double ici;
 	ft_free_matrix(spited);
 	free(spited);
 	return (ret);

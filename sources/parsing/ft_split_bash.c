@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/27 21:42:20 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 12:55:23 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_split_bash_2(t_split *split_struct, char *str)
 {
-	dprintf(2, "str = '%s'\n", str);
 	while (str[split_struct->i] && str)
 	{
 		if (str[split_struct->i] == '"' && split_struct->q[0] != 1)
@@ -26,14 +25,13 @@ void	ft_split_bash_2(t_split *split_struct, char *str)
 		{
 			split_struct->ret[split_struct->nb] = \
 			ft_substr(str, split_struct->p, split_struct->i - split_struct->p);
-			while (str[split_struct->i] == ' ' && str[split_struct->i + 1] && str)
+			while (str[split_struct->i] == ' ' && str[split_struct->i + 1]
+				&& str)
 				split_struct->i++;
 			split_struct->nb++;
 			split_struct->p = split_struct->i;
 		}
-		dprintf(2, "c = %c\n", str[split_struct->i]);
 		split_struct->i++;
-		dprintf(2, "i = '%d'\n", split_struct->i);
 	}
 }
 

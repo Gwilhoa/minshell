@@ -6,7 +6,7 @@
 #    By: guyar <guyar@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 10:35:56 by gchatain          #+#    #+#              #
-#    Updated: 2022/06/27 23:08:38 by guyar            ###   ########.fr        #
+#    Updated: 2022/06/28 12:21:27 by guyar            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SUR			=	\033[7m
 END			=	\033[0m
 
 NAME		:= libft.a
-FLAGS		:= -Werror -Wall -Wextra -g3 -fsanitize=address
+FLAGS		:= -Werror -Wall -Wextra -g3 #-fsanitize=address
 CC			:= gcc
 
 LST_CONVERT		:= ft_atoi.c ft_itoa.c ft_split.c

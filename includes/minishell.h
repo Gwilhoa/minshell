@@ -6,7 +6,7 @@
 /*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/27 22:36:30 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/28 12:45:33 by guyar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,4 +151,5 @@ void		ft_exit_code(t_minishell *mini, t_process *process, int tmp);
 void		ft_export_free(char **args, char **arg);
 char		*ft_dollar_parse_ret(char *start, char *end, char *change);
 char  		*ft_test(char *str);
+void	ft_export_loop(char **args, char **arg, char *env, t_minishell *mini);
 #endif
