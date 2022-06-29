@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/29 17:23:31 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 18:00:55 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ int	ft_dollar_parse(int i, char **str, char **env, int error)
 	else
 		change = ft_substr(ret, i + 1, j - i - 1);
 	change = ft_dollarenv(change, env, error);
-	if (change != NULL)
-		i = ft_strlen(start) + ft_strlen(change);
-	else
-		i = ft_strlen(start);
+	i = ft_dollar_parse_i(change, start);
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	free(ret);
 	*str = ft_dollar_parse_ret(start, end, change);
