@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/29 13:55:57 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 23:22:47 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,52 @@
 void	init_empty_env(t_minishell *mini)
 {
 	char	*pwd;
+	char	*temp;
 
-	mini->env = malloc(sizeof(char *));
-	mini->env[0] = 0;
-	pwd = getcwd(NULL, 0);
-	ft_addenv(mini, "SHLVL=1");
-	ft_addenv(mini, ft_strjoin("PWD=", pwd));
-	ft_addenv(mini, ft_strdup("OLDPWD"));
+	pwd = getcwd(NULL, 10);
+	temp = ft_getenv("PWD", mini->env);
+	if (temp == NULL)
+		ft_addenv(mini, ft_strjoin("PWD=", pwd));
+	else
+		free(temp);
+	temp = ft_getenv("SHLVL", mini->env);
+	if (temp == NULL)
+		ft_addenv(mini, "SHLVL=1");
+	else
+	{
+		free(temp);
+		incr_shlvl(mini);
+	}
 	free(pwd);
 }
 
 void	init_env(char **envp, t_minishell *mini)
 {
 	int		i;
+	char	*temp;
 
 	i = -1;
 	if (ft_matrix_size((const char **)envp) == 0)
-		init_empty_env(mini);
-	else
 	{
-		mini->env = ft_matrix_dup(envp);
-		while (mini->env[++i] != 0)
-		{
-			if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
-			{
-				free(mini->env[i]);
-				mini->env[i] = ft_strdup("OLDPWD");
-			}
-		}
-		incr_shlvl(mini);
+		mini->env = malloc(sizeof(char *));
+		mini->env[0] = 0;
 	}
+	else
+		mini->env = ft_matrix_dup(envp);
+	temp = ft_get_line_env("OLDPWD", mini->env);
+	if (temp == NULL)
+		ft_addenv(mini, "OLDPWD");
+	else
+		free(temp);
+	while (mini->env[++i] != 0)
+	{
+		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
+		{
+			free(mini->env[i]);
+			mini->env[i] = ft_strdup("OLDPWD");
+		}
+	}
+	init_empty_env(mini);
 }
 
 int	main(int argc, char *argv[], char *envp[])

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/29 11:05:30 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 18:27:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	ft_create_command_loop(t_process *tmp, t_minishell *main, char *home)
 	while (tmp)
 	{
 		ft_clear_cmd(tmp);
+		ft_redirec(tmp, main);
 		if (ft_strlen(tmp->cmd) == 0)
 		{
 			g_error = 1;
 			return ;
 		}
-		ft_redirec(tmp, main);
 		home = ft_getenv("HOME", main->env);
 		ft_split_cmd_args(tmp, home);
 		free(home);
