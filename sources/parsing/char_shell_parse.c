@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/29 12:15:35 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 17:23:31 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 	singlequote = 0;
 	ret = ft_strdup(*str);
 	free(*str);
-	i = -1;
-	while (ret[++i] != 0)
+	i = 0;
+	while (ret && ret[i] != 0)
 	{
 		if (isheredoc == 0 && singlequote == 0 && ret[i] == '\"')
 			doublequote = -doublequote + 1;
@@ -40,8 +40,9 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 		else if (ret[i] == '$' && singlequote == 0)
 		{
 			if (ret[i + 1] != 0 && ret[i + 1] != ' ')
-				i = ft_dollar_parse(i, &ret, env, error);
+				i = ft_dollar_parse(i, &ret, env, error) - 1;
 		}
+		i++;
 	}
 	*str = ret;
 }
@@ -74,16 +75,20 @@ int	ft_dollar_parse(int i, char **str, char **env, int error)
 	j = i + 1;
 	while (isenddollar(ret[j]) == 0)
 		j++;
-	if (error == 1 && ret[j] == '?')
-		change = ft_substr(ret, i, j - i);
+	if (error == 1 && ret[j++] == '?')
+		change = ft_substr(ret, i + 1, 2);
 	else
 		change = ft_substr(ret, i + 1, j - i - 1);
 	change = ft_dollarenv(change, env, error);
+	if (change != NULL)
+		i = ft_strlen(start) + ft_strlen(change);
+	else
+		i = ft_strlen(start);
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	free(ret);
 	*str = ft_dollar_parse_ret(start, end, change);
 	ft_clean_str(str);
-	return (ft_strlen(*str));
+	return (i);
 }
 
 char	*ft_dollar_parse_ret(char *start, char *end, char *change)

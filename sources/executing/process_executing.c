@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 14:16:32 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 17:29:37 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ t_process	*process_executing(t_minishell *mini, t_process *process)
 {
 	int	pid;
 
+	if (ft_strcmp(process->cmd, "") == 0)
+	{
+		g_error = 127;
+		ft_putstr_fd("minshell >>> : command not found\n", 2);
+		return (NULL);
+	}
 	pid = fork();
 	process->pid = pid;
 	if (pid < 0)

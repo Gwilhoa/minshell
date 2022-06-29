@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/29 11:19:42 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 13:30:44 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ void	ft_delquotes(char **str)
 			ft_delchar(&tmp, i);
 			i--;
 		}
-		if (tmp[i] == '\\')
-			ft_delchar(&tmp, i);
 	}
 	*str = tmp;
 }
