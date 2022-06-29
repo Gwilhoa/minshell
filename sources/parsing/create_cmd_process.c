@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 17:11:16 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 11:05:30 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_process	*ft_init_process(char *str)
 	l = malloc(sizeof(t_process));
 	if (!l)
 		return (0);
+	l->args = NULL;
 	l->cmd = ft_strdup(str);
 	l->outfd = 0;
 	l->infd = 0;

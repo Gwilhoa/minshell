@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:26:20 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 15:17:06 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 11:24:35 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void static	init_var(int *a, int *b, int *c, int *d)
 {
 	*a = 0;
 	*b = 0;
-	*c = 0;
+	*c = -1;
 	*d = 0;
 }
 
@@ -59,15 +59,15 @@ int	ft_check_syntaxe(char *str)
 		free(temp);
 		return (-2);
 	}
-	while (temp[i])
+	while (temp[++i])
 	{
 		if (temp[i] == '"' && q != 1)
 			q2 = -q2 + 1;
 		else if (temp[i] == '\'' && q2 != 1)
 			q = -q + 1;
-		i++;
 	}
-	if (q != 0 || q2 != 0 || (i > 0 && temp[i - 1] == '|') || temp[0] == '|')
+	if (q != 0 || q2 != 0 || (i > 0 && (temp[i - 1] == '|')) || \
+		(i > 0 && (temp[i - 1] == '\\')) || temp[0] == '|')
 		r = -1;
 	free(temp);
 	return (r);

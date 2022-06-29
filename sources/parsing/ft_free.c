@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:01:40 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 16:36:49 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/29 11:01:47 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	ft_free_process(t_process *process)
 	if (process->args != NULL)
 		free(process->args);
 	if (process->redirec != NULL)
+	{
 		free(process->redirec);
+		process->redirec = NULL;
+	}
 	if (process->all_redirec != NULL)
 	{
 		ft_free_matrix(process->all_redirec);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_bash.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 12:55:23 by guyar            ###   ########.fr       */
+/*   Updated: 2022/06/29 11:19:42 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ int	ft_nbword(char *str)
 	return (nb);
 }
 
+void static	init_var(int *a, int *b, int *c)
+{
+	*a = 0;
+	*b = 0;
+	*c = -1;
+}
+
 void	ft_delquotes(char **str)
 {
 	char	*tmp;
@@ -95,9 +102,7 @@ void	ft_delquotes(char **str)
 	int		q;
 	int		q2;
 
-	i = -1;
-	q = 0;
-	q2 = 0;
+	init_var(&q, &q2, &i);
 	tmp = *str;
 	while (tmp[++i] != 0)
 	{
@@ -113,6 +118,8 @@ void	ft_delquotes(char **str)
 			ft_delchar(&tmp, i);
 			i--;
 		}
+		if (tmp[i] == '\\')
+			ft_delchar(&tmp, i);
 	}
 	*str = tmp;
 }

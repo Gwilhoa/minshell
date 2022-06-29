@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 17:54:47 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 10:10:28 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@ typedef struct s_minishell
 	int			nbcmd;
 }	t_minishell;
 
-int			verif_args_env(char *str);
 int			flag_prompt(char *str);
+int			verif_args_env(char *str);
 int			main(int argc, char *argv[], char *envp[]);
 int			loop(t_minishell *mini);
 int			isenddollar(int c);
+int			ft_dollar_parse(int i, char **str, char **env, int error);
 int			ft_end_redirec(char *str, int i);
 int			define_code(int c);
 int			ft_nbword(char *str);
@@ -84,9 +85,10 @@ int			ft_count_chevron(char	*str);
 int			ft_nbcmd(char *str);
 int			ft_check_syntaxe(char *str);
 int			ft_parsing(t_minishell *main, char *line);
-int			ft_dollar_parse(int i, char **str, char **env, int error);
 char		*ft_getenv(char *key, char **env);
 char		*ft_get_line_env(char *key, char **env);
+char		*ft_dollarenv(char *str, char **env, int error);
+char		*ft_dollar_parse_ret(char *start, char *end, char *change);
 char		*ft_take_cmd(t_process *process, char *home);
 char		**ft_split_bash(char *str);
 char		**split_files(char	*str);
@@ -98,16 +100,19 @@ void		ft_cd(t_process *process, t_minishell *mini);
 void		ft_echo(t_process *process);
 void		ft_env(char **env);
 void		ft_exit(t_minishell *mini, t_process *process);
+void		ft_exit_code(t_minishell *mini, t_process *process, int tmp);
 void		ft_export(t_process *process, t_minishell *mini);
+void		ft_export_loop(char **args, char **arg, char *env, \
+				t_minishell *mini);
 void		ft_pwd(void);
 void		ft_unset(t_process *process, t_minishell *mini);
 void		searching_cmd(t_minishell *mini, t_process *process);
 void		ft_changedup(t_minishell *mini, t_process *process);
 void		ft_bash(t_minishell *mini, t_process *process);
-void		ft_searching_path(t_minishell *mini, t_process *process, \
-				char *path);
+void		ft_searching_path(t_minishell *mini, \
+				t_process *process, char *path);
 void		ft_execute(char *path, t_process *process, t_minishell *mini, \
-				int i);
+																		int i);
 void		create_pipes(t_minishell *shell);
 void		ft_setfilefd(t_minishell *mini);
 void		ft_cleanfork(int outfd, int infd, t_minishell *mini);
@@ -127,11 +132,14 @@ void		ft_check_dollar(char **str, char **env, int isheredoc, int error);
 void		ft_clear_cmd(t_process *process);
 void		remove_file(char **str, int start, int end);
 void		ft_create_command(t_minishell *main);
+void		ft_create_command_loop(t_process *tmp, t_minishell *main, \
+				char *home);
 void		addprocess(t_process **alst, t_process *new);
 void		ft_split_cmd_args(t_process *process, char *home);
 void		ft_clean_args(t_process *process);
 void		ft_clean_str(char **str);
 void		ft_free_process(t_process *process);
+void		ft_free_proccesses(t_process *process);
 void		ft_free_struc(t_minishell *mini);
 void		ft_redirec(t_process *process, t_minishell *mini);
 void		ft_setup(t_process *process, t_minishell *mini);
@@ -143,14 +151,6 @@ void		ft_search_heredoc(t_process *process, t_minishell *mini);
 void		ft_in_hd(t_process *process, int i, t_minishell *mini);
 void		ft_heredoc(t_process *process, char *str, t_minishell *mini);
 void		fork_hd(int *piped, char *str);
-void		ft_free_proccesses(t_process *process);
 t_process	*ft_init_process(char *str);
 t_process	*process_executing(t_minishell *mini, t_process *process);
-void		ft_exit_code(t_minishell *mini, t_process *process, int tmp);
-void		ft_export_free(char **args, char **arg);
-char		*ft_dollar_parse_ret(char *start, char *end, char *change);
-void		ft_export_loop(char **args, char **arg, \
-				char *env, t_minishell *mini);
-void		ft_create_command_loop(t_process *tmp, t_minishell *main, \
-				char *home);
 #endif

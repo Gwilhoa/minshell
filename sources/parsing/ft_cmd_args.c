@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 13:45:05 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 11:50:28 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ char	*ft_take_cmd(t_process *process, char *home)
 			ft_strreplace(&spited[i], home);
 	}
 	i = 0;
-	ret = ft_strdup(spited[i++]);
-	process->args = ft_strdup(spited[i++]);
-	while (spited[i])
+	ret = ft_strdup(spited[0]);
+	while (spited[++i])
 	{
-		process->args = ft_strjoin_free_first(process->args, " ");
+		if (i == 1)
+			process->args = ft_strdup("");
+		else
+			process->args = ft_strjoin_free_first(process->args, " ");
 		process->args = ft_strjoin_free_first(process->args, spited[i]);
-		i++;
 	}
 	ft_free_matrix(spited);
 	free(spited);

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 15:01:03 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 10:11:17 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_parsing(t_minishell *main, char *line)
 	return (0);
 }
 
-void	init_var(int *a, int *b, int *c, int *d)
+void static	init_var(int *a, int *b, int *c, int *d)
 {
 	*a = 0;
 	*b = 0;
