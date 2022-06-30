@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/29 23:22:47 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/30 12:22:12 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	init_env(char **envp, t_minishell *mini)
 	temp = ft_get_line_env("OLDPWD", mini->env);
 	if (temp == NULL)
 		ft_addenv(mini, "OLDPWD");
-	else
-		free(temp);
 	while (mini->env[++i] != 0)
 	{
 		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
@@ -100,12 +98,11 @@ int	loop(t_minishell *mini)
 					inexec(mini);
 				if (mini->process != NULL)
 					ft_free_proccesses(mini->process);
-				free(line);
 				mini->process = NULL;
 			}
 		}
+		free(line);
 	}
-	free(line);
 }
 
 void	incr_shlvl(t_minishell *mini)

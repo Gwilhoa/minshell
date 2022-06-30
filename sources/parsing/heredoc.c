@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 17:55:04 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/30 12:15:11 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	ft_in_hd(t_process *process, int i, t_minishell *mini)
 		g_error = ERRO_SYNTAXE;
 		return ;
 	}
-	if (process->hd_stop != NULL)
-		free(process->hd_stop);
 	process->hd_stop = ft_strdup(process->all_redirec[i] + s);
 	if (process->infile != NULL)
 	{
@@ -102,6 +100,8 @@ void	fork_hd(int *piped, char *str)
 	while (i != 0)
 	{
 		tmp = readline("> ");
+		if (tmp == NULL)
+			break ;
 		if (ft_strcmp(str, tmp) != 0 && f != 0)
 			ft_putstr_fd("\n", piped[1]);
 		f++;

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:27:13 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 17:06:27 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/30 10:25:26 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ void	ft_cd(t_process *process, t_minishell *mini)
 	path = init_path(process->args, mini->env);
 	if (path == 0)
 		error_path(process->args);
-	ft_delquotes(&path);
 	if (chdir(path) != 0)
 	{
-		if (ft_strlen(path) != 0)
+		if (path)
 			error();
 		free(path);
 	}

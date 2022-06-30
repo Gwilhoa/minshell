@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/29 13:30:44 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/30 10:32:54 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_nbword(char *str)
 			nb++;
 		i++;
 	}
-	return (nb);
+	return (nb + 1);
 }
 
 void static	init_var(int *a, int *b, int *c)
