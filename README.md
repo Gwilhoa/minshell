@@ -1,2 +1,0 @@
-# minshell
-minishell-42

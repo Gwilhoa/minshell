@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:20:53 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/30 10:32:54 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/06/30 14:50:32 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	ft_split_bash_2(t_split *split_struct, char *str)
 			split_struct->nb++;
 			split_struct->p = split_struct->i;
 		}
-		split_struct->i++;
+		else
+			split_struct->i++;
 	}
 }
 
@@ -85,7 +86,7 @@ int	ft_nbword(char *str)
 			nb++;
 		i++;
 	}
-	return (nb + 1);
+	return (nb);
 }
 
 void static	init_var(int *a, int *b, int *c)
