@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/30 12:22:12 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/01 09:37:27 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,59 @@ int	main(int argc, char *argv[], char *envp[])
 	return (0);
 }
 
+int	ft_error_parse(int i, char **str)
+{
+	char	*ret;
+	char	*start;
+	char	*end;
+	char	*change;
+	int		j;
+
+	ret = ft_strdup(*str);
+	free(*str);
+	start = ft_substr(ret, 0, i);
+	j = i + 1;
+	while (isenddollar(ret[j]) == 0)
+		j++;
+	change = ft_substr(ret, i + 1, 3);
+	change = ft_dollarenv(change, NULL, 1);
+	i = ft_dollar_parse_i(change, start);
+	end = ft_substr(ret, j, ft_strlen(ret + j));
+	free(ret);
+	*str = ft_dollar_parse_ret(start, end, change);
+	ft_clean_str(str);
+	return (i);
+}
+
+void ft_check_error(char **line)
+{
+	int		i;
+	char	*ret;
+	int		doublequote;
+	int		singlequote;
+
+	doublequote = 0;
+	singlequote = 0;
+	ret = ft_strdup(*line);
+	free(*line);
+	i = 0;
+	while (ret && ret[i] != 0)
+	{
+		if (singlequote == 0 && ret[i] == '\"')
+			doublequote = -doublequote + 1;
+		else if (doublequote == 0 && ret[i] == '\'')
+			singlequote = -singlequote + 1;
+		else if (ret[i] == '$' && singlequote == 0)
+		{
+			if (ret[i + 1] != 0 && ft_isspace(ret[i + 1]) != 1 && \
+				ret[i + 1] == '?')
+				i = ft_error_parse(i, &ret) - 1;
+		}
+		i++;
+	}
+	*line = ret;
+}
+
 int	loop(t_minishell *mini)
 {
 	char		*line;
@@ -92,7 +145,7 @@ int	loop(t_minishell *mini)
 			add_history(line);
 			if (line != NULL)
 			{
-				ft_check_dollar(&line, mini->env, 0, 1);
+				ft_check_error(&line);
 				g_error = 0;
 				if (ft_parsing(mini, line) == 0 && g_error == 0)
 					inexec(mini);

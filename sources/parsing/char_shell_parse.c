@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/29 18:00:55 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/01 09:31:44 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	isenddollar(int c)
 {
-	if (ft_isalnum(c) != 1)
+	if (ft_isalnum(c) != 1 && c != '_')
 		return (1);
 	return (0);
 }
 
-void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
+void	ft_check_dollar(char **str, char **env, int isheredoc)
 {
 	int		i;
 	char	*ret;
@@ -40,7 +40,7 @@ void	ft_check_dollar(char **str, char **env, int isheredoc, int error)
 		else if (ret[i] == '$' && singlequote == 0)
 		{
 			if (ret[i + 1] != 0 && ret[i + 1] != ' ')
-				i = ft_dollar_parse(i, &ret, env, error) - 1;
+				i = ft_dollar_parse(i, &ret, env) - 1;
 		}
 		i++;
 	}
@@ -61,7 +61,7 @@ char	*ft_dollarenv(char *str, char **env, int error)
 	return (ret);
 }
 
-int	ft_dollar_parse(int i, char **str, char **env, int error)
+int	ft_dollar_parse(int i, char **str, char **env)
 {
 	char	*ret;
 	char	*start;
@@ -75,11 +75,8 @@ int	ft_dollar_parse(int i, char **str, char **env, int error)
 	j = i + 1;
 	while (isenddollar(ret[j]) == 0)
 		j++;
-	if (error == 1 && ret[j++] == '?')
-		change = ft_substr(ret, i + 1, 2);
-	else
-		change = ft_substr(ret, i + 1, j - i - 1);
-	change = ft_dollarenv(change, env, error);
+	change = ft_substr(ret, i + 1, j - i - 1);
+	change = ft_dollarenv(change, env, 0);
 	i = ft_dollar_parse_i(change, start);
 	end = ft_substr(ret, j, ft_strlen(ret + j));
 	free(ret);

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/29 18:27:46 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/01 08:57:08 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,10 @@ void	ft_create_command_loop(t_process *tmp, t_minishell *main, char *home)
 			g_error = 1;
 			return ;
 		}
+		ft_check_dollar(&tmp->cmd, main->env, 0);
 		home = ft_getenv("HOME", main->env);
 		ft_split_cmd_args(tmp, home);
 		free(home);
-		ft_check_dollar(&tmp->cmd, main->env, 0, 0);
-		ft_delquotes(&tmp->cmd);
-		if (tmp->args != NULL)
-			ft_check_dollar(&tmp->args, main->env, 0, 0);
 		tmp = tmp->next;
 	}
 }

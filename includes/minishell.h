@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/29 18:01:38 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/01 08:35:48 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			verif_args_env(char *str);
 int			main(int argc, char *argv[], char *envp[]);
 int			loop(t_minishell *mini);
 int			isenddollar(int c);
-int			ft_dollar_parse(int i, char **str, char **env, int error);
+int			ft_dollar_parse(int i, char **str, char **env);
 int			ft_end_redirec(char *str, int i);
 int			define_code(int c);
 int			ft_nbword(char *str);
@@ -128,7 +128,7 @@ void		ft_delenv(t_minishell *mini, char *key);
 void		init_empty_env(t_minishell *mini);
 void		init_env(char **envp, t_minishell *mini);
 void		incr_shlvl(t_minishell *mini);
-void		ft_check_dollar(char **str, char **env, int isheredoc, int error);
+void		ft_check_dollar(char **str, char **env, int isheredoc);
 void		ft_clear_cmd(t_process *process);
 void		remove_file(char **str, int start, int end);
 void		ft_create_command(t_minishell *main);

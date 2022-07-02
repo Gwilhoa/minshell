@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_setredirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guyar <guyar@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:27:23 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/28 16:33:23 by guyar            ###   ########.fr       */
+/*   Updated: 2022/07/01 09:27:41 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,8 @@ void	ft_setup(t_process *process, t_minishell *mini)
 	{
 		if (process->all_redirec[i][0] == '<' &&
 		process->all_redirec[i][1] == '<')
-		{
-			if (process->infile != NULL)
-				free(process->infile);
 			process->infile = NULL;
-		}
-		ft_check_dollar(&process->all_redirec[i], mini->env, 0, 0);
+		ft_check_dollar(&process->all_redirec[i], mini->env, 0);
 		ft_delquotes(&process->all_redirec[i]);
 		if (process->all_redirec[i][0] == '<' &&
 		process->all_redirec[i][1] != '<')

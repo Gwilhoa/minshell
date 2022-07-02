@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:30:48 by guyar             #+#    #+#             */
-/*   Updated: 2022/06/29 23:02:25 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/01 08:24:57 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_parsing(t_minishell *main, char *line)
 {
 	int	c;
-	int	i;
 
 	c = ft_check_syntaxe(line);
 	if (c == -1)
@@ -26,7 +25,6 @@ int	ft_parsing(t_minishell *main, char *line)
 	}
 	else if (c == -2)
 		return (-2);
-	i = -1;
 	main->nbcmd = ft_nbcmd(line);
 	main->splitcmd = ft_split_cmd(line, main->nbcmd);
 	ft_create_command(main);
