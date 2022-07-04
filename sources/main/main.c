@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/07/01 09:37:27 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/04 09:38:14 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,8 @@ int	ft_error_parse(int i, char **str)
 	ret = ft_strdup(*str);
 	free(*str);
 	start = ft_substr(ret, 0, i);
-	j = i + 1;
-	while (isenddollar(ret[j]) == 0)
-		j++;
-	change = ft_substr(ret, i + 1, 3);
+	j = i + 2;
+	change = ft_substr(ret, i + 1, 1);
 	change = ft_dollarenv(change, NULL, 1);
 	i = ft_dollar_parse_i(change, start);
 	end = ft_substr(ret, j, ft_strlen(ret + j));

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/30 10:55:04 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/02 15:08:01 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 void	ft_exit(t_minishell *mini, t_process *process)
 {
 	int			tmp;
+	char		**splitbash;
 
-	tmp = 0;
-	close(mini->default_infd);
-	close(mini->default_outfd);
 	if (process == NULL || process->args == NULL)
 	{
 		ft_printf("exit\n");
 		exit(g_error);
 	}
+	splitbash = ft_split_bash(process->args);
+	if (ft_matrix_size((const char **)splitbash) > 1)
+	{
+		ft_printf("exit\nbash: exit: too many argument\n");
+		g_error = 127;
+		return;
+	}
+	tmp = 0;
+	close(mini->default_infd);
+	close(mini->default_outfd);
 	ft_exit_code(mini, process, tmp);
 }
 
