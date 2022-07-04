@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:11:33 by guyar             #+#    #+#             */
-/*   Updated: 2022/07/01 09:01:05 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/04 14:42:54 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ char	*ft_take_cmd(t_process *process, char *home)
 	ft_clean_str(&process->cmd);
 	spited = ft_split_bash(process->cmd);
 	while (spited[++i])
-	{
 		if (ft_strcmp(spited[i], "~") == 0)
 			ft_strreplace(&spited[i], home);
-	}
 	i = 0;
 	ret = ft_strdup(spited[0]);
 	while (spited[++i])

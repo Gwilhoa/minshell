@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/07/01 08:35:48 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/04 14:39:29 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		error_path(char *args);
 void		ft_cd(t_process *process, t_minishell *mini);
 void		ft_echo(t_process *process);
 void		ft_env(char **env);
+void		ft_check_error(char **line);
 void		ft_exit(t_minishell *mini, t_process *process);
 void		ft_exit_code(t_minishell *mini, t_process *process, int tmp);
 void		ft_export(t_process *process, t_minishell *mini);

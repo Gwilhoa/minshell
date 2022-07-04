@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:33:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/07/02 15:08:01 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/04 14:43:16 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_exit(t_minishell *mini, t_process *process)
 	{
 		ft_printf("exit\nbash: exit: too many argument\n");
 		g_error = 127;
-		return;
+		return ;
 	}
 	tmp = 0;
 	close(mini->default_infd);
