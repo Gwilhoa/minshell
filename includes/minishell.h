@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/07/04 14:39:29 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/06 09:29:41 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@
 
 int							g_error;
 typedef struct s_process	t_process;
+typedef struct s_minishell	t_minishell;
 
-typedef struct s_process
+struct s_process
 {
 	int			pid;
+
 	int			code;
 	int			process_nb;
 	t_process	*next;
@@ -52,7 +54,7 @@ typedef struct s_process
 	int			infd;
 	char		*hd_stop;
 	char		*heredoc;
-}	t_process;
+};
 
 typedef struct s_split
 {
@@ -113,7 +115,7 @@ void		ft_bash(t_minishell *mini, t_process *process);
 void		ft_searching_path(t_minishell *mini, \
 				t_process *process, char *path);
 void		ft_execute(char *path, t_process *process, t_minishell *mini, \
-																		int i);
+				int i);
 void		create_pipes(t_minishell *shell);
 void		ft_setfilefd(t_minishell *mini);
 void		ft_cleanfork(int outfd, int infd, t_minishell *mini);

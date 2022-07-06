@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:11:34 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 14:21:59 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/06 10:10:15 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	delsig(void)
 {
-	if (g_error == INEXECVE)
-		return ;
 	rl_on_new_line();
 	rl_redisplay();
-	ft_printf("  \b\b\n");
+	ft_putstr_fd("  \b\b", 2);
 }
 
 void	get_signal(int sig)
@@ -30,6 +28,7 @@ void	get_signal(int sig)
 		else if (g_error != INEXECVE && g_error != INHEREDOC)
 		{
 			delsig();
+			ft_putchar_fd('\n', 2);
 			rl_replace_line("", 0);
 			rl_on_new_line();
 			rl_redisplay();
@@ -38,15 +37,12 @@ void	get_signal(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
-		if (g_error == INEXECVE)
+		if (g_error == INHEREDOC)
+			return ;
+		else if (g_error == INEXECVE)
 			g_error = 131;
 		else
-		{
-			rl_on_new_line();
-			rl_redisplay();
-			write(2, "  ", 2);
-			write(2, "\b\b", 2);
-		}
+			delsig();
 	}
 }
 

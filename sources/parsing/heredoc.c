@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:56 by guyar             #+#    #+#             */
-/*   Updated: 2022/07/01 09:27:04 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/07/04 17:21:56 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 	wait(&status);
 	free(process->hd_stop);
 	g_error = WEXITSTATUS(status);
+	if (process->heredoc != NULL)
+	{
+		free(process->heredoc);
+		process->heredoc = NULL;
+	}
 	process->heredoc = readfd(piped[0]);
 	ft_check_dollar(&process->heredoc, mini->env, 1);
 	close(piped[0]);
