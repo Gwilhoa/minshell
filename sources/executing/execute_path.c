@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/28 16:55:04 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/08/27 10:51:07 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 
 	i = 0;
 	splited_path = ft_split(path, ':');
-	while (splited_path[i] != 0)
+	while (splited_path[i] != 0 && process->cmd[0] != '/')
 	{
 		tmp = ft_strjoin(splited_path[i], "/");
 		tmp = ft_strjoin_free_first(tmp, process->cmd);
@@ -96,8 +96,7 @@ void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 	}
 	ft_free_matrix(splited_path);
 	free(splited_path);
-	if (access(process->cmd, F_OK) == 0 && access(process->cmd, X_OK) == 0)
-		ft_execute(getcwd(NULL, 0), process, mini, 0);
+	ft_execute(getcwd(NULL, 0), process, mini, 1);
 }
 
 void	ft_execute(char *path, t_process *process, t_minishell *mini, \
@@ -121,10 +120,10 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 	while (args && args[++i])
 		ft_delquotes(&args[i]);
 	ft_push_matrix(&args, process->cmd);
+	if (isabsolute == 1 && access(path_cmd, X_OK) != 0)
+		absolute_failed(process->cmd);
 	if (execve(path_cmd, args, mini->env) < 0)
 	{
-		if (isabsolute == 1)
-			absolute_failed(process->cmd);
 		perror("execve");
 		exit(CMDNOTFOUND);
 	}

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:15:30 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/29 18:05:04 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/08/27 10:53:46 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ void	inexec(t_minishell *mini)
 void	absolute_failed(char *str)
 {
 	dup2(2, 1);
-	ft_printf("minshell >>> %s : is a directory\n", str);
+	ft_printf("minshell >>> %s : no such file or directory\n", str);
 	exit(126);
 }
