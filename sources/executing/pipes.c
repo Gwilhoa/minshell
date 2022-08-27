@@ -21,7 +21,10 @@ void	create_pipes(t_minishell *shell)
 	while (process->next != NULL)
 	{
 		if (pipe(fd) < 0)
-			perror("no");
+		{
+			ft_putstr_fd("pid: Resource temporarily unavailable\n", 2);
+			exit(1);
+		}
 		process->outfd = fd[1];
 		process->next->infd = fd[0];
 		process = process->next;

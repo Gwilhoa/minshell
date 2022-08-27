@@ -65,6 +65,8 @@ void	ft_cd(t_process *process, t_minishell *mini)
 		pwd = getcwd(NULL, 0);
 		free(path);
 		path = ft_getenv("PWD", mini->env);
+		if (path == NULL)
+			ft_addenv(mini, "PWD=temp");
 		ft_change_env("OLDPWD", path, mini);
 		ft_change_env("PWD", pwd, mini);
 		g_error = 0;

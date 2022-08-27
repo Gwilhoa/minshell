@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(char **env)
 {
 	char	*path;
 
 	path = getcwd(NULL, 0);
+	if (path == NULL)
+		path = ft_getenv("PWD", env);
 	ft_printf("%s\n", path);
 	free(path);
 	exit(0);

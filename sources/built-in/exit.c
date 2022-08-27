@@ -23,7 +23,8 @@ void	ft_exit(t_minishell *mini, t_process *process)
 		exit(g_error);
 	}
 	splitbash = ft_split_bash(process->args);
-	if (ft_matrix_size((const char **)splitbash) > 1)
+	if (ft_isdigit(process->args[0]) == 1
+		&& ft_matrix_size((const char **)splitbash) > 1)
 	{
 		ft_printf("exit\nbash: exit: too many argument\n");
 		g_error = 127;

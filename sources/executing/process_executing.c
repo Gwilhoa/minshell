@@ -38,7 +38,10 @@ t_process	*process_executing(t_minishell *mini, t_process *process)
 	pid = fork();
 	process->pid = pid;
 	if (pid < 0)
+	{
 		perror("pid");
+		exit(1);
+	}
 	else if (pid == 0)
 		ft_forks(mini, process);
 	else

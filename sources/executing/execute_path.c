@@ -31,7 +31,7 @@ void	searching_cmd(t_minishell *mini, t_process *process)
 		exit(0);
 	}
 	else if (ft_strcmp(process->cmd, "pwd") == 0)
-		ft_pwd();
+		ft_pwd(mini->env);
 	else if (ft_strcmp(process->cmd, "exit") == 0)
 		ft_exit(mini, process);
 	else

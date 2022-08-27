@@ -107,7 +107,7 @@ void		ft_exit_code(t_minishell *mini, t_process *process, int tmp);
 void		ft_export(t_process *process, t_minishell *mini);
 void		ft_export_loop(char **args, char **arg, char *env, \
 				t_minishell *mini);
-void		ft_pwd(void);
+void		ft_pwd(char **env);
 void		ft_unset(t_process *process, t_minishell *mini);
 void		searching_cmd(t_minishell *mini, t_process *process);
 void		ft_changedup(t_minishell *mini, t_process *process);
