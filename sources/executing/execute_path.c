@@ -80,23 +80,37 @@ void	ft_bash(t_minishell *mini, t_process *process)
 void	ft_searching_path(t_minishell *mini, t_process *process, char *path)
 {
 	int		i;
+	int		f;
 	char	**splited_path;
 	char	*tmp;
 
 	i = 0;
+	f = 0;
 	splited_path = ft_split(path, ':');
-	while (splited_path[i] != 0 && process->cmd[0] != '/')
+	if (process->cmd[0] != '/')
 	{
-		tmp = ft_strjoin(splited_path[i], "/");
-		tmp = ft_strjoin_free_first(tmp, process->cmd);
-		if (access(tmp, F_OK) == 0)
-			ft_execute(splited_path[i], process, mini, 0);
-		free(tmp);
-		i++;
+		while (splited_path[i] != 0)
+		{
+			tmp = ft_strjoin(splited_path[i], "/");
+			tmp = ft_strjoin_free_first(tmp, process->cmd);
+			if (access(tmp, F_OK) == 0)
+				ft_execute(splited_path[i], process, mini, 0);
+			free(tmp);
+			i++;
+		}
 	}
+	else
+		f = 1;
 	ft_free_matrix(splited_path);
 	free(splited_path);
-	ft_execute(getcwd(NULL, 0), process, mini, 1);
+	ft_execute(getcwd(NULL, 0), process, mini, f);
+}
+
+void static	ft_printerror(char *cmd)
+{
+	ft_putstr_fd("minshell >>> ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(" command not found\n", 2);
 }
 
 void	ft_execute(char *path, t_process *process, t_minishell *mini, \
@@ -124,7 +138,7 @@ void	ft_execute(char *path, t_process *process, t_minishell *mini, \
 		absolute_failed(process->cmd);
 	if (execve(path_cmd, args, mini->env) < 0)
 	{
-		perror("execve");
+		ft_printerror(process->cmd);
 		exit(CMDNOTFOUND);
 	}
 }
