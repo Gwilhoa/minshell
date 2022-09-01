@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:05:50 by gchatain          #+#    #+#             */
-/*   Updated: 2022/07/06 09:29:41 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/09/01 11:32:33 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char		*ft_getenv(char *key, char **env);
 char		*ft_get_line_env(char *key, char **env);
 char		*ft_dollarenv(char *str, char **env, int error);
 char		*ft_dollar_parse_ret(char *start, char *end, char *change);
-char		*ft_take_cmd(t_process *process, char *home);
+char		*ft_take_cmd(t_process *process);
 char		**ft_split_bash(char *str);
 char		**split_files(char	*str);
 char		*ft_cutfile(char *str, int start);
@@ -139,7 +139,7 @@ void		ft_create_command_loop(t_process *tmp, t_minishell *main, \
 				char *home);
 void		addprocess(t_process **alst, t_process *new);
 void		ft_split_cmd_args(t_process *process, char *home);
-void		ft_clean_args(t_process *process);
+void		ft_clean_args(t_process *process, char *home);
 void		ft_clean_str(char **str);
 void		ft_free_process(t_process *process);
 void		ft_free_proccesses(t_process *process);

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:22 by gchatain          #+#    #+#             */
-/*   Updated: 2022/06/22 13:57:31 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/09/01 11:42:02 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,29 @@ void	ft_cleanfork(int outfd, int infd, t_minishell *mini)
 			close(process->infd);
 		process = process->next;
 	}
+}
+
+void	ft_changedup(t_minishell *mini, t_process *process)
+{
+	int	fd[2];
+
+	if (process->heredoc != 0 && process->infile == NULL)
+	{
+		pipe(fd);
+		process->infd = fd[0];
+		ft_putstr_fd(process->heredoc, fd[1]);
+		close(fd[1]);
+	}
+	if (process->infd != 0)
+	{
+		dup2(process->infd, 0);
+		close(process->infd);
+	}
+	else
+	{
+		close(0);
+		dup2(mini->default_infd, 0);
+	}
+	if (process->outfd != 0)
+		dup2(process->outfd, 1);
 }

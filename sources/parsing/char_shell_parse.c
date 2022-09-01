@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:15 by gchatain          #+#    #+#             */
-/*   Updated: 2022/07/01 09:31:44 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/09/01 11:49:52 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,19 @@ void	ft_check_dollar(char **str, char **env, int isheredoc)
 	ret = ft_strdup(*str);
 	free(*str);
 	i = 0;
-	while (ret && ret[i] != 0)
+	while (ret && ret[i])
 	{
-		if (isheredoc == 0 && singlequote == 0 && ret[i] == '\"')
-			doublequote = -doublequote + 1;
-		else if (isheredoc == 0 && doublequote == 0 && ret[i] == '\'')
-			singlequote = -singlequote + 1;
-		else if (ret[i] == '$' && singlequote == 0)
+		if (i < ft_strlen(ret))
 		{
-			if (ret[i + 1] != 0 && ret[i + 1] != ' ')
-				i = ft_dollar_parse(i, &ret, env) - 1;
+			if (isheredoc == 0 && singlequote == 0 && ret[i] == '\"')
+				doublequote = -doublequote + 1;
+			else if (isheredoc == 0 && doublequote == 0 && ret[i] == '\'')
+				singlequote = -singlequote + 1;
+			else if (ret[i] == '$' && singlequote == 0)
+				if (ret[i + 1] != 0 && ret[i + 1] != ' ')
+					i = ft_dollar_parse(i, &ret, env) - 1;
+			i++;
 		}
-		i++;
 	}
 	*str = ret;
 }
@@ -82,7 +83,7 @@ int	ft_dollar_parse(int i, char **str, char **env)
 	free(ret);
 	*str = ft_dollar_parse_ret(start, end, change);
 	ft_clean_str(str);
-	return (i);
+	return (0);
 }
 
 char	*ft_dollar_parse_ret(char *start, char *end, char *change)

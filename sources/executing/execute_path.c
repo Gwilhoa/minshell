@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 09:57:02 by gchatain          #+#    #+#             */
-/*   Updated: 2022/08/27 10:51:07 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/09/01 11:37:43 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,6 @@ void	searching_cmd(t_minishell *mini, t_process *process)
 		ft_exit(mini, process);
 	else
 		ft_bash(mini, process);
-}
-
-void	ft_changedup(t_minishell *mini, t_process *process)
-{
-	int	fd[2];
-
-	if (process->heredoc != 0 && process->infile == NULL)
-	{
-		pipe(fd);
-		process->infd = fd[0];
-		ft_putstr_fd(process->heredoc, fd[1]);
-		close(fd[1]);
-	}
-	if (process->infd != 0)
-	{
-		dup2(process->infd, 0);
-		close(process->infd);
-	}
-	else
-	{
-		close(0);
-		dup2(mini->default_infd, 0);
-	}
-	if (process->outfd != 0)
-		dup2(process->outfd, 1);
 }
 
 void	ft_bash(t_minishell *mini, t_process *process)

@@ -6,7 +6,7 @@
 /*   By: gchatain <gchatain@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:23 by gchatain          #+#    #+#             */
-/*   Updated: 2022/07/04 17:01:33 by gchatain         ###   ########lyon.fr   */
+/*   Updated: 2022/09/01 11:04:02 by gchatain         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	init_empty_env(t_minishell *mini)
 	temp = ft_getenv("SHLVL", mini->env);
 	if (temp == NULL)
 		ft_addenv(mini, "SHLVL=1");
+	else if (999 == ft_atoi(temp))
+		ft_change_env("SHLVL", "1", mini);
 	else
 	{
 		free(temp);
