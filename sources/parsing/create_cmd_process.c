@@ -84,7 +84,6 @@ t_process	*ft_init_process(char *str)
 	l->outfile = NULL;
 	l->infile = NULL;
 	l->next = NULL;
-	l->heredoc = NULL;
 	l->hd_stop = NULL;
 	l->pid = 0;
 	l->fullcmd = NULL;

@@ -54,6 +54,7 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 	int		piped[2];
 	int		status;
 
+	(void) mini;
 	pipe(piped);
 	if (pipe < 0)
 		return ;
@@ -65,15 +66,7 @@ void	ft_heredoc(t_process *process, char *str, t_minishell *mini)
 	wait(&status);
 	free(process->hd_stop);
 	g_error = WEXITSTATUS(status);
-	if (process->heredoc != NULL)
-	{
-		free(process->heredoc);
-		process->heredoc = NULL;
-	}
-	process->heredoc = readfd(piped[0]);
-	ft_check_dollar(&process->heredoc, mini->env, 1);
-	close(piped[0]);
-	process->infd = 0;
+	process->infd = piped[0];
 }
 
 char	*readfd(int fd)

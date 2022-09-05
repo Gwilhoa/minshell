@@ -19,7 +19,7 @@ int	ft_count_chevron(char	*str)
 
 	r = 0;
 	i = 0;
-	while (str[i] != 0)
+	while (str && str[i] != 0)
 	{
 		if (str[i] == '>' || str[i] == '<')
 		{
@@ -28,7 +28,8 @@ int	ft_count_chevron(char	*str)
 			if (str[i] == '>' || str[i] == '<')
 				i++;
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (r);
 }

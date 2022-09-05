@@ -35,8 +35,6 @@ void	ft_free_process(t_process *process)
 		free(process->fullcmd);
 		process->fullcmd = NULL;
 	}
-	if (process->heredoc != NULL)
-		free(process->heredoc);
 	free(process);
 }
 

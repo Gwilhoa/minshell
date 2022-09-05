@@ -75,15 +75,6 @@ void	ft_cleanfork(int outfd, int infd, t_minishell *mini)
 
 void	ft_changedup(t_minishell *mini, t_process *process)
 {
-	int	fd[2];
-
-	if (process->heredoc != 0 && process->infile == NULL)
-	{
-		pipe(fd);
-		process->infd = fd[0];
-		ft_putstr_fd(process->heredoc, fd[1]);
-		close(fd[1]);
-	}
 	if (process->infd != 0)
 	{
 		dup2(process->infd, 0);

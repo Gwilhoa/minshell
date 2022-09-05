@@ -53,7 +53,6 @@ struct s_process
 	int			outfd;
 	int			infd;
 	char		*hd_stop;
-	char		*heredoc;
 };
 
 typedef struct s_split
